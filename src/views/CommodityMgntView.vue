@@ -266,8 +266,6 @@ export default {
 };
 </script>
 <style lang="scss">
-$main_color: #495bff;
-
 .back_end_shop {
   box-sizing: border-box;
   select {
@@ -296,6 +294,7 @@ $main_color: #495bff;
     position: fixed;
     z-index: 10;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: #00000080;

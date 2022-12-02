@@ -193,10 +193,14 @@
 
 </script>
 <style lang="scss">
-
+  @import '~bootstrap/scss/bootstrap';  
 .container-fluid{
   background-color: #495bff10;
+  min-height: 100vh;
   .row{
+    .col-3{
+      min-height: 100vh;
+    }
     .col-9{
       padding: 20px 10px 20px 10px;
     }
@@ -207,6 +211,4 @@
     max-width: 1920px;
   }
 }
-  @import '~bootstrap/scss/bootstrap';  
-  @import "@/assets/sass/main";
 </style>

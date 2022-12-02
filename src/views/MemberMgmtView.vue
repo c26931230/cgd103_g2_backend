@@ -155,7 +155,6 @@
 };
 </script>
 <style lang="scss">
-$main_color: #495bff;
 .back_end_member{
     box-sizing: border-box;
      // 會員列表-上方篩選區
