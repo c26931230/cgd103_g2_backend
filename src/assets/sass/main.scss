@@ -1,1 +1,27 @@
 $main_color: #495bff;
+$second_color: #eceeff;
+$third_color: #fff;
+
+$bg_white: #fff;
+$bg_violet: #eceeff;
+
+$secondary: #ebebeb;
+$bg_blue: #eceeff;
+$bg_gray: #f1f1f1;
+$title_color: #292929;
+$text_color: #444444;
+
+$main_font: "Noto Sans TC", sans-serif;
+
+.btn_s{
+    min-width: 70px;
+    outline: none;
+    border: none;
+    background-color: $main_color;
+    color: #fff;
+    height: 45px;
+    padding:10px;
+}
+*{
+    font-family: $main_font;
+}
