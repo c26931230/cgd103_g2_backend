@@ -1,27 +1,45 @@
 <template>
-  <div class="container-fluid overflow-hidden">
+  <div class="backend_login_box" v-if="(isLogin == false)">
+      <div class="form_box">
+        <form name="login">
+          <div id="edit_box">
+            <h2>登入</h2>
+                <div class="form_item">
+                    <label for="account">帳號</label>
+                    <input type="text" id="account" v-model="emp_id1">
+                </div>
+                <div class="form_item">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" v-model="emp_pwd1">
+                </div>
+                <div class="remember_box">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">記住我</label>
+                    <a href="">忘記密碼?</a>
+                </div>
+                
+                <div class="confirm_box">
+                    <div class="btn_s" @click="login()">登入</div>
+                </div>
+            </div>
+        </form>
+      </div>
+  </div>
+  <div class="container-fluid overflow-hidden" v-else>
     <div class="row">
-      <div class="col-3 px-3 border border-light bg-light">
-      <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 280px">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-Primary text-decoration-none">
-        <svg class="bi pe-none me-2" width="40" height="32">
-          <use xlink:href="#bootstrap" />
-        </svg>
-        <div class="avatar avatar-sm">
-          <img src="https://github.com/mdo.png" alt="" width="50" height="50" class="rounded-circle me-2" />
-        </div>
-        <span class="">
-          <h5>後台管理員</h5>
-          <h6>Mandy Lee</h6>
-        </span>
-      </a>
-      <hr width="200" />
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-                  <router-link to="/OperationMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#home" />
-            </svg>
+      <div class="col-3">
+          <h2>後台管理系統</h2>
+          <div class="info_box">
+            <div class="img_box"><img src="https://picsum.photos/50/50/?random=10"></div>
+            <div class="txt_box">
+              <p class="name">Mandy Lee(管理員)</p>
+            </div>
+          </div>
+      <hr/>
+      <ul class="nav">
+        <h3>管理員</h3>
+        <li class="item">
+            <router-link to="/">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-piggy-bank" viewBox="0 0 16 16">
               <path
@@ -33,73 +51,8 @@
             營運管理
           </router-link>
         </li>
-        <li>
-          <router-link to="/CommodityMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#speedometer2" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-cart4" viewBox="0 0 16 16">
-              <path
-                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
-            </svg>
-            商品管理
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/OneweekDressing" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#table" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-calendar-heart" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Zm7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
-            </svg>
-            一周穿搭
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/ClothingMatchMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#grid" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-bag-heart" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
-            </svg>
-            服飾搭配
-          </router-link>
-        </li>
-        <hr width="200" />
-        <li>
-          <router-link to="/OperationMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#grid" />
-            </svg>
-            帳號管理
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/MemberMgmt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#grid" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-emoji-heart-eyes" viewBox="0 0 16 16">
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path
-                d="M11.315 10.014a.5.5 0 0 1 .548.736A4.498 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.488 0c1.398-.864 3.544 1.838-.952 3.434-3.067-3.554.19-4.858.952-3.434z" />
-            </svg>
-            會員管理
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/StaffMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#grid" />
-            </svg>
+        <li class="item">
+          <router-link to="/StaffMgnt">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-award" viewBox="0 0 16 16">
               <path
@@ -109,20 +62,29 @@
             員工管理
           </router-link>
         </li>
-        <hr width="200" />
-        <li>
-          <router-link to="/OperationMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#grid" />
+        <li class="item">
+          <router-link to="/MemberMgmt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-emoji-heart-eyes" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+            d="M11.315 10.014a.5.5 0 0 1 .548.736A4.498 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.488 0c1.398-.864 3.544 1.838-.952 3.434-3.067-3.554.19-4.858.952-3.434z" />
             </svg>
-            帳號管理
+            會員管理
           </router-link>
         </li>
-        <li>
-          <router-link to="/OrderMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#people-circle" />
+        <li class="item">
+          <router-link to="/CommodityMgnt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-cart4" viewBox="0 0 16 16">
+              <path
+                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
             </svg>
+            商品管理
+          </router-link>
+        </li>
+        <li class="item">
+          <router-link to="/OrderMgnt">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-bookmark-check" viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -133,55 +95,70 @@
             訂單管理
           </router-link>
         </li>
-        <li>
-          <router-link to="/SubscriptionMgmt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#people-circle" />
-            </svg>
+        <li class="item">
+          <router-link to="/ClientMgmt">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-bookmark-star" viewBox="0 0 16 16">
-              <path
-                d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z" />
-              <path
-                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-            </svg>
-            訂閱服務
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/AppointmentMgnt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#people-circle" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-chat-dots" viewBox="0 0 16 16">
-              <path
-                d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-              <path
-                d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
-            </svg>
-            會員諮詢預約
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/ClientMgmt" class="nav-link text-Primary">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#people-circle" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-chat-left-text" viewBox="0 0 16 16">
-              <path
-                d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-              <path
-                d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
-            </svg>
-            廠商留言
-          </router-link>
-        </li>
-      </ul>
+            class="bi bi-chat-left-text" viewBox="0 0 16 16">
+            <path
+            d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+            <path
+            d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+          </svg>
+          廠商預約管理
+        </router-link>
+      </li>
+      <hr>
+      <h3>造型師</h3>
+      <li class="item">
+        <router-link to="/ClothingMatchMgnt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          class="bi bi-bag-heart" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+          d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
+        </svg>
+        服飾搭配管理
+      </router-link>
+    </li>
+    <li class="item">
+      <router-link to="/SubscriptionMgmt">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-bookmark-star" viewBox="0 0 16 16">
+        <path
+        d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z" />
+        <path
+        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+      </svg>
+      訂閱服務管理
+    </router-link>
+  </li>
+  <li class="item">
+    <router-link to="/AppointmentMgnt">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+      class="bi bi-chat-dots" viewBox="0 0 16 16">
+      <path
+      d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+      <path
+      d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
+    </svg>
+    會員預約管理
+  </router-link>
+</li>
+<li class="item">
+  <router-link to="/OneweekDressing">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+    class="bi bi-calendar-heart" viewBox="0 0 16 16">
+    <path fill-rule="evenodd"
+    d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Zm7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
+  </svg>
+  一周穿搭管理
+</router-link>
+</li>
+    </ul>
+    <div class="logout_box">
+      <button class="btn_s">登出</button>
+    </div>
+      </div>
       
-      </div>
-      </div>
       <div class="col-9">
         <RouterView/>
       </div>
@@ -189,17 +166,166 @@
   </div>
 </template>
 <script>
+export default {
+    data() {
+        return {
+          isLogin:true, //之後改false
+          emp_id:'Sara',
+          emp_pwd:'111',
+          emp_id1:'',
+          emp_pwd1:'',
+        }
+    },
+    methods: {
+      login(){
+        if(this.emp_id === this.emp_id1 && this.emp_pwd === this.emp_pwd1){
+          console.log('login sussess');
+          this.isLogin = true;
+        }else{
+          alert('帳密錯誤');
+        }
+      }
+    }
 
+};
 
 </script>
 <style lang="scss">
-  @import '~bootstrap/scss/bootstrap';  
+@import '~bootstrap/scss/bootstrap';  
+// 登入
+.backend_login_box{
+  background-color: #495bff10;
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  #edit_box {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    min-height: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: #00000010 0 0 20px 0px;
+    h2{
+      color: $main_color;
+      font-weight: 600;
+      font-size: 30px;;
+      text-align: center;
+    }
+    .form_item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+
+        label {
+            width: 100px;
+            font-size: 20px;
+            font-weight: 900;
+            color: $main_color;
+            line-height: 45px;
+        }
+
+        input{
+            width: calc(100% - 100px);
+            font-size: 16px;
+            border: 1px $main_color solid;
+            height: 45px;
+            outline: none;
+        }
+    }
+    .remember_box{
+      position: relative;
+      label{
+        color: $text_color;
+        font-size: 16px;
+      }
+      a{
+        text-decoration: none;
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        color: $text_color;
+        font-size: 16px;
+      }
+    }
+    .confirm_box{
+      div{
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+        cursor: pointer;
+        text-align: center;
+      }
+    }
+}
+}
 .container-fluid{
   background-color: #495bff10;
   min-height: 100vh;
   .row{
     .col-3{
+      padding: 20px;
+      h2{
+        font-size: 20px;
+        text-align: center;
+        font-weight: 600;
+        color: $title_color;
+      }
+      .info_box{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        height: fit-content;
+        .img_box{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          position: relative;
+          img{
+            width: 100%;
+            vertical-align: top;
+          }
+        }
+        .txt_box{
+          flex-grow: 1;
+          margin-left: 10px;
+          p{
+            margin: auto;
+          }
+          
+        }
+      }
+      h3{
+        font-size: 20px;
+        font-weight: 600;
+        color: $title_color;
+        
+      }
+      li.item{
+        margin: 5px 0;
+        display: block;
+        // border: 1px solid red;
+        width: 100%;
+        a{
+          text-decoration: none;
+          font-size: 20px;
+          color: $main_color;
+        }
+      }
       min-height: 100vh;
+      background-color: #fff;
+      position: relative;
+      hr{
+        width: 100%;
+      }
+      .logout_box{
+        padding: 20px 0;
+      }
     }
     .col-9{
       padding: 20px 10px 20px 10px;
