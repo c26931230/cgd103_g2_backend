@@ -12,6 +12,11 @@ const routes = [
     component: () => import("../views/ClothingMatchMgntView.vue"),
   },
   {
+    path: "/", //營運管理(首頁)
+    name: "OperationMgnt",
+    component: () => import("../views/OperationMgmtView.vue"),
+  },
+  {
     path: "/ClientMgmt", //廠商預約管理
     name: "ClientMgmt",
     component: () => import("../views/ClientMgmtView.vue"),
@@ -37,19 +42,24 @@ const routes = [
 		component: () => import("../views/OrderMgntView.vue"),
 	},
   {
-		path: "/OperationMgnt", //營運管理
-		name: "OperationMgnt",
-		component: () => import("../views/OperationMgmtView.vue"),
+		path: "/StaffMgnt", //員工管理
+		name: "StaffMgnt",
+		component: () => import("../views/StaffMgntView.vue"),
 	},
   {
 		path: "/StaffMgnt", //員工管理
 		name: "StaffMgnt",
-		component: () => import("../views/StaffMgntView"),
+		component: () => import("../views/StaffMgntView.vue"),
+	},
+  {
+		path: "/StaffMgnt1", //員工管理
+		name: "StaffMgnt1",
+		component: () => import("../views/StaffMgntView1.vue"),
 	},
   {
 		path: "/SubscriptionMgmt", //訂閱管理
 		name: "SubscriptionMgmt",
-		component: () => import("../views/SubscriptionMgmtView"),
+		component: () => import("../views/SubscriptionMgmtView.vue"),
 	},
 ]
 
