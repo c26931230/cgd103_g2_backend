@@ -44,7 +44,7 @@
             </router-link>
         </div>
         <div class="item">
-            <router-link to="a">
+            <router-link to="StaffMgnt">
                 <div class="data">
                     <div class="title_box">
                         <h3>員工管理</h3>

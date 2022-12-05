@@ -75,7 +75,6 @@
 export default {
     name: "StaffMgnt",
     data() {
-        open();
         return {
             employee: [ //員工資訊
                 {
@@ -122,13 +121,6 @@ export default {
 <style lang="scss">
 .back_end_employee {
     box-sizing: border-box;
-
-    i {
-        font-family: 'Times New Roman', Times, serif;
-    }
-
-    background-color: #495bff10;
-
     select {
         width: 80px;
         font-size: 16px;
