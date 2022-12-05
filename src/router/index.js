@@ -1,4 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+// Hash 模式
+// import { createRouter, createWebHashHistory } from 'vue-router'
+
+// History 模式
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
@@ -58,9 +62,16 @@ const routes = [
 	},
 ]
 
+// Hash 模式
+// const router = createRouter({
+//   history: createWebHashHistory(),
+//   routes
+// })
+
+// History 模式
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
+	history: createWebHistory(process.env.BASE_URL),
+	routes,
+});
 
 export default router
