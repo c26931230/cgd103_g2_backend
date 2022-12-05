@@ -52,11 +52,6 @@ const routes = [
 		component: () => import("../views/StaffMgntView.vue"),
 	},
   {
-		path: "/StaffMgnt1", //員工管理
-		name: "StaffMgnt1",
-		component: () => import("../views/StaffMgntView1.vue"),
-	},
-  {
 		path: "/SubscriptionMgmt", //訂閱管理
 		name: "SubscriptionMgmt",
 		component: () => import("../views/SubscriptionMgmtView.vue"),
