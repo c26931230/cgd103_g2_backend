@@ -99,7 +99,7 @@
 </template>
 <script>
 export default {
-  name: "StaffMgnt",
+  name: "AppointmentMgnt",
   data() {
     return {
       appointment: [
@@ -211,13 +211,7 @@ export default {
     open() {
       let lightbox = document.querySelector("#lightbox"); // 燈箱
       lightbox.classList.add("active");
-      const items = document.querySelectorAll(".item"); // 員工個人資料項目
-      items.forEach((item) => {
-        //點擊員工個人資料項目開燈箱
-        item.addEventListener("click", (e) => {
-          lightbox.classList.add("active");
-        });
-      });
+      const items = document.querySelectorAll(".item"); // 諮詢個人資料項目
     },
     close() {
       //關燈箱
@@ -226,7 +220,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .back_end_employee {
   box-sizing: border-box;
   select {
