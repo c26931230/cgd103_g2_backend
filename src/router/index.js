@@ -46,22 +46,16 @@ const routes = [
     component: () => import("../views/OrderMgntView.vue"),
   },
   {
-<<<<<<< HEAD
-		path: "/StaffMgnt", //員工管理
-		name: "StaffMgnt",
-		component: () => import("../views/StaffMgntView.vue"),
-	},
+    path: "/StaffMgnt", //員工管理
+    name: "StaffMgnt",
+    component: () => import("../views/StaffMgntView.vue"),
+  },
   {
-		path: "/StaffMgnt", //員工管理
-		name: "StaffMgnt",
-		component: () => import("../views/StaffMgntView.vue"),
-	},
+    path: "/SubscriptionMgmt", //訂閱管理
+    name: "SubscriptionMgmt",
+    component: () => import("../views/SubscriptionMgmtView.vue"),
+  },
   {
-		path: "/SubscriptionMgmt", //訂閱管理
-		name: "SubscriptionMgmt",
-		component: () => import("../views/SubscriptionMgmtView.vue"),
-	},
-=======
     path: "/OrderMgntDetail",//訂單管理
     name: "OrderMgntDetail",
     component: () => import("../views/OrderMgntDetailView.vue"),
@@ -81,7 +75,6 @@ const routes = [
     name: "SubscriptionMgmt",
     component: () => import("../views/SubscriptionMgmtView"),
   },
->>>>>>> master
 ]
 
 // Hash 模式
@@ -92,8 +85,8 @@ const routes = [
 
 // History 模式
 const router = createRouter({
-	history: createWebHistory(process.env.BASE_URL),
-	routes,
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 });
 
 export default router
