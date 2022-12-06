@@ -154,7 +154,7 @@
     },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .back_end_member{
     box-sizing: border-box;
      // 會員列表-上方篩選區
