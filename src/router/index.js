@@ -61,7 +61,7 @@ const routes = [
     component: () => import("../views/OrderMgntDetailView.vue"),
   },
   {
-    path: "/OperationMgnt", //營運管理
+    path: "/", //營運管理
     name: "OperationMgnt",
     component: () => import("../views/OperationMgmtView.vue"),
   },
