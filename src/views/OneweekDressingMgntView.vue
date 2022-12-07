@@ -70,7 +70,7 @@
 // };
 </script>
 
-<style lang="scss" scope> 
+<style lang="scss" scoped> 
     input{
         width: 80px;
     }

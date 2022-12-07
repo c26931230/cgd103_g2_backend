@@ -265,7 +265,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .back_end_shop {
   box-sizing: border-box;
   select {

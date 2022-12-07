@@ -104,7 +104,7 @@
         },
     };
     </script>
-    <style lang="scss">
+    <style lang="scss" scoped>
     $main_color: #495bff;
     .back_end_member{
         box-sizing: border-box;
