@@ -31,35 +31,50 @@ const routes = [
     component: () => import("../views/CommodityMgntView.vue"),
   },
   {
-		path: "/MemberMgmt",//會員管理
-		name: "MemberMgmt",
-		component: () => import("../views/MemberMgmtView.vue"),
-	},
+    path: "/MemberMgmt",//會員管理
+    name: "MemberMgmt",
+    component: () => import("../views/MemberMgmtView.vue"),
+  },
   {
-		path: "/OneweekDressing",//一周穿搭管理
-		name: "OneweekDressing",
-		component: () => import("../views/OneweekDressingMgntView.vue"),
-	},
+    path: "/OneweekDressing",//一周穿搭管理
+    name: "OneweekDressing",
+    component: () => import("../views/OneweekDressingMgntView.vue"),
+  },
   {
-		path: "/OrderMgnt",//訂單管理
-		name: "OrderMgnt",
-		component: () => import("../views/OrderMgntView.vue"),
-	},
+    path: "/OrderMgnt",//訂單管理
+    name: "OrderMgnt",
+    component: () => import("../views/OrderMgntView.vue"),
+  },
   {
-		path: "/StaffMgnt", //員工管理
-		name: "StaffMgnt",
-		component: () => import("../views/StaffMgntView.vue"),
-	},
+    path: "/StaffMgnt", //員工管理
+    name: "StaffMgnt",
+    component: () => import("../views/StaffMgntView.vue"),
+  },
   {
-		path: "/StaffMgnt", //員工管理
-		name: "StaffMgnt",
-		component: () => import("../views/StaffMgntView.vue"),
-	},
+    path: "/SubscriptionMgmt", //訂閱管理
+    name: "SubscriptionMgmt",
+    component: () => import("../views/SubscriptionMgmtView.vue"),
+  },
   {
-		path: "/SubscriptionMgmt", //訂閱管理
-		name: "SubscriptionMgmt",
-		component: () => import("../views/SubscriptionMgmtView.vue"),
-	},
+    path: "/OrderMgntDetail",//訂單管理
+    name: "OrderMgntDetail",
+    component: () => import("../views/OrderMgntDetailView.vue"),
+  },
+  {
+    path: "/", //營運管理
+    name: "OperationMgnt",
+    component: () => import("../views/OperationMgmtView.vue"),
+  },
+  {
+    path: "/StaffMgnt", //員工管理
+    name: "StaffMgnt",
+    component: () => import("../views/StaffMgntView"),
+  },
+  {
+    path: "/SubscriptionMgmt", //訂閱管理
+    name: "SubscriptionMgmt",
+    component: () => import("../views/SubscriptionMgmtView"),
+  },
 ]
 
 // Hash 模式
@@ -70,8 +85,8 @@ const routes = [
 
 // History 模式
 const router = createRouter({
-	history: createWebHistory(process.env.BASE_URL),
-	routes,
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 });
 
 export default router

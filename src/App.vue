@@ -155,7 +155,7 @@
 </li>
     </ul>
     <div class="logout_box">
-      <button class="btn_s">登出</button>
+      <button class="btn_s" @click="logout()">登出</button>
     </div>
       </div>
       
@@ -169,7 +169,7 @@
 export default {
     data() {
         return {
-          isLogin:true, //之後改false
+          isLogin:false, //之後改false
           emp_id:'Sara',
           emp_pwd:'111',
           emp_id1:'',
@@ -184,6 +184,11 @@ export default {
         }else{
           alert('帳密錯誤');
         }
+      },
+      logout(){
+        this.isLogin = false;
+        this.emp_id1 = '';
+        this.emp_pwd1 ='';
       }
     }
 
