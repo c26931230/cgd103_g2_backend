@@ -111,84 +111,15 @@ export default {
   },
 };
 </script>
- 
-<style lang="scss" scope>
-h2 {
-  font-size: 32px;
-  color: $main_color;
-  font-weight: 600;
-  margin: 20px 0;
-}
-.titlebox {
-  margin: 20px 0px;
-}
-input {
-  width: 80px;
-}
-button {
-  min-width: 70px;
-  outline: none;
-  border: none;
-  background-color: $main_color;
-  color: #fff;
-  height: 45px;
-  padding: 0px 10px;
-}
-.box {
-  border: 1px solid gainsboro;
-  width: 310px;
-  height: 300px;
-  display: flex;
-  margin: 5px 10px;
-  .imageArea {
-    width: 85px;
-    height: 50px;
-  }
-  .updateShow {
-    width: 200px;
-  }
-}
 
-table {
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 10px;
-  .tbody {
-    width: 100%;
-    height: 2000px;
-    margin-right: 0;
-    display: flex;
-    tr {
-      display: flex;
-      flex-wrap: wrap;
-      .week {
-        height: 300px;
-        display: flex;
-        margin: 10px;
-        font-size: 20px;
-        font-weight: 700;
-      }
+<style lang="scss" scope> 
+    input{
+        width: 80px;
     }
-  }
-
-  .filter_box select,
-  .filter_box button {
-    margin: 0 5px;
-  }
-
-  .thead {
-    background-color: $main_color;
-    display: flex;
-    color: #fff;
-    tr {
-      width: 90px;
-      margin-right: 130px;
-      th {
-        font-weight: 600;
-      }
+    .box{
+        border: 1px solid black;
+        width:200px ;
+        height:300px;
     }
-  }
-}
 </style>
 

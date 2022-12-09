@@ -13,7 +13,6 @@
         <table class="table member_table">
             <thead>
                 <tr>
-                    <th scope="col">留言編號</th>
                     <th scope="col">留言時間</th>
                     <th scope="col">email</th>
                     <th scope="col">廠商名稱</th>
@@ -23,7 +22,6 @@
             </thead>
             <tbody>
                 <tr v-for="(item) in member" class="item" :key="item.id">
-                    <th scope="row">{{item.id}}</th> <!-- 時間 -->
                     <td>{{item.time}}</td> <!-- email -->
                     <td>{{item.email}}</td> <!-- email -->
                     <td>{{item.client}}</td> <!-- 廠商名稱 -->
@@ -104,7 +102,7 @@
         },
     };
     </script>
-    <style lang="scss">
+    <style lang="scss" scoped>
     $main_color: #495bff;
     .back_end_member{
         box-sizing: border-box;

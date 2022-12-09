@@ -18,7 +18,6 @@
                 <tr>
                     <th scope="col">訂單編號</th>
                     <th scope="col">下單日期</th>
-                    <th scope="col">訂單明細</th>
                     <th scope="col">訂單金額</th>
                     <th scope="col">訂購人</th>
                     <th scope="col">訂購狀態</th>
@@ -26,19 +25,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item) in member" class="item" :key="item.id">
-                    <th scope="row">{{item.id}}</th> <!-- 編號 -->
-                    <td>{{item.name}}</td> <!-- 下單日期 -->
-                    <td>
-                        <router-link to="/OrderMgntDetail">
-                            <button class="subButton">{{item.subscribe}}</button>
-                        </router-link>
-                    </td> <!-- 訂單明細 -->
-                    <td>{{item.mail}}</td> <!-- 訂單金額 -->
-                    <td>{{item.tel}}</td> <!-- 訂購人-->
-                    <td>{{item.style}}</td> <!-- 訂單狀態 -->
-                    <td>{{item.type}}</td> <!-- 留言處理 -->
-                </tr>
+                    <tr v-for="(item) in member" class="item" :key="item.id">
+                        <th scope="row">{{item.id}}</th> <!-- 編號 -->   
+                    <!-- <router-link to="/OrderMgntDetail">
+
+                    </router-link> -->
+                        <td>{{item.name}}</td> <!-- 下單日期 -->
+                        <td>{{item.mail}}</td> <!-- 訂單金額 -->
+                        <td>{{item.tel}}</td> <!-- 訂購人-->
+                        <td>{{item.style}}</td> <!-- 訂單狀態 -->
+                        <td>{{item.type}}</td> <!-- 留言處理 -->
+                 
+
+                    </tr>
+
             </tbody>
         </table>
         <!-- 會員列表 end -->
@@ -146,8 +146,13 @@
         },
     };
     </script>
-    <style lang="scss">
+    <style lang="scss" scoped>
     $main_color: #495bff;
+
+    router-link{
+        list-style: none;
+    }
+
     .back_end_member{
         box-sizing: border-box;
          // 會員列表-上方篩選區
@@ -164,7 +169,6 @@
             height: 45px;
             padding: 0px 10px;
             margin:10px;
-            border-radius: 10%;
             &:hover{
                 background-color:rgb(119, 121, 139);
             }
