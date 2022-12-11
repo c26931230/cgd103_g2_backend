@@ -116,7 +116,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 h2 {
   font-size: 32px;
   color: $main_color;
