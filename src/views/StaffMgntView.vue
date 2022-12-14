@@ -27,8 +27,9 @@
             <button>全部</button>
             <button>造型師</button>
             <button>員工</button>
-            <input type="text" placeholder="Search">
-            <button class="search">search</button>
+            <input type="text" placeholder="Search" id="emp_id">
+            <button class="search" @click="getMember()">search</button>
+            <div id="showPanel"></div>
             <button id="create" @click="open()">新增員工</button>
         </div>
         <!-- 上方篩選區 end -->
@@ -43,11 +44,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in employee" class="item" :key="item.id" @click="open()">
-                    <th scope="row">{{ item.emp_id }}</th> <!-- 員工編號 -->
-                    <td>{{ item.emp_name }}</td> <!-- 姓名 -->
-                    <td>{{ item.emp_job }}</td> <!-- 職稱 -->
-                    <td>{{ item.emp_state }}</td> <!-- 帳號狀態 -->
+                <tr v-for="prodRow in prodRows" class="item"  @click="open()">
+                    <th scope="row">{{ prodRow.emp_name }}</th> <!-- 員工編號 -->
+                    <!-- <td>{{ prodRow.emp_name }}</td> 姓名 -->
+                    <!-- <td>{{ prodRow.job }}</td> 職稱 -->
+                    <!-- <td>{{ prodRow.state }}</td> 帳號狀態 -->
                 </tr>
             </tbody>
         </table>
@@ -76,6 +77,7 @@ export default {
     name: "StaffMgnt",
     data() {
         return {
+            prodRows:[],
             employee: [ //員工資訊
                 {
                     emp_id: 1,
@@ -101,6 +103,12 @@ export default {
         }
     },
     methods: {
+        // showAll() {
+        //     this.axios.get("/api_server/empList.php")
+        //         .then((res) => {
+        //             console.log(res)
+        //         })
+        // },
         open() {
             let lightbox = document.querySelector('#lightbox') // 燈箱
             lightbox.classList.add('active');
@@ -113,7 +121,62 @@ export default {
         },
         close() { //關燈箱
             lightbox.classList.remove('active');
+        },
+        getMember() {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    // this.showMember(xhr.responseText);
+                    // console.log(xhr.responseText);
+                    let employee = JSON.parse(xhr.responseText);
+                    console.log("JSON,parse:", employee)
+                    let html;
+                    if (employee.emp_id) {
+                        html = `<table class="memTable">
+                        <tr>
+                            <th>帳號<td>${employee.emp_id}</td></th>
+                        </tr>
+                        <tr>
+                            <th>姓名<td>${employee.emp_name}</td></th>
+                        </tr>
+                        <tr>
+                            <th><td>${employee.job}</td></th>
+                        </tr>
+                        <tr>
+                            <th>到職日<td>${employee.hiredate}</td></th>
+                        </tr>
+                    </table>`
+                    } else {
+                        html = "<p>無此會員資料</p>"
+                    }
+                    document.getElementById("showPanel").innerHTML = html;
+
+                } else {
+                    alert(xhr.status);
+                }
+            }
+
+            var url = "/api_server/getMore_employee._JSON.php?emp_id=" + document.getElementById("emp_id").value;
+            xhr.open("Get", url, true);
+            xhr.send(null);
+        },
+        getProducts(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                if(xhr.status == 200){
+                    this.prodRows = JSON.parse(xhr.responseText);
+                    // console.log(xhr.responseText);
+                    console.log(this.prodRows);
+                }
+            }
+            xhr.open("Get","/api_server/empList.php",true);
+            xhr.send(null)
         }
+       
+
+    },
+    mounted(){
+        this.getProducts();
     }
 
 };
@@ -121,6 +184,7 @@ export default {
 <style lang="scss" scoped>
 .back_end_employee {
     box-sizing: border-box;
+
     select {
         width: 80px;
         font-size: 16px;

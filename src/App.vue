@@ -169,7 +169,7 @@
 export default {
     data() {
         return {
-          isLogin:false, //之後改false
+          isLogin:true, //之後改false
           emp_id:'Sara',
           emp_pwd:'111',
           emp_id1:'',
