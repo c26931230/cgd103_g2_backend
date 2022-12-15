@@ -109,6 +109,8 @@
     </div>
 </template>
 <script>
+//引入BASE_URL參數
+import {BASE_URL} from '@/assets/js/commom.js'
 export default {
     name: "StaffMgnt",
     data() {
@@ -169,7 +171,7 @@ export default {
             xhr.send(null);
         },
         getResource() { //取得員工資料
-            this.axios.get("/api_server/empList.php").then((response) => {
+            this.axios.get(`${BASE_URL}/empList.php`).then((response) => {
                 console.log(response.data);
                 this.employee = response.data;
             });
@@ -180,7 +182,7 @@ export default {
                     let result = JSON.parse(xhr.responseText);
                     alert(result.msg);
                 }
-                xhr.open("post","/api_server/empInsert.php",true);
+                xhr.open("post",`${BASE_URL}/empInsert.php`,true);
                 xhr.send(new FormData(document.getElementById("add_employee")));
         }
        
