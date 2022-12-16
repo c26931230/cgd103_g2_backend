@@ -2,20 +2,52 @@
     <div class="back_end_employee">
         <div id="lightbox">
             <div id="edit_box">
-                <div class="form_item">
-                    <label for="title">員工ID</label>
-                    <input type="text" id="title">
-                </div>
-                <div class="form_item">
-                    <label for="title">員工姓名</label>
-                    <input type="text" id="title">
-                </div>
-                <div class="form_item">
-                    <label for="title">員工身分</label>
-                    <input type="text" id="title">
-                </div>
+                <form id="add_employee" method="post" enctype="multipart/form-data">
+                    <div class="form_item">
+                        <label for="emp_name">員工姓名</label>
+                        <input type="text" id="emp_name" name="emp_name">
+                    </div>
+                    <div class="form_item">
+                        <label>員工身分</label>
+                        <div class="item">
+                            <div class="op">
+                                <input type="radio" name="job" value="員工" id="emp_op">
+                                <label for="emp_op">員工</label>
+                            </div>
+                            <div class="op">
+                                <input type="radio" name="job" value="造型師" id="stylist_op">
+                                <label for="stylist_op">造型師</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_item">
+                        <label for="hiredate">到職日期</label>
+                        <input type="date" id="hiredate" name="hiredate">
+                    </div>
+                    <div class="form_item">
+                        <label for="emp_pwd">密碼</label>
+                        <input type="text" id="emp_pwd" name="emp_pwd">
+                    </div>
+                    <div class="form_item">
+                        <label for="emp_mail">電子郵件</label>
+                        <input type="email" id="emp_mail" name="emp_mail">
+                    </div>
+                    <div class="form_item">
+                        <label for="">狀態</label>
+                        <div class="item">
+                            <div class="op">
+                                <input type="radio" name="emp_state" value="1" id="normal">
+                                <label for="normal">在職</label>
+                            </div>
+                            <div class="op">
+                                <input type="radio" name="emp_state" value="0" id="resign">
+                                <label for="resign">離職</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="confirm_box">
-                    <button>新增</button>
+                    <button @click="insert()">確認</button>
                     <button id="cancel" @click="close()">取消</button>
                 </div>
             </div>
@@ -40,15 +72,19 @@
                     <th scope="col">員工編號</th>
                     <th scope="col">姓名</th>
                     <th scope="col">職稱</th>
+                    <th scope="col">到職日</th>
+                    <th scope="col">mail</th>
                     <th scope="col">帳號狀態</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="prodRow in prodRows" class="item"  @click="open()">
-                    <th scope="row">{{ prodRow.emp_name }}</th> <!-- 員工編號 -->
-                    <!-- <td>{{ prodRow.emp_name }}</td> 姓名 -->
-                    <!-- <td>{{ prodRow.job }}</td> 職稱 -->
-                    <!-- <td>{{ prodRow.state }}</td> 帳號狀態 -->
+                <tr v-for="e in employee" class="item"  @click="open()">
+                    <th scope="row">{{ e.emp_id }}</th> <!-- 員工編號 -->
+                    <td>{{ e.emp_name }}</td> <!-- 姓名 -->
+                    <td>{{ e.job }}</td> <!-- 職稱 -->
+                    <td>{{ e.hiredate }}</td> <!-- 職稱 -->
+                    <td>{{ e.emp_mail }}</td> <!-- mail -->
+                    <td>{{ e.emp_state }}</td> <!-- 帳號狀態 -->
                 </tr>
             </tbody>
         </table>
@@ -73,42 +109,16 @@
     </div>
 </template>
 <script>
+//引入BASE_URL參數
+import {BASE_URL} from '@/assets/js/commom.js'
 export default {
     name: "StaffMgnt",
     data() {
         return {
-            prodRows:[],
-            employee: [ //員工資訊
-                {
-                    emp_id: 1,
-                    emp_name: 'jason',
-                    emp_job: '造型師',
-                    emp_state: '正常',
-                },
-                {
-                    emp_id: 2,
-                    emp_name: 'jason',
-                    emp_job: '造型師',
-                    emp_state: '正常',
-                },
-                {
-                    emp_id: 3,
-                    emp_name: 'jason',
-                    emp_job: '造型師',
-                    emp_state: '正常',
-                },
-            ],
-
-
+            employee:[], //員工資訊
         }
     },
     methods: {
-        // showAll() {
-        //     this.axios.get("/api_server/empList.php")
-        //         .then((res) => {
-        //             console.log(res)
-        //         })
-        // },
         open() {
             let lightbox = document.querySelector('#lightbox') // 燈箱
             lightbox.classList.add('active');
@@ -122,7 +132,7 @@ export default {
         close() { //關燈箱
             lightbox.classList.remove('active');
         },
-        getMember() {
+        getMember() { //search
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 if (xhr.status == 200) {
@@ -160,23 +170,27 @@ export default {
             xhr.open("Get", url, true);
             xhr.send(null);
         },
-        getProducts(){
+        getResource() { //取得員工資料
+            this.axios.get(`${BASE_URL}/empList.php`).then((response) => {
+                console.log(response.data);
+                this.employee = response.data;
+            });
+        },
+        insert(){ //新增員工
             let xhr = new XMLHttpRequest();
-            xhr.onload = function(){
-                if(xhr.status == 200){
-                    this.prodRows = JSON.parse(xhr.responseText);
-                    // console.log(xhr.responseText);
-                    console.log(this.prodRows);
+                xhr.onload = function(){
+                    let result = JSON.parse(xhr.responseText);
+                    alert(result.msg);
                 }
-            }
-            xhr.open("Get","/api_server/empList.php",true);
-            xhr.send(null)
+                xhr.open("post",`${BASE_URL}/empInsert.php`,true);
+                xhr.send(new FormData(document.getElementById("add_employee")));
         }
        
 
     },
     mounted(){
-        this.getProducts();
+        this.getResource();
+        
     }
 
 };
@@ -228,8 +242,9 @@ export default {
 
             .form_item {
                 display: flex;
-                align-items: flex-start;
+                align-items: center;
                 margin-bottom: 10px;
+               
 
                 label {
                     width: 100px;
@@ -239,13 +254,26 @@ export default {
                     line-height: 45px;
                 }
 
-                input {
+                input:not([type="radio"]) {
                     width: calc(100% - 100px);
                     font-size: 16px;
                     border: 1px $main_color solid;
                     height: 45px;
                 }
+                .item{
+                    .op{
+                        margin-right: 10px;
+                        display: inline-block;
+                        label{
+                            color: $text_color;
+                            font-size: 16px;
+                            width: fit-content;
+                            font-weight: normal;
+                        }
+                    }
+                }
             }
+           
         }
     }
 
@@ -281,10 +309,7 @@ export default {
         .search {
             margin: 0;
         }
-
-
     }
-
     h2 {
         font-weight: 600;
         color: $main_color;
