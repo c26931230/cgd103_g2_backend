@@ -3,10 +3,9 @@
         <h2>廠商留言</h2>
         <!-- 上方篩選區 -->
         <div class="filter_box">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg>          
+                
             <input type="text" placeholder="Search">
+            <button class="search" @click="search">search</button>   
         </div>
         <!-- 上方篩選區 end -->
         <!-- 會員列表 -->
@@ -110,6 +109,7 @@
          .filter_box{
             display: flex;
             align-items: stretch;
+
         }
         button{
             min-width: 70px;
@@ -120,7 +120,8 @@
             height: 45px;
             padding: 0px 10px;
             margin:10px;
-            border-radius: 10%;
+            margin-left: 0;
+            padding-left: 0;
             &:hover{
                 background-color:rgb(119, 121, 139);
             }
@@ -133,6 +134,7 @@
             outline: none;
             border: 1px $main_color solid;
             margin: 10px;
+            margin-right: 0;
         }
         h2{
             font-weight: 600;
