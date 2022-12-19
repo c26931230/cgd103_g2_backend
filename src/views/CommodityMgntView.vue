@@ -1,18 +1,30 @@
 <template>
     <div class="back_end_shop">
         <!-- 新增編輯商品燈箱區 -->
-        <AddNew v-if="Add"></AddNew>
+        <AddNew v-if="Add" @close="Add = false"></AddNew>
+        <!-- 產品彈窗 -->
+        <ProductChange
+            :product="getdetail(detail_id)"
+            v-if="x"
+            @closeChangeBox="x = false"
+        ></ProductChange>
         <h2>商品管理</h2>
         <!-- 上方篩選區 -->
+
         <div class="filter_box">
-            <Selected @typesend="catchType"></Selected>
-            <Searchinput @sendsearch="catchSearch"></Searchinput>
-            <button class="search" @click="search">search</button>
+            <SelectType
+                v-model:selected1="qgender"
+                v-model:selected2="qmaintype"
+                v-model:selected3="qtype"
+            ></SelectType>
+            <Searchinput v-model.trim:search="qsearch"></Searchinput>
+            <button class="btn_s" @click="search">search</button>
+            <button class="btn_l" @click="reset">reset</button>
             <button class="main" id="create" @click="open()">新增</button>
         </div>
         <!-- 上方篩選區 end -->
         <!-- 商品列表 -->
-        {{ queryData }}
+        {{ qgender }}{{ qmaintype }}{{ qtype }}{{ qsearch }}
         <table class="table shop_table">
             <thead>
                 <tr>
@@ -30,7 +42,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in product" class="item" :key="item.product_id">
+                <tr
+                    v-for="item in product"
+                    class="item"
+                    :key="item.product_id"
+                    @click="openChangeBox(item.product_id)"
+                >
                     <th scope="row">{{ item.product_id }}</th>
                     <!-- 編號 -->
                     <td class="product_img">
@@ -56,7 +73,7 @@
                     <!-- 尺寸 -->
                     <td>{{ item.unit_price }}</td>
                     <!-- 價格 -->
-                    <td>{{ item.product_state }}</td>
+                    <td>{{ state(item.product_state) }}</td>
                     <!-- 狀態 -->
                     <td>{{ item.hashtag }}</td>
                     <!-- hashtag -->
@@ -84,53 +101,103 @@
     </div>
 </template>
 <script>
+import ProductChange from "@/components/product/ProductChange.vue";
 import Searchinput from "@/components/product/Searchinput.vue";
-import Selected from "@/components/product/Selected.vue";
+import SelectType from "@/components/product/SelectType.vue";
 import AddNew from "@/components/product/AddNew.vue";
 export default {
-    components: { Selected, AddNew, Searchinput },
+    components: { SelectType, AddNew, Searchinput, ProductChange },
     name: "CommodityMgnt",
     data() {
         return {
-            queryData: {
-                // gender: "",
-                // maintype: "",
-                // type: "",
-                // search: "",
-            },
+            x: false,
+            detail_id: 0,
+            qgender: "",
+            qmaintype: "",
+            qtype: "",
+            qsearch: "",
             Add: false,
             tag_name: "", //hashtag
             tags: [], //hashtag 陣列
+            tmp: [],
             product: [],
+            change: false,
         };
     },
+    watch: {
+        qgender: function () {
+            this.qmaintype = this.qtype = "";
+        },
+        qmaintype: function () {
+            this.qtype = "";
+        },
+        address: function () {
+            console.log(this.address);
+            if (JSON.stringify(this.address) !== "{}") {
+                let result = this.tmp;
+                if (this.$route.query.G !== "") {
+                    result = result.filter((e) => {
+                        return e.product_gender == this.$route.query.G;
+                    });
+                }
+                if (this.$route.query.M !== "") {
+                    result = result.filter((e) => {
+                        return e.product_maintype == this.$route.query.M;
+                    });
+                }
+                if (this.$route.query.T !== "") {
+                    result = result.filter((e) => {
+                        return e.product_type == this.$route.query.T;
+                    });
+                }
+                if (this.$route.query.S !== "") {
+                    result = result.filter((e) => {
+                        console.log(JSON.stringify(e));
+
+                        if (
+                            JSON.stringify(e).indexOf(this.$route.query.S) !==
+                            -1
+                        )
+                            return e;
+                    });
+                }
+                this.product = result;
+            }
+        },
+    },
+    computed: {
+        address() {
+            return this.$route.query;
+        },
+    },
     methods: {
-        clearsearch() {},
+        state(x) {
+            return x == 1 ? "上架" : "下架";
+        },
+        getdetail(x) {
+            return this.product.find((e) => e.product_id === x);
+        },
+        openChangeBox(X) {
+            this.x = true;
+            this.detail_id = X;
+        },
         search() {
             this.$router.push({
                 path: `/CommodityMgnt`,
                 query: {
-                    G: this.queryData.gender,
-                    M: this.queryData.maintype,
-                    T: this.queryData.type,
-                    S: this.queryData.search,
+                    G: this.qgender,
+                    M: this.qmaintype,
+                    T: this.qtype,
+                    S: this.qsearch,
                 },
             });
-        },
-        catchType(val) {
-            this.queryData.gender = val.gender;
-            this.queryData.maintype = val.mainType;
-            this.queryData.type = val.type;
-        },
-        catchSearch(val) {
-            this.queryData.search = val;
         },
         gender(x) {
             if (x == 1) return "男";
             else return "女";
         },
         cut(x) {
-            return x.split(",")[0];
+            if (x) return x.split(",")[0];
         },
         open() {
             this.Add = true;
@@ -154,8 +221,13 @@ export default {
             fetch("api_server/mainproduct.php")
                 .then((res) => res.json())
                 .then((json) => {
-                    this.product = json;
+                    this.tmp = this.product = json;
                 });
+        },
+        reset() {
+            this.$router.replace("/CommodityMgnt");
+            this.qgender = this.qmaintype = this.qtype = this.qsearch = "";
+            this.product = this.tmp;
         },
     },
     created() {
@@ -168,7 +240,6 @@ $main_color: #495bff;
 
 .back_end_shop {
     border: 1px solid red;
-    position: relative;
 
     box-sizing: border-box;
     select {
@@ -176,16 +247,6 @@ $main_color: #495bff;
         font-size: 16px;
         border: 1px $main_color solid;
         height: 45px;
-    }
-
-    button {
-        // min-width: 70px;
-        outline: none;
-        border: none;
-        background-color: $main_color;
-        color: #fff;
-        // height: 45px;
-        // padding: 0px 10px;
     }
     button.main {
         min-width: 70px;
