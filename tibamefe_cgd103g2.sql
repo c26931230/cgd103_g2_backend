@@ -495,3 +495,28 @@ ADD CONSTRAINT vip_orders_mem_id_fk FOREIGN KEY (mem_id) REFERENCES member(mem_i
 ALTER TABLE vip_orders
 ADD CONSTRAINT vip_orders_level_id_fk FOREIGN KEY (level_id) REFERENCES vip_level(level_id);
 
+-- views 
+-- 訂單月營收
+CREATE VIEW order_revenue AS
+SELECT months.month, ifnull(sum(order_paid),0) "month_rev"
+FROM (
+  SELECT 1 as month UNION SELECT 2 as month UNION SELECT 3 as month UNION SELECT 4 as month
+  UNION SELECT 5 as month UNION SELECT 6 as month UNION SELECT 7 as month UNION SELECT 8 as month
+  UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
+) as months
+left JOIN orders ON MONTH(orders.order_time) = months.month 
+GROUP BY months.month
+ORDER by months.month
+;
+-- 訂閱月營收
+CREATE VIEW sub_revenue AS
+SELECT months.month, ifnull(sum(sub_paid),0) "month_rev"
+FROM (
+  SELECT 1 as month UNION SELECT 2 as month UNION SELECT 3 as month UNION SELECT 4 as month
+  UNION SELECT 5 as month UNION SELECT 6 as month UNION SELECT 7 as month UNION SELECT 8 as month
+  UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
+) as months
+LEFT JOIN vip_orders ON MONTH(vip_orders.sub_time) = months.month 
+GROUP BY months.month
+ORDER by months.month
+;
