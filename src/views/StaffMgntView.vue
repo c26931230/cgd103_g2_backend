@@ -140,7 +140,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="e in employee" class="item">
+                <tr v-for="e in employee" class="item" :key="e.emp_id">
                     <th scope="row">{{ e.emp_id }}</th> <!-- 員工編號 -->
                     <td>{{ e.emp_name }}</td> <!-- 姓名 -->
                     <td>{{ e.job }}</td> <!-- 職稱 -->
