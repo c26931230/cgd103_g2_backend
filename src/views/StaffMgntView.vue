@@ -152,7 +152,7 @@
         </table>
         <!-- 員工列表 end -->
         <!-- 頁碼 -->
-        <nav aria-label="...">
+        <!-- <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item disabled">
                     <span class="page-link">Previous</span>
@@ -166,7 +166,7 @@
                     <a class="page-link" href="#">Next</a>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
         <!-- 頁碼 end -->
     </div>
 </template>
