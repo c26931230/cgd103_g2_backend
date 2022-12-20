@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 
 try{
-    require_once("../connect_cgd103g2.php");
+    require_once("../../connect_cgd103g2.php");
     $sql = "insert into emp values (null, :emp_name, :job, :hiredate, :emp_pwd, :emp_mail,:emp_state)";
     
     // 編譯

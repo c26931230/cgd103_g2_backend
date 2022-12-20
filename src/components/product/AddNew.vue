@@ -1,14 +1,15 @@
 <template>
-    <div id="lightbox"></div>
+    <div id="lightbox" @click="$emit('close')"></div>
 
-    <form id="edit_box" method="post">
+    <div id="edit_box">
         <div class="form_item">
             <label for="title">品名</label>
             <input
                 type="text"
                 id="title"
-                v-model="add.product_name"
+                v-model.trim="add.product_name"
                 maxlength="10"
+                required="required"
             />
         </div>
         <div class="form_item">
@@ -16,22 +17,27 @@
             <input
                 type="number"
                 id="price"
-                v-model="add.unit_price"
+                v-model.trim="add.unit_price"
                 min="1"
                 max="1000000"
             />
         </div>
         <div class="form_item">
             <label for="state">上架狀態</label>
-            <select name="" id="state" v-model="add.product_state">
+            <select name="" id="state" v-model.trim="add.product_state">
                 <option value="0">下架</option>
                 <option value="1">上架</option>
             </select>
         </div>
         <div class="form_item">
             <label for="">分類</label>
-            <selected @typesend="catchType"></selected>
+            <SelectType
+                v-model:selected1="add.product_gender"
+                v-model:selected2="add.product_color"
+                v-model:selected3="add.product_size"
+            ></SelectType>
         </div>
+        <!-- 風格 -->
         <div class="form_item">
             <label for="style">風格</label>
             <label for="A">
@@ -67,6 +73,7 @@
                 />時尚風</label
             >
         </div>
+        <!-- 身形 -->
         <div class="form_item">
             <label for="body">身形</label>
             <select name="" id="body" v-model="add.body_type">
@@ -77,9 +84,9 @@
                 <option value="倒三角型">倒三角型</option>
             </select>
         </div>
-
+        <!-- 尺寸 -->
         <div class="form_item">
-            <label for="size">風格</label>
+            <label for="size">尺寸</label>
 
             <label for="XS">
                 <input
@@ -122,7 +129,7 @@
                 />XL</label
             >
         </div>
-
+        <!-- 圖片 -->
         <div class="form_item">
             <label for="file">圖片</label>
             <div>
@@ -133,7 +140,7 @@
                 <button @click="addInput">+</button>
             </div>
         </div>
-
+        <!-- 顏色 -->
         <div class="form_item">
             <label for="file">顏色</label>
             <div>
@@ -143,15 +150,14 @@
                 </div>
                 <button @click="addInputColor">+</button>
             </div>
-
             <div class="btn_box"></div>
         </div>
-
+        <!-- hashtag -->
         <div class="form_item">
             <label for="file">hashtag</label>
             <div>
                 <div class="mul" v-for="(e, i) in hashtag" :key="i">
-                    <input v-model="e.value" />
+                    <input v-model.trim="e.value" />
                     <button @click="removeInputTag">-</button>
                 </div>
                 <button @click="addInputTag">+</button>
@@ -160,16 +166,19 @@
 
         <div class="confirm_box">
             <button class="main" @click="addProduct()">新增</button>
-            <!-- <button>修改確定</button> -->
-            <button class="main" id="cancel" @click="close()">取消</button>
-            <input type="reset" />
+            <button class="main" id="cancel" @click="$emit('close')">
+                取消
+            </button>
+            <button class="main" id="cancel" @click="reset()">重設</button>
         </div>
-    </form>
+    </div>
 </template>
 <script>
-import Selected from "./Selected.vue";
+import SelectType from "@/components/product/SelectType.vue";
 export default {
-    components: { Selected },
+    name: "AddNew",
+    components: { SelectType },
+    emits: ["close"],
     data() {
         return {
             type: {},
@@ -196,7 +205,29 @@ export default {
     },
     methods: {
         close() {},
+        reset() {
+            this.add = {
+                product_name: "",
+                hashtag: "",
+                unit_price: "",
+                product_state: "",
+                product_maintype: "",
+                product_type: "",
+                product_pic: "",
+                style_type: "",
+                body_type: "",
+                product_gender: "",
+                product_color: "",
+                product_size: "",
+            };
+            this.pic = [{ value: "" }];
+            this.hashtag = [{ value: "" }];
+            this.color = [{ value: "" }];
+            this.style_type = [];
+            this.product_size = [];
+        },
         addProduct() {
+            this.add.unit_price = this.add.unit_price.toString();
             this.add.style_type = this.style_type.join(",");
             this.add.product_pic = this.pic.map((item) => item.value).join(",");
             this.add.hashtag = this.hashtag.map((item) => item.value).join(",");
@@ -205,42 +236,22 @@ export default {
                 .join(",");
             this.add.product_size = this.product_size.join(",");
 
-            // const xhr = new XMLHttpRequest();
-            // xhr.onreadystatechange = function () {
-            //     if (
-            //         xhr.readyState === XMLHttpRequest.DONE &&
-            //         xhr.status === 200
-            //     ) {
-            //         const responseData = xhr.responseText;
+            console.log(JSON.parse(JSON.stringify(this.add)));
+            let str = "";
+            for (const key in this.add) {
+                if (this.add[key] == "") console.log(key);
+            }
+            // fetch("api_server/prod_insert.php", {
+            //     method: "put",
+            //     body: JSON.stringify(this.add),
+            // })
+            //     .then((response) => response.json())
+            //     .then((data) => {
             //         // 在這裡處理服務器返回的數據
-            //         console.log(responseData);
-            //     }
-            // };
-            // xhr.open("post", "/api_server/prod_insert.php", true);
-            // xhr.setRequestHeader(
-            //     "Content-Type",
-            //     "application/json; charset=UTF-8"
-            // );
-            // xhr.send(JSON.stringify(this.add));
+            //         alert(data);
+            //     });
+        },
 
-            fetch("api_server/prod_insert.php", {
-                method: "POST",
-                body: JSON.stringify(this.add),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    // 在這裡處理服務器返回的數據
-                    console.log(data);
-                });
-        },
-        catchType(val) {
-            // console.log(val);
-            this.type = val;
-            // console.log(this.type);
-            this.add.product_gender = this.type?.gender;
-            this.add.product_maintype = this.type?.mainType;
-            this.add.product_type = this.type?.type;
-        },
         onFileChange(index, event) {
             const files = event.target.files;
             if (files && files.length > 0) {
@@ -278,7 +289,6 @@ export default {
     z-index: 10;
     width: 100%;
     height: 100%;
-    // background-color: #00000080;
 }
 #edit_box {
     position: fixed;

@@ -5,7 +5,7 @@ header("Content-Type:application/json;charset=utf-8");
 
 require_once("../connect_cgd103g2.php");
 
-$sql = "SELECT * FROM `product`  LIMIT 8;";
+$sql = "SELECT * FROM `product`where product_name is not Null;";
 $book = $pdo->query($sql);
 $books = $book->fetchAll();
 $data = [];

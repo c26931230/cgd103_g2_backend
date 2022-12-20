@@ -2,24 +2,17 @@
     <div>
         <input
             type="text"
-            v-model="searchInput"
+            :value="search"
             placeholder="Search..."
-            @keyup="search()"
+            @change="$emit('update:search', $event.target.value)"
         />
     </div>
 </template>
 <script>
 export default {
-    data() {
-        return {
-            searchInput: "",
-        };
-    },
-    methods: {
-        search() {
-            this.$emit("sendsearch", this.searchInput);
-        },
-    },
+    name: "Searchinput",
+    emits: ["update:search"],
+    props: { search: String },
 };
 </script>
 <style lang="scss" scoped>
