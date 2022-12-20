@@ -78,7 +78,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="e in employee" class="item"  @click="open()">
+                <tr v-for="e in employee"  :key="e" class="item"  @click="open()">
                     <th scope="row">{{ e.emp_id }}</th> <!-- 員工編號 -->
                     <td>{{ e.emp_name }}</td> <!-- 姓名 -->
                     <td>{{ e.job }}</td> <!-- 職稱 -->
@@ -166,12 +166,12 @@ export default {
                 }
             }
 
-            var url = "/api_server/getMore_employee._JSON.php?emp_id=" + document.getElementById("emp_id").value;
+            var url = "http://localhost:8887/cgd103_g2_backend/phpfile/empList.php/getMore_employee._JSON.php?emp_id=" + document.getElementById("emp_id").value;
             xhr.open("Get", url, true);
             xhr.send(null);
         },
         getResource() { //取得員工資料
-            this.axios.get(`${BASE_URL}/empList.php`).then((response) => {
+            this.axios.get(`http://localhost:8887/cgd103_g2_backend/phpfile/empList.php`).then((response) => {
                 console.log(response.data);
                 this.employee = response.data;
             });
@@ -182,7 +182,7 @@ export default {
                     let result = JSON.parse(xhr.responseText);
                     alert(result.msg);
                 }
-                xhr.open("post",`${BASE_URL}/empInsert.php`,true);
+                xhr.open("post",`http://localhost:8887/cgd103_g2_backend/phpfile/empInsert.php`,true);
                 xhr.send(new FormData(document.getElementById("add_employee")));
         }
        
