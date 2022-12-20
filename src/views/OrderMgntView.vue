@@ -2,7 +2,7 @@
     <div class=" back_end_member">
         <h2>訂單管理</h2>
         <!-- 上方篩選區 -->
-        <div class="filter_box">
+        <div class="filter_box"><!-- 考慮修改成select -->
             <button class="icon_box">全部</button>
             <button class="icon_box">未確認</button>
             <button class="icon_box">備貨中</button>
@@ -21,22 +21,18 @@
                     <th scope="col">訂單金額</th>
                     <th scope="col">訂購人</th>
                     <th scope="col">訂購狀態</th>
-                    <th scope="col">留言處理</th>
                 </tr>
             </thead>
             <tbody>
-                    <tr v-for="(item) in member" class="item" :key="item.id">
-                        <th scope="row">{{item.id}}</th> <!-- 編號 -->   
+                    <tr v-for="e in orders" class="item" :key="e.order_id">
+                        <th scope="row">{{e.order_id}}</th> <!-- 編號 -->   
                     <!-- <router-link to="/OrderMgntDetail">
 
                     </router-link> -->
-                        <td>{{item.name}}</td> <!-- 下單日期 -->
-                        <td>{{item.mail}}</td> <!-- 訂單金額 -->
-                        <td>{{item.tel}}</td> <!-- 訂購人-->
-                        <td>{{item.style}}</td> <!-- 訂單狀態 -->
-                        <td>{{item.type}}</td> <!-- 留言處理 -->
-                 
-
+                        <td>{{e.order_time}}</td> <!-- 下單日期 -->
+                        <td>{{e.total}}</td> <!-- 訂單金額 -->
+                        <td>{{e.ord_mem}}</td> <!-- 訂購人-->
+                        <td>{{e.order_con}}</td> <!-- 訂單狀態 -->
                     </tr>
 
             </tbody>
@@ -63,87 +59,26 @@
     
     </template>
     <script>
+        import { BASE_URL } from '@/assets/js/commom.js'
         export default {
-        name: "MemberMgmt",
+        name: "OrderMgmt",
       data() {
         return {
-            member: [ //會員資訊
-                {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },  {
-                    id: 12310011,
-                    name: "2022-12-31",
-                    subscribe: "明細",
-                    mail:"$9999",
-                    tel:"Jason",
-                    style:"未確認",
-                    type: "已完成",
-                },
+            orders: [ //訂單資訊
             ],	
         }
         },
+        methods:{
+            getResource() { //取得廠商留言資料
+            this.axios.get(`${BASE_URL}/OrderMgnt/getOrd.php`).then((response) => {
+                console.log(response.data);
+                this.orders = response.data;
+            });
+        },
+        },
+        mounted() {
+        this.getResource();
+    },
     };
     </script>
     <style lang="scss" scoped>

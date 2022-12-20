@@ -3,6 +3,7 @@ node_modules
 /dist
 deploy.sh
 connect_cgd103g2.php
+01connect_cgd103g2.php
 # local env files
 .env.local
 .env.*.local

@@ -3,10 +3,9 @@
         <h2>廠商留言</h2>
         <!-- 上方篩選區 -->
         <div class="filter_box">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg>          
+                
             <input type="text" placeholder="Search">
+            <button class="search" @click="search">search</button>   
         </div>
         <!-- 上方篩選區 end -->
         <!-- 會員列表 -->
@@ -14,19 +13,21 @@
             <thead>
                 <tr>
                     <th scope="col">留言時間</th>
-                    <th scope="col">email</th>
                     <th scope="col">廠商名稱</th>
+                    <th scope="col">廠商電話</th>
+                    <th scope="col">留言者</th>
                     <th scope="col">留言內容</th>
                     <th scope="col">回覆狀態</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item) in member" class="item" :key="item.id">
-                    <td>{{item.time}}</td> <!-- email -->
-                    <td>{{item.email}}</td> <!-- email -->
-                    <td>{{item.client}}</td> <!-- 廠商名稱 -->
-                    <td class="msg" >{{item.msg}}</td> <!-- 留言內容 -->
-                    <td>{{item.reply}}</td> <!-- 回覆狀態-->
+                <tr v-for="e in client" class="item" :key="e.client_id">
+                    <th scope="row">{{e.clientmes_time}}</th> <!-- 留言時間 -->
+                    <td>{{e.client_name}}</td> <!-- 廠商名稱 -->
+                    <td>{{e.client_phone}}</td> <!-- 廠商名稱 -->
+                    <td>{{e.client_person}}</td> <!-- 留言者姓名 -->
+                    <td class="msg" >{{e.client_meg}}</td> <!-- 留言內容 -->
+                    <td>{{e.reply}}</td> <!-- 回覆狀態-->
                 </tr>
             </tbody>
         </table>
@@ -52,54 +53,26 @@
     
     </template>
     <script>
+    import { BASE_URL } from '@/assets/js/commom.js'
         export default {
         name: "MemberMgmt",
-      data() {
-        return {
-            member: [ //會員資訊
-                {
-                    id: 1,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"我已經電話聯絡你們很多次了但你們都沒有回是怎樣，我老闆很大尾你們最好快點給我回覆，不然等著瞧，小心我把你們業界名聲搞臭。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
+        data() {
+            return {
+            client: [ //會員資訊
             ],	
-        }
+            search:""
+        }},
+        methods:{
+            getResource() { //取得廠商留言資料
+            this.axios.get(`${BASE_URL}/OrderMgnt/getClientMsg.php`).then((response) => {
+                console.log(response.data);
+                this.client = response.data;
+            });
         },
+        },
+        mounted() {
+        this.getResource();
+    },
     };
     </script>
     <style lang="scss" scoped>
@@ -110,6 +83,7 @@
          .filter_box{
             display: flex;
             align-items: stretch;
+
         }
         button{
             min-width: 70px;
@@ -120,7 +94,8 @@
             height: 45px;
             padding: 0px 10px;
             margin:10px;
-            border-radius: 10%;
+            margin-left: 0;
+            padding-left: 0;
             &:hover{
                 background-color:rgb(119, 121, 139);
             }
@@ -133,6 +108,7 @@
             outline: none;
             border: 1px $main_color solid;
             margin: 10px;
+            margin-right: 0;
         }
         h2{
             font-weight: 600;
