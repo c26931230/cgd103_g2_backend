@@ -45,7 +45,7 @@
             </div>
             <div class="updateShow">
               <label :for="item.i" style="height: 100%">
-                <img :src="item.url" />
+                <img :src="item.url"  alt="請選"  />
               </label>
             </div>
           </td>
