@@ -12,19 +12,25 @@
         <!-- 上方篩選區 -->
 
         <div class="filter_box">
-            <SelectType
-                v-model:selected1="qgender"
-                v-model:selected2="qmaintype"
-                v-model:selected3="qtype"
-            ></SelectType>
-            <Searchinput v-model.trim:search="qsearch"></Searchinput>
+            <div>
+                <h6>種類</h6>
+                <SelectType
+                    v-model:selected1="qgender"
+                    v-model:selected2="qmaintype"
+                    v-model:selected3="qtype"
+                ></SelectType>
+            </div>
+            <div>
+                <h6>搜尋</h6>
+                <Searchinput v-model.trim:search="qsearch"></Searchinput>
+            </div>
             <button class="btn_s" @click="search">search</button>
             <button class="btn_l" @click="reset">reset</button>
             <button class="main" id="create" @click="open()">新增</button>
         </div>
         <!-- 上方篩選區 end -->
         <!-- 商品列表 -->
-        {{ qgender }}{{ qmaintype }}{{ qtype }}{{ qsearch }}
+        <!-- {{ qgender }}{{ qmaintype }}{{ qtype }}{{ qsearch }} -->
         <table class="table shop_table">
             <thead>
                 <tr>
@@ -82,7 +88,7 @@
         </table>
         <!-- 商品列表 end -->
         <!-- 頁碼 -->
-        <nav aria-label="...">
+        <!-- <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item disabled">
                     <span class="page-link">Previous</span>
@@ -96,7 +102,7 @@
                     <a class="page-link" href="#">Next</a>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
         <!-- 頁碼 end -->
     </div>
 </template>

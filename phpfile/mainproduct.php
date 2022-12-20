@@ -7,7 +7,7 @@ require_once("../connect_cgd103g2.php");
 
 $sql = "SELECT * FROM `product`where product_name is not Null;";
 $book = $pdo->query($sql);
-$books = $book->fetchAll();
+$books = $book->fetchAll(PDO::FETCH_ASSOC);
 $data = [];
 foreach ($books as $i => $page) {
     $data[] = $page;

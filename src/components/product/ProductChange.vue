@@ -87,46 +87,21 @@
             <!-- 尺寸 -->
             <div class="form_item">
                 <label for="size">尺寸</label>
-
-                <label for="XS">
+                <label :for="e" v-for="e in arrSize" :key="e">
                     <input
-                        id="XS"
+                        :id="e"
                         type="checkbox"
-                        value="XS"
+                        :value="e"
                         v-model="product_size"
-                    />XS</label
+                    />{{ e }}</label
                 >
-                <label for="S">
+                <label :for="e" v-for="e in arrshoseSize" :key="e">
                     <input
-                        id="S"
+                        :id="e"
                         type="checkbox"
-                        value="S"
+                        :value="e"
                         v-model="product_size"
-                    />S</label
-                >
-                <label for="M">
-                    <input
-                        id="M"
-                        type="checkbox"
-                        value="M"
-                        v-model="product_size"
-                    />M</label
-                >
-                <label for="L">
-                    <input
-                        id="L"
-                        type="checkbox"
-                        value="L"
-                        v-model="product_size"
-                    />L</label
-                >
-                <label for="XL">
-                    <input
-                        id="XL"
-                        type="checkbox"
-                        value="XL"
-                        v-model="product_size"
-                    />XL</label
+                    />{{ e }}</label
                 >
             </div>
             <!-- 圖片 -->
@@ -184,6 +159,8 @@ export default {
     emits: ["closeChangeBox"],
     data() {
         return {
+            arrSize: ["XS", "S", "M", "L", "XL", "F"],
+            arrshoseSize: [25, 26, 27, 28, 29, 30, 31],
             type: {},
             add: {},
             pic: {},
