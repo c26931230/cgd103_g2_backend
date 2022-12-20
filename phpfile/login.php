@@ -20,23 +20,23 @@ try{
 
     if($employee->rowCount() == 0){
         $msg .="帳密錯誤";
+        $result = ["msg"=>$msg];
     }else{
         $empRow = $employee->fetch(PDO::FETCH_ASSOC);
 
-        // 登入成功後，將登入者資料寫入cookie
-        // setcookie("emp_id", $empRow["emp_id"],time()+60);
-        // setcookie("emp_name", $empRow["emp_name"],time()+60);
-        // setcookie("email", $empRow["email"],time()+60);
         $_SESSION["emp_id"] = $empRow["emp_id"];
         $_SESSION["emp_name"] = $empRow["emp_name"];
-        $msg .="登入成功";
+        // 送出使用者資料
+        $result = ["emp_id"=>$_SESSION["emp_id"], "emp_name"=>$_SESSION["emp_name"]];
+        echo json_encode($result);
     }
 }catch(PDOException $e){
     $msg .= "錯誤: ".$e -> getMessage()."<br>";
     $msg .= "行號: ".$e -> getLines()."<br>";
+    $result = ["msg"=>$msg];
 }
-$result = ["msg"=>$msg];
-echo json_encode($result);
+// $result = ["msg"=>$msg];
+// echo json_encode($result);
 ?>
 
 

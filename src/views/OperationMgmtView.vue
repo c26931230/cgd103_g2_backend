@@ -25,12 +25,12 @@
         <div class="item">
             <h3>收入趨勢</h3>
             <!-- {{ employee }} -->
-            <canvas id="chart3"></canvas>
+            <canvas id="chart2"></canvas>
         </div>
         <!-- 會員訂閱 -->
         <div class="item">
             <h3>會員訂閱</h3>
-            <canvas id="chart2"></canvas>
+            <canvas id="chart3"></canvas>
         </div>
     </div>
 </template>
@@ -47,7 +47,8 @@ export default {
             mem_reg_sum: "",//會員總註冊趨勢
             mem_level: "",//會員訂閱等級比
             revenue_data:"",//營業額
-            month:['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+            month:['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            year_revenue_data:""
 
         }
     },
@@ -55,7 +56,7 @@ export default {
         getResource() {
             //取得會員總註冊資料
             this.axios.get(`${BASE_URL}/OperationMgmt/get_mem_sum.php`).then((response) => {
-                console.log("response.data: ", response.data);
+                // console.log("response.data: ", response.data);
                 this.mem_reg_sum = response.data;
                 this.get_mem_data();
 
@@ -74,15 +75,22 @@ export default {
             });
             // 會員訂閱等級比
             this.axios.get(`${BASE_URL}/OperationMgmt/get_mem_level.php`).then((response) => {
-                console.log("mem_level: ", response.data);
+                // console.log("mem_level: ", response.data);
                 this.mem_level = response.data;
                 this.get_mem_data();
             });
             // 月營收
             this.axios.get(`${BASE_URL}/OperationMgmt/get_revenue.php`).then((response) => {
-                console.log("mem_level: ", response.data);
+                // console.log("mem_level: ", response.data);
                 this.revenue_data = response.data;
                 this.get_mem_data();
+            });
+            // 年營收
+            this.axios.get(`${BASE_URL}/OperationMgmt/get_year_revenue.php`).then((response) => {
+                // console.log("mem_level: ", response.data);
+                // this.year_revenue_data = response.data;
+                // this.get_mem_data();
+                console.log(response.data.year_rev);
             });
         },
         get_mem_data() {
@@ -117,27 +125,8 @@ export default {
                 data: data1
             });
             // 會員註冊趨勢 end
-            // 會員訂閱等級比 start
-            const ctx2 = document.getElementById('chart2').getContext('2d');
-            const data2 = {
-                labels: ['無訂閱', 'BASIC', 'STANDARD', 'ULTRA'],
-                datasets: [
-                    {
-                        data: this.mem_level,
-                        label: "Total",
-                        backgroundColor: ['#54B435', '#36A2EB', '#FFCD56', 'rgb(255,99,132)'],
-                    },
-                ]
-            };
-
-            new Chart(ctx2, {
-                type: 'pie',
-                data: data2
-            });
-            // 會員訂閱等級比 end
-            // 月營收 曲線 start
-            // ===
-            const ctx3 = document.getElementById('chart3').getContext('2d');
+             // // 月營收 曲線 start
+            const ctx3 = document.getElementById('chart2').getContext('2d');
 
             const data3 = {
                 labels: this.month,
@@ -156,6 +145,25 @@ export default {
                 data: data3
             });
 
+            // 會員訂閱等級比 start
+            const ctx2 = document.getElementById('chart3').getContext('2d');
+            const data2 = {
+                labels: ['無訂閱', 'BASIC', 'STANDARD', 'ULTRA'],
+                datasets: [
+                    {
+                        data: this.mem_level,
+                        label: "Total",
+                        backgroundColor: ['#54B435', '#36A2EB', '#FFCD56', 'rgb(255,99,132)'],
+                    },
+                ]
+            };
+
+            new Chart(ctx2, {
+                type: 'pie',
+                data: data2
+            });
+            // 會員訂閱等級比 end
+           
         }
     },
     mounted() {
@@ -176,7 +184,7 @@ h2 {
 .wrap {
     display: grid;
     grid-template-columns: 30% 20% 50%;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: 150px 150px 400px;
     gap: 10px;
     // width: 98%;
     margin-right: 30px;
@@ -185,7 +193,7 @@ h2 {
         background-color: #fff;
         border-radius: 5px;
         border: 1px solid #ddd;
-        max-height: 300px;
+        // max-height: 300px;
         padding: 10px;
         position: relative;
 
@@ -245,14 +253,24 @@ h2 {
         }
     }
 
-    // 會員訂閱
+    // 收入趨勢
     .item:nth-child(4) {
         grid-area: 3/1/4/3;
+         #chart2 {
+            height: 70% !important;
+            width: auto !important;
+            margin: auto;
+        }
     }
 
-    // 收入趨勢
+    // 會員訂閱
     .item:nth-child(5) {
         grid-area: 3/3/4/4;
+         #chart3 {
+            height: 80% !important;
+            width: auto !important;
+            margin: auto;
+        }
     }
 }
 </style>
