@@ -20,12 +20,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item) in member" class="item" :key="item.id">
-                    <td>{{item.time}}</td> <!-- email -->
-                    <td>{{item.email}}</td> <!-- email -->
-                    <td>{{item.client}}</td> <!-- 廠商名稱 -->
-                    <td class="msg" >{{item.msg}}</td> <!-- 留言內容 -->
-                    <td>{{item.reply}}</td> <!-- 回覆狀態-->
+                <tr v-for="e in client" class="item" :key="e.client_id">
+                    <th scope="row">{{e.clientmes_time}}</th> <!-- 留言時間 -->
+                    <td>{{e.client_person}}</td> <!-- email -->
+                    <td>{{e.client_phone}}</td> <!-- 廠商名稱 -->
+                    <td class="msg" >{{e.client_meg}}</td> <!-- 留言內容 -->
+                    <td>{{e.reply}}</td> <!-- 回覆狀態-->
                 </tr>
             </tbody>
         </table>
@@ -51,54 +51,42 @@
     
     </template>
     <script>
+    import { BASE_URL } from '@/assets/js/commom.js'
         export default {
         name: "MemberMgmt",
-      data() {
-        return {
-            member: [ //會員資訊
-                {
-                    id: 1,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"我已經電話聯絡你們很多次了但你們都沒有回是怎樣，我老闆很大尾你們最好快點給我回覆，不然等著瞧，小心我把你們業界名聲搞臭。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
-                {
-                    id: 2,
-                   time: "2022-12-31",
-                    email: "lilt64p93@yahoo.com.tw",
-                    client:"Jason Su",
-                    msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
-                    reply:"未回覆",
-                }, 
+        data() {
+            return {
+            client: [ //會員資訊
+                // {
+                //     id: 1,
+                //    time: "2022-12-31",
+                //     email: "lilt64p93@yahoo.com.tw",
+                //     client:"Jason Su",
+                //     msg:"我已經電話聯絡你們很多次了但你們都沒有回是怎樣，我老闆很大尾你們最好快點給我回覆，不然等著瞧，小心我把你們業界名聲搞臭。",
+                //     reply:"未回覆",
+                // }, 
+                // {
+                //     id: 2,
+                //    time: "2022-12-31",
+                //     email: "lilt64p93@yahoo.com.tw",
+                //     client:"Jason Su",
+                //     msg:"您好我是GU的專案經理，希望未來有機會可以合作，如有興趣再請你們這邊回覆我們囉，感謝。",
+                //     reply:"未回覆",
+                // }, 
             ],	
-        }
+            search:""
+        }},
+        methods:{
+            getResource() { //取得廠商留言資料
+            this.axios.get(`${BASE_URL}/OrderMgnt/getClientMsg.php`).then((response) => {
+                console.log(response.data);
+                this.employee = response.data;
+            });
         },
+        },
+        mounted() {
+        this.getResource();
+    },
     };
     </script>
     <style lang="scss" scoped>
