@@ -73,7 +73,15 @@
                     <td>{{ item.product_maintype }}</td>
                     <td>{{ item.product_type }}</td>
                     <!-- 類型 -->
-                    <td>{{ item.product_color }}</td>
+                    <td>
+                        <div
+                            v-for="i in color(item.product_color)"
+                            :key="i"
+                            class="circle"
+                            :style="{ backgroundColor: i }"
+                        ></div>
+                        {{ item.product_color }}
+                    </td>
                     <!-- 顏色 -->
                     <td>{{ item.product_size }}</td>
                     <!-- 尺寸 -->
@@ -107,6 +115,8 @@
     </div>
 </template>
 <script>
+import { BASE_URL } from "@/assets/js/commom.js";
+
 import ProductChange from "@/components/product/ProductChange.vue";
 import Searchinput from "@/components/product/Searchinput.vue";
 import SelectType from "@/components/product/SelectType.vue";
@@ -205,6 +215,9 @@ export default {
         cut(x) {
             if (x) return x.split(",")[0];
         },
+        color(x) {
+            if (x) return x.split(",");
+        },
         open() {
             this.Add = true;
         },
@@ -224,7 +237,8 @@ export default {
             this.tags.splice(index, 1);
         },
         getResource() {
-            fetch("api_server/mainproduct.php")
+            const URL = `${BASE_URL}/mainproduct.php`;
+            fetch(URL)
                 .then((res) => res.json())
                 .then((json) => {
                     this.tmp = this.product = json;
@@ -373,5 +387,12 @@ $main_color: #495bff;
             }
         }
     }
+}
+.circle {
+    aspect-ratio: 1 /1;
+    border-radius: 50%;
+    margin: 10px;
+    border: 2px solid rgba(33, 30, 30, 0.582);
+    width: 24px;
 }
 </style>
