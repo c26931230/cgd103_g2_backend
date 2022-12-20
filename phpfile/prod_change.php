@@ -8,7 +8,7 @@ try {
     //sql 指令
     $sql = "UPDATE product SET product_name='$data->product_name',hashtag='$data->hashtag' ,unit_price='$data->unit_price', product_state='$data->product_state' ,product_maintype='$data->product_maintype' ,product_type='$data->product_type' ,product_pic='$data->product_pic' ,style_type='$data->style_type' ,body_type='$data->body_type' ,product_gender='$data->product_gender', product_color='$data->product_color' ,product_size='$data->product_size' WHERE product_id = '$data->product_id' ; ";
     //編譯 執行
-    $products = $pdo->query($sql);
+    $products = $pdo->prepare($sql);
 
     $products->execute();
 

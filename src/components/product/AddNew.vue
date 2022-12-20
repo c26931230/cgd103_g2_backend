@@ -33,8 +33,8 @@
             <label for="">分類</label>
             <SelectType
                 v-model:selected1="add.product_gender"
-                v-model:selected2="add.product_color"
-                v-model:selected3="add.product_size"
+                v-model:selected2="add.product_maintype"
+                v-model:selected3="add.product_type"
             ></SelectType>
         </div>
         <!-- 風格 -->
@@ -87,46 +87,21 @@
         <!-- 尺寸 -->
         <div class="form_item">
             <label for="size">尺寸</label>
-
-            <label for="XS">
+            <label :for="e" v-for="e in arrSize" :key="e">
                 <input
-                    id="XS"
+                    :id="e"
                     type="checkbox"
-                    value="XS"
+                    :value="e"
                     v-model="product_size"
-                />XS</label
+                />{{ e }}</label
             >
-            <label for="S">
+            <label :for="e" v-for="e in arrshoseSize" :key="e">
                 <input
-                    id="S"
+                    :id="e"
                     type="checkbox"
-                    value="S"
+                    :value="e"
                     v-model="product_size"
-                />S</label
-            >
-            <label for="M">
-                <input
-                    id="M"
-                    type="checkbox"
-                    value="M"
-                    v-model="product_size"
-                />M</label
-            >
-            <label for="L">
-                <input
-                    id="L"
-                    type="checkbox"
-                    value="L"
-                    v-model="product_size"
-                />L</label
-            >
-            <label for="XL">
-                <input
-                    id="XL"
-                    type="checkbox"
-                    value="XL"
-                    v-model="product_size"
-                />XL</label
+                />{{ e }}</label
             >
         </div>
         <!-- 圖片 -->
@@ -134,7 +109,12 @@
             <label for="file">圖片</label>
             <div>
                 <div class="mul" v-for="(item, index) in pic" :key="index">
-                    <input type="file" @change="onFileChange(index, $event)" />
+                    <input
+                        ref="fileInput"
+                        type="file"
+                        @change="onFileChange(index, $event)"
+                        accept="image/*"
+                    />
                     <button @click="removeInput(index)">-</button>
                 </div>
                 <button @click="addInput">+</button>
@@ -142,7 +122,7 @@
         </div>
         <!-- 顏色 -->
         <div class="form_item">
-            <label for="file">顏色</label>
+            <label for="">顏色</label>
             <div>
                 <div class="mul" v-for="(e, i) in color" :key="i">
                     <input type="color" v-model="e.value" />
@@ -154,7 +134,7 @@
         </div>
         <!-- hashtag -->
         <div class="form_item">
-            <label for="file">hashtag</label>
+            <label for="">hashtag</label>
             <div>
                 <div class="mul" v-for="(e, i) in hashtag" :key="i">
                     <input v-model.trim="e.value" />
@@ -181,6 +161,8 @@ export default {
     emits: ["close"],
     data() {
         return {
+            arrSize: ["XS", "S", "M", "L", "XL", "F"],
+            arrshoseSize: [25, 26, 27, 28, 29, 30, 31],
             type: {},
             pic: [{ value: "" }],
             hashtag: [{ value: "" }],
@@ -205,6 +187,12 @@ export default {
     },
     methods: {
         close() {},
+        resetFileInput() {
+            const input = this.$refs.fileInput;
+            input.value = null;
+            input.type = "file";
+            this.$refs.fileInput = new FileList();
+        },
         reset() {
             this.add = {
                 product_name: "",
@@ -220,9 +208,9 @@ export default {
                 product_color: "",
                 product_size: "",
             };
-            this.pic = [{ value: "" }];
-            this.hashtag = [{ value: "" }];
-            this.color = [{ value: "" }];
+            this.pic = [];
+            this.hashtag = [];
+            this.color = [];
             this.style_type = [];
             this.product_size = [];
         },
@@ -237,19 +225,23 @@ export default {
             this.add.product_size = this.product_size.join(",");
 
             console.log(JSON.parse(JSON.stringify(this.add)));
-            let str = "";
             for (const key in this.add) {
-                if (this.add[key] == "") console.log(key);
+                console.log(this.add[key]);
+                if (this.add[key] == "") {
+                    alert(key);
+                    return;
+                }
             }
-            // fetch("api_server/prod_insert.php", {
-            //     method: "put",
-            //     body: JSON.stringify(this.add),
-            // })
-            //     .then((response) => response.json())
-            //     .then((data) => {
-            //         // 在這裡處理服務器返回的數據
-            //         alert(data);
-            //     });
+            fetch("api_server/prod_insert.php", {
+                method: "post",
+                body: JSON.stringify(this.add),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // 在這裡處理服務器返回的數據
+                    alert(data.msg);
+                    this.$emit("close");
+                });
         },
 
         onFileChange(index, event) {
@@ -328,9 +320,6 @@ export default {
         select,
         input {
             margin: 0 5px;
-            //     width: calc(100% - 100px);
-            //     font-size: 16px;
-            //     height: 45px;
         }
 
         select {
