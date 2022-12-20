@@ -20,7 +20,7 @@
                     <th scope="col">下單日期</th>
                     <th scope="col">訂單金額</th>
                     <th scope="col">訂購人</th>
-                    <th scope="col">訂購狀態</th>
+                    <th scope="col">物流狀態</th>
                 </tr>
             </thead>
             <tbody>

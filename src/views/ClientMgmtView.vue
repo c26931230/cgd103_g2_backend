@@ -55,7 +55,7 @@
     <script>
     import { BASE_URL } from '@/assets/js/commom.js'
         export default {
-        name: "MemberMgmt",
+        name: "ClientMgmtMgmt",
         data() {
             return {
             client: [ //會員資訊
