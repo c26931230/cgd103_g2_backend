@@ -6,7 +6,7 @@
           <h2>登入</h2>
           <div class="form_item">
             <label for="account">帳號</label>
-            <input type="text" id="account" name="emp_id" v-model="enter_id" />
+            <input type="text" id="account" name="emp_id" />
           </div>
           <div class="form_item">
             <label for="password">密碼</label>
@@ -59,6 +59,8 @@ export default {
       };
       xhr.open("POST", `${BASE_URL}/login.php`, true);
       xhr.send(new FormData(document.getElementById("login")));
+      document.getElementById("account").value = "";
+      document.getElementById("password").value = "";
     },
 
   },
