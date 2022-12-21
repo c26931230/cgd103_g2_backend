@@ -1,5 +1,5 @@
 <template>
-  <div class="backend_login_box" v-if="isLogin == false">
+  <div class="backend_login_box">
     <div class="form_box">
       <form id="login" method="post" enctype="multipart/form-data">
         <div id="edit_box">
@@ -32,12 +32,6 @@ import { BASE_URL } from "@/assets/js/commom.js";
 export default {
   data() {
     return {
-      isLogin: false, //之後改false
-      sesseion_id: "", //後端來的 id
-      enter_id: "", //user輸入的 id
-      sesseion_name: "", //後端來的 name
-      // enter_name: "",
-      msg1: "",
     };
   },
   methods: {
@@ -52,29 +46,24 @@ export default {
             console.log(this.session);
             sessionStorage.setItem("employee", JSON.stringify(this.session));
             this.loginStatus = sessionStorage.getItem("employee");
-            if (this.loginStatus != "") {
-              // location.replace("/Member");
-              // this.isLogin = true;
+            this.emp_job = JSON.parse(sessionStorage.getItem("employee")).job;
+            if (this.loginStatus != "" && this.emp_job === "員工") {
               this.$router.push("/OperationMgnt");
+            }else if(this.loginStatus != "" && this.emp_job === "造型師"){
+              this.$router.push("/ClothingMatchMgnt");
             }
           } else if (xhr.responseText == 0) {
             alert("帳號或密碼錯誤");
-            // this.isLogin = flase;
           }
         }
       };
       xhr.open("POST", `${BASE_URL}/login.php`, true);
       xhr.send(new FormData(document.getElementById("login")));
-
-      let mem_deta = `mem_id=${this.id}&mem_psw=${this.psw}`;
-      let formData = new FormData();
-      formData.append("mem_id", this.id);
-      formData.append("mem_psw", this.psw);
-      xhr.send(formData);
     },
-   
+
   },
-  mounted() {},
+  mounted() {
+  },
 };
 </script>
 <style lang="scss" scoped>

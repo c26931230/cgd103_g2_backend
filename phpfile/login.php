@@ -26,8 +26,9 @@ try{
 
         $_SESSION["emp_id"] = $empRow["emp_id"];
         $_SESSION["emp_name"] = $empRow["emp_name"];
+        $_SESSION["job"] = $empRow["job"];
         // 送出使用者資料
-        $result = ["emp_id"=>$_SESSION["emp_id"], "emp_name"=>$_SESSION["emp_name"]];
+        $result = ["emp_id"=>$_SESSION["emp_id"], "emp_name"=>$_SESSION["emp_name"],"job"=>$_SESSION["job"]];
         echo json_encode($result);
     }
 }catch(PDOException $e){
