@@ -12,19 +12,25 @@
         <!-- 上方篩選區 -->
 
         <div class="filter_box">
-            <SelectType
-                v-model:selected1="qgender"
-                v-model:selected2="qmaintype"
-                v-model:selected3="qtype"
-            ></SelectType>
-            <Searchinput v-model.trim:search="qsearch"></Searchinput>
+            <div>
+                <h6>種類</h6>
+                <SelectType
+                    v-model:selected1="qgender"
+                    v-model:selected2="qmaintype"
+                    v-model:selected3="qtype"
+                ></SelectType>
+            </div>
+            <div>
+                <h6>搜尋</h6>
+                <Searchinput v-model.trim:search="qsearch"></Searchinput>
+            </div>
             <button class="btn_s" @click="search">search</button>
             <button class="btn_l" @click="reset">reset</button>
             <button class="main" id="create" @click="open()">新增</button>
         </div>
         <!-- 上方篩選區 end -->
         <!-- 商品列表 -->
-        {{ qgender }}{{ qmaintype }}{{ qtype }}{{ qsearch }}
+        <!-- {{ qgender }}{{ qmaintype }}{{ qtype }}{{ qsearch }} -->
         <table class="table shop_table">
             <thead>
                 <tr>
@@ -67,7 +73,15 @@
                     <td>{{ item.product_maintype }}</td>
                     <td>{{ item.product_type }}</td>
                     <!-- 類型 -->
-                    <td>{{ item.product_color }}</td>
+                    <td>
+                        <div
+                            v-for="i in color(item.product_color)"
+                            :key="i"
+                            class="circle"
+                            :style="{ backgroundColor: i }"
+                        ></div>
+                        {{ item.product_color }}
+                    </td>
                     <!-- 顏色 -->
                     <td>{{ item.product_size }}</td>
                     <!-- 尺寸 -->
@@ -82,7 +96,7 @@
         </table>
         <!-- 商品列表 end -->
         <!-- 頁碼 -->
-        <nav aria-label="...">
+        <!-- <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item disabled">
                     <span class="page-link">Previous</span>
@@ -96,11 +110,13 @@
                     <a class="page-link" href="#">Next</a>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
         <!-- 頁碼 end -->
     </div>
 </template>
 <script>
+import { BASE_URL } from "@/assets/js/commom.js";
+
 import ProductChange from "@/components/product/ProductChange.vue";
 import Searchinput from "@/components/product/Searchinput.vue";
 import SelectType from "@/components/product/SelectType.vue";
@@ -199,6 +215,9 @@ export default {
         cut(x) {
             if (x) return x.split(",")[0];
         },
+        color(x) {
+            if (x) return x.split(",");
+        },
         open() {
             this.Add = true;
         },
@@ -218,7 +237,8 @@ export default {
             this.tags.splice(index, 1);
         },
         getResource() {
-            fetch("api_server/mainproduct.php")
+            const URL = `${BASE_URL}/mainproduct.php`;
+            fetch(URL)
                 .then((res) => res.json())
                 .then((json) => {
                     this.tmp = this.product = json;
@@ -367,5 +387,12 @@ $main_color: #495bff;
             }
         }
     }
+}
+.circle {
+    aspect-ratio: 1 /1;
+    border-radius: 50%;
+    margin: 10px;
+    border: 2px solid rgba(33, 30, 30, 0.582);
+    width: 24px;
 }
 </style>
