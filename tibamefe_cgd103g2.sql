@@ -130,16 +130,19 @@ CREATE TABLE IF NOT EXISTS appointment
 appointment_id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 mem_id int NOT NULL,
 emp_id int,
-appointment_qa varchar(100),
 appointment_date date,
-appointment_time varchar(20)
+appointment_time varchar(20),
+appointment_qa varchar(200),
+appointment_qatext varchar(500),
+appointment_state tinyint
 )
 AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO appointment (mem_id, emp_id,appointment_qa,appointment_date,appointment_time) VALUES
-	(102, 103, '網購衣服不清楚怎麼挑合適的尺寸', '2022-12-1', '10:00'),
-	(103, 104, '不確定特定場合怎麼穿搭', '2022-12-20', '14:00'),
-	(101, 105, '想學穿搭不知道怎麼開始', '2022-12-15', '19:00');
+INSERT INTO appointment 
+VALUES
+	(null,102, 103,'2022-12-1', '10:00', '網購衣服不清楚怎麼挑合適的尺寸','我有問題我有問題我有問題我有問題我有問題我有問題我有問題我有問題',0 ),
+	(null,103, 104,'2022-12-20', '14:00', '不確定特定場合怎麼穿搭','好多問題好多問題好多問題好多問題好多問題好多問題',0 ),
+	(null,101, 105,  '2022-12-15', '19:00','想學穿搭不知道怎麼開始','問題求解問題求解問題求解問題求解問題求解',0);
     
 -- 單品商品 product
 DROP TABLE IF EXISTS product;

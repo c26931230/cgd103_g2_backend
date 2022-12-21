@@ -47,7 +47,7 @@
           <th scope="col">姓名</th>
           <th scope="col">諮詢方向</th>
           <th scope="col">文字描述</th>
-          <th scope="col">諮詢風格</th>
+          <!-- <th scope="col">諮詢風格</th> -->
           <th scope="col">狀態</th>
         </tr>
       </thead>
@@ -64,13 +64,13 @@
           <!-- 預約時間 -->
           <th scope="row">{{ item.mem_id }}</th>
           <!-- 會員編號 -->
-          <td>{{ item.emp_name }}</td>
+          <td>{{ item.mem_name }}</td>
           <!-- 姓名 -->
           <td>{{ item.appointment_qa }}</td>
           <!-- 諮詢方向 -->
-          <td>{{ item.appointment_desc }}</td>
+          <td>{{ item.appointment_qatext }}</td>
           <!-- 文字描述 -->
-          <td>{{ item.appointment_style }}</td>
+          <!-- <td>{{ item.appointment_style }}</td> -->
           <!-- 諮詢風格 -->
           <td>{{ item.appointment_state }}</td>
           <!-- 狀態 -->
@@ -98,114 +98,16 @@
   </div>
 </template>
 <script>
+import { BASE_URL } from "@/assets/js/commom.js";
 export default {
   name: "AppointmentMgnt",
   data() {
     return {
-      appointment: [
-        //預約資訊
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1001,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "已完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1002,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "已完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1003,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "已完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1004,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "已完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1005,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "已完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1006,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "已完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1007,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "未完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1008,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "未完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1009,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "未完成",
-        },
-        {
-          appointment_date: "2023/01/01",
-          appointment_time: "16:00",
-          mem_id: 1010,
-          emp_name: "jason",
-          appointment_qa: "對自己的穿搭沒自信",
-          appointment_desc: "對自己的穿搭沒自信...",
-          appointment_style: "文青風",
-          appointment_state: "未完成",
-        },
-      ],
+      appointment: [],
     };
+  },
+  mounted(){
+      this.getResource()
   },
   methods: {
     open() {
@@ -216,6 +118,13 @@ export default {
     close() {
       //關燈箱
       lightbox.classList.remove("active");
+    },
+    getResource() {
+      //取得員工資料
+      this.axios.get(`${BASE_URL}/qa.php`).then((response) => {
+        console.log(response.data);
+        this.appointment = response.data;
+      });
     },
   },
 };
@@ -324,12 +233,37 @@ export default {
     overflow: hidden;
     margin-top: 50px;
 
+
     thead {
+      
       background-color: $main_color;
       color: #fff;
 
       tr {
         th {
+         
+          &:nth-child(1){
+            width: 10%;
+          }
+          &:nth-child(2){
+            width: 10%;
+          }
+          &:nth-child(3){
+            width: 10%;
+          }
+          &:nth-child(4){
+            width: 10%;
+          }
+          &:nth-child(5){
+            width: 20%;
+          }
+          &:nth-child(6){
+            width: 35%; 
+          }
+          &:nth-child(7){
+            width: 5%;
+          }
+          // overflow: hidden;
           font-weight: 600; // 表頭
         }
       }
