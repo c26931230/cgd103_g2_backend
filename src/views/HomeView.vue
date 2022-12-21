@@ -5,7 +5,7 @@
         <!-- <h2>後台管理系統</h2> -->
         <div class="info_box">
           <div class="txt_box">
-            <p class="name">{{emp_name}}(管理員)</p>
+            <p class="name">{{emp_name}}({{ emp_job }})</p>
           </div>
         </div>
         <hr />
@@ -229,6 +229,7 @@ export default {
     return {
       emp_name:"",
       employee:"",
+      emp_job:"",
     };
   },
   methods: {
@@ -252,6 +253,7 @@ export default {
       this.$router.push("/");
     }else{
       this.emp_name = JSON.parse(sessionStorage.getItem("employee")).emp_name;
+      this.emp_job = JSON.parse(sessionStorage.getItem("employee")).job;
       // this.emp_name = this.employee.emp_id;
     }
   },

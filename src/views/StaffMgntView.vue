@@ -126,9 +126,9 @@
     <h2>員工管理</h2>
     <!-- 上方篩選區 -->
     <div class="filter_box">
-      <button>全部</button>
+      <!-- <button>全部</button>
       <button>造型師</button>
-      <button>員工</button>
+      <button>員工</button> -->
       <input type="text" placeholder="Search" v-model="search" />
       <button class="search">search</button>
       <div id="showPanel"></div>
@@ -425,7 +425,7 @@ export default {
   h2 {
     font-weight: 600;
     color: $main_color;
-    padding: 10px;
+    padding: 10px 0;
   }
 
   /* 員工列表 */
