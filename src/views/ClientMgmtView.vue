@@ -24,7 +24,7 @@
                 <tr v-for="e in client" class="item" :key="e.client_id">
                     <th scope="row">{{e.clientmes_time}}</th> <!-- 留言時間 -->
                     <td>{{e.client_name}}</td> <!-- 廠商名稱 -->
-                    <td>{{e.client_phone}}</td> <!-- 廠商名稱 -->
+                    <td>0{{e.client_phone}}</td> <!-- 廠商名稱 -->
                     <td>{{e.client_person}}</td> <!-- 留言者姓名 -->
                     <td class="msg" >{{e.client_meg}}</td> <!-- 留言內容 -->
                     <td>{{e.reply}}</td> <!-- 回覆狀態-->
