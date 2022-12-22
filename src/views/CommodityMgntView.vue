@@ -115,7 +115,7 @@
     </div>
 </template>
 <script>
-import { BASE_URL } from "@/assets/js/commom.js";
+import { BASE_URL } from "@/assets/js/common.js";
 
 import ProductChange from "@/components/product/ProductChange.vue";
 import Searchinput from "@/components/product/Searchinput.vue";
