@@ -237,7 +237,9 @@ INSERT INTO  product_combo (combo_name, combo_pic, hashtag, emp_id, body_type, s
 	('文青女子', 'W1_00.jpg', '文青風', 104, '蘋果型', '文青風', 3600),
 	('舞台表演', 'W2_00.jpg', '時尚風', 104, '梨型', '時尚風', 3000),
 	('運動風', 'W3_00.jpg', '運動風', 105, '沙漏型', '運動風', 3000),
-	('極簡女子','W4_00.jpg', '極簡風', 105, '蘋果型', '極簡風', 1800);
+	('極簡女子','W4_00.jpg', '極簡風', 105, '蘋果型', '極簡風', 1800),
+	('都會簡約時尚穿搭','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '極簡風', 105, '沙漏型', '極簡風', 12860);
+
 
 -- 廠商 client
 DROP TABLE IF EXISTS client;
@@ -345,7 +347,11 @@ INSERT INTO combo_item (combo_id, product_id) VALUES
 	(907, 119),
     (907, 120),
 	(908, 121),
-	(908, 122);
+	(908, 122),
+	(909, 123),
+	(909, 124),
+	(909, 125),
+	(909, 126);
 
  
 -- 員工 emp
