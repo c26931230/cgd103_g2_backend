@@ -6,7 +6,7 @@
           <h2>登入</h2>
           <div class="form_item">
             <label for="account">帳號</label>
-            <input type="text" id="account" name="emp_id" v-model="enter_id" />
+            <input type="text" id="account" name="emp_id" />
           </div>
           <div class="form_item">
             <label for="password">密碼</label>
@@ -28,7 +28,7 @@
 </template>
 <script>
 //引入BASE_URL參數
-import { BASE_URL } from "@/assets/js/commom.js";
+import { BASE_URL } from "@/assets/js/common.js";
 export default {
   data() {
     return {
@@ -59,6 +59,8 @@ export default {
       };
       xhr.open("POST", `${BASE_URL}/login.php`, true);
       xhr.send(new FormData(document.getElementById("login")));
+      document.getElementById("account").value = "";
+      document.getElementById("password").value = "";
     },
 
   },

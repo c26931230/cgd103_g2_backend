@@ -6,14 +6,14 @@
         <div class="item">
             <div class="content_box">
                 <h3>本年營收</h3>
-                <p>$922,431</p>
+                <p>${{year_revenue_data}}</p>
             </div>
         </div>
         <!-- 廠商預約 -->
         <div class="item">
             <div class="content_box">
                 <h3>廠商預約</h3>
-                <p>未處理<span>2</span>件</p>
+                <p>未處理<span>{{client_reply}}</span>件</p>
             </div>
         </div>
         <!-- 會員註冊 -->
@@ -37,7 +37,7 @@
 <script>
 import Chart from 'chart.js';
 //引入BASE_URL參數
-import { BASE_URL } from '@/assets/js/commom.js'
+import { BASE_URL } from '@/assets/js/common.js'
 export default {
     name: "OperationMgnt",
     data() {
@@ -48,7 +48,8 @@ export default {
             mem_level: "",//會員訂閱等級比
             revenue_data:"",//營業額
             month:['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-            year_revenue_data:""
+            year_revenue_data:"",
+            client_reply:""
 
         }
     },
@@ -87,10 +88,15 @@ export default {
             });
             // 年營收
             this.axios.get(`${BASE_URL}/OperationMgmt/get_year_revenue.php`).then((response) => {
-                // console.log("mem_level: ", response.data);
-                // this.year_revenue_data = response.data;
-                // this.get_mem_data();
-                console.log(response.data.year_rev);
+                // console.log(response.data.year_rev);
+                this.year_revenue_data = response.data.year_rev;
+
+            });
+            // 廠商未回覆
+            this.axios.get(`${BASE_URL}/OperationMgmt/get_client_reply.php`).then((response) => {
+                console.log("client",response.data);
+                this.client_reply = response.data.reply;
+
             });
         },
         get_mem_data() {
