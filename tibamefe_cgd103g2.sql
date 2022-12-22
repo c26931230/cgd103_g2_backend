@@ -431,14 +431,15 @@ CREATE TABLE IF NOT EXISTS vip_level
     monthSet int,
     monthConsult int,
     freeShipping varchar(20),
+    specialOffer int,
     PRIMARY KEY(level_id)
 )AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO vip_level (level_name,price,discount,product_item,set_info,monthSet,monthConsult,freeShipping)
+INSERT INTO vip_level (level_name,price,discount,product_item,set_info,monthSet,monthConsult,freeShipping,specialOffer)
 VALUES
-('BASIC',899,0.95,2,'上身* 1、下身*1',1,1,1),
-('STANDARD',1899,0.9,3,'上身* 1、下身*1、外套*1',1,2,2),
-('ULTRA',3999,0.8,4,'上身* 1、下身*1、外套*1、鞋子*1',1,5,'無限');
+('BASIC',899,0.95,2,'上身* 1、下身*1',1,1,1,95),
+('STANDARD',1899,0.9,3,'上身* 1、下身*1、外套*1',1,2,2,9),
+('ULTRA',3999,0.8,4,'上身* 1、下身*1、外套*1、鞋子*1',1,5,'無限',85);
 
 -- FK
 
