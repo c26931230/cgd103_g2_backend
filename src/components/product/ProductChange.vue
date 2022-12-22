@@ -161,7 +161,7 @@
                         <div class="imgBox">
                             <img
                                 v-if="item.value != ''"
-                                :src="require(`@/assets/product/${item.value}`)"
+                                :src="`./pic/${item.value}`"
                             />
                         </div>
                         <div><button class="btn_s">更換圖片</button></div>
