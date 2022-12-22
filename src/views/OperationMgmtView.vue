@@ -37,7 +37,7 @@
 <script>
 import Chart from 'chart.js';
 //引入BASE_URL參數
-import { BASE_URL } from '@/assets/js/commom.js'
+import { BASE_URL } from '@/assets/js/common.js'
 export default {
     name: "OperationMgnt",
     data() {

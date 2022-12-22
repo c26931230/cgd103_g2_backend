@@ -4,7 +4,7 @@
 // History 模式
 import { createRouter, createWebHistory } from 'vue-router'
 
-import { AUTHENTICATED } from "@/assets/js/commom.js";
+import { AUTHENTICATED } from "@/assets/js/common.js";
 const routes = [
   {
     path: "/", //LOGIN
