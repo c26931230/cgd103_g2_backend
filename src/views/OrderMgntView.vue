@@ -63,11 +63,11 @@
         export default {
         name: "OrderMgmt",
         data() {
-            return {
-                orders: [ //訂單資訊
-                ],	
-            }
-            },
+        return {
+            orders: [ //訂單資訊
+            ],	
+        }
+        },
         methods:{
             getResource() { //取得廠商留言資料
             this.axios.get(`${BASE_URL}/OrderMgnt/getOrd.php`).then((response) => {
@@ -77,7 +77,7 @@
         },
         },
         mounted() {
-            this.getResource();
+        this.getResource();
     },
     };
     </script>
