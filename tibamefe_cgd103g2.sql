@@ -247,6 +247,7 @@ DROP TABLE IF EXISTS product_combo;
 CREATE TABLE IF NOT EXISTS  product_combo(
 combo_id	int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 combo_name	varchar(100),
+combo_main_pic	varchar(100),
 combo_pic	varchar(100),
 hashtag	varchar(100),
 emp_id	int	,
@@ -256,7 +257,7 @@ combo_price	int
 )AUTO_INCREMENT=901 DEFAULT CHARSET=utf8mb4;
 
 
-INSERT INTO  product_combo (combo_name, combo_pic, hashtag, emp_id, body_type, style_type, combo_price) VALUES
+INSERT INTO  product_combo (combo_name,combo_main_pic, combo_pic, hashtag, emp_id, body_type, style_type, combo_price) VALUES
 	-- ('男仕極簡', 'F1_00.jpg', '極簡風', 103, '倒三角型', '極簡風', 2300),
 	-- ('嘻哈文青', 'F2_00.jpg', '文青風', 103, '矩形', '文青風', 1750),
 	-- ('時尚牛仔', 'F3_00.jpg', '時尚風', 103, '沙漏型', '時尚風', 3500),
@@ -265,7 +266,17 @@ INSERT INTO  product_combo (combo_name, combo_pic, hashtag, emp_id, body_type, s
 	-- ('舞台表演', 'W2_00.jpg', '時尚風', 104, '梨型', '時尚風', 3000),
 	-- ('運動風', 'W3_00.jpg', '運動風', 105, '沙漏型', '運動風', 3000),
 	-- ('極簡女子','W4_00.jpg', '極簡風', 105, '蘋果型', '極簡風', 1800),
-	('都會簡約時尚穿搭','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '極簡風', 105, '沙漏型', '極簡風', 12860);
+  ('學院文青穿搭','look-1.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '文青風', 101, '矩型', '文青風', null),
+  ('居家運動穿搭','look-2.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '運動風', 102, '蘋果型', '運動風', null),
+  ('極簡混搭穿搭','look-3.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '極簡風', 103, '沙漏型', '極簡風', null),
+  ('日系文青穿搭','look-4.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '文青風', 104, '梨型', '文青風', null),
+  ('簡約時尚穿搭','look-5.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '時尚風', 105, '沙漏型', '時尚風', null),
+  ('舒適運動穿搭','look-6.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '運動風', 101, '蘋果型', '運動風', null),
+  ('時尚OL穿搭','look-7.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '時尚風', 102, '沙漏型', '時尚風', null),
+  ('時尚機能混搭穿搭','look-8.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '時尚風', 103, '沙漏型', '時尚風', null),
+  ('簡約舒適穿搭','look-9.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '極簡風', 104, '矩型', '極簡風', null),
+  ('時尚韓系穿搭','look-10.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '時尚風', 105, '沙漏型', '時尚風', null),
+	('都會簡約時尚穿搭','look-11.jpg','look-info-pic1.png,look-info-pic2.png,look-info-pic3.png,look-info-pic4.png,look-info-pic5.png', '極簡風', 101, '沙漏型', '極簡風', null);
 
 
 -- 廠商 client
@@ -351,7 +362,7 @@ PRIMARY KEY(mem_id, combo_id)
     PRIMARY KEY(combo_id, product_id)
 )DEFAULT CHARSET=utf8mb4;
 
--- INSERT INTO combo_item (combo_id, product_id) VALUES
+INSERT INTO combo_item (combo_id, product_id) VALUES
 -- 	(901, 101),
 -- 	(901, 102),
 -- 	(901, 103),
@@ -375,10 +386,41 @@ PRIMARY KEY(mem_id, combo_id)
 --     (907, 120),
 -- 	(908, 121),
 -- 	(908, 122),
--- 	(909, 123),
--- 	(909, 124),
--- 	(909, 125),
--- 	(909, 126);
+	(911, 123),
+	(911, 124),
+	(911, 125),
+	(911, 126),
+  (901, 127),
+	(901, 128),
+	(901, 129),
+	(902, 130),
+  (902, 131),
+	(903, 132),
+	(903, 133),
+	(903, 134),
+  (904, 135),
+	(904, 136),
+	(904, 137),
+	(904, 138),
+  (905, 139),
+	(905, 140),
+	(905, 141),
+	(906, 142),
+  (906, 143),
+	(906, 144),
+	(907, 145),
+	(907, 146),
+  (907, 147),
+  (902, 148),
+  (908, 149),
+  (908, 150),
+  (908, 151),
+  (909, 152),
+  (909, 153),
+  (910, 154),
+  (910, 155),
+  (910, 156),
+  (910, 157);
 
  
 -- 員工 emp
