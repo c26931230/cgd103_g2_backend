@@ -29,9 +29,23 @@ weight int
 AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 INSERT INTO member
 VALUES
-(101,'林曉晴',0,'2000-02-16',NULL,'0933456456','qw4898@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,CURRENT_DATE(),33,40,60,80,57,89,37,150,45),
-(102,'黃小芹',0,'1995-04-18',NULL,'0933456456','uo8436@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,CURRENT_DATE(),36,37,67,81,60,91,38,160,50),
-(103,'王小明',1,'1994-12-16',NULL,'0933456456','skg3338@gmail.com','swe123','桃園市中壢區復興路3號3樓',103,105,103,CURRENT_DATE(),40,38,68,90,70,99,38,170,80);
+(NULL,'林曉晴',0,'2000-02-16',NULL,'0933456456','qw4898@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,'2022-07-11',33,40,60,80,57,89,37,150,45),
+(NULL,'黃小芹',0,'1995-04-18',NULL,'0933456456','uo8436@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-07-11',36,37,67,81,60,91,38,160,50),
+(NULL,'王小明',1,'1994-12-16',NULL,'0933456456','skg3338@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-08-11',40,38,68,90,70,99,38,170,80),
+(NULL,'林志軒',1,'2000-02-16',NULL,'0933456456','111@gmail.com','ser123','桃園市中壢區復興路1號1樓',NULL,101,102,'2022-08-11',33,40,60,80,57,89,37,150,45),
+(NULL,'金玉婷',0,'1995-04-18',NULL,'0933456456','222@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-08-11',36,37,67,81,60,91,38,160,50),
+(NULL,'張鴻聿',1,'1994-12-16',NULL,'0933456456','333@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-08-11',40,38,68,90,70,99,38,170,80),
+(NULL,'黃怡婷',0,'2000-02-16',NULL,'0933456456','444@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,'2022-09-11',33,40,60,80,57,89,37,150,45),
+(NULL,'劉淑芬',0,'1995-04-18',NULL,'0933456456','555@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-09-11',36,37,67,81,60,91,38,160,50),
+(NULL,'馮家維',1,'1994-12-16',NULL,'0933456456','666@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-09-11',40,38,68,90,70,99,38,170,80),
+(NULL,'林佳慧',0,'1995-04-18',NULL,'0933456456','777@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-10-11',36,37,67,81,60,91,38,160,50),
+(NULL,'邱峻豪',1,'1994-12-16',NULL,'0933456456','888@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-10-11',40,38,68,90,70,99,38,170,80),
+(NULL,'楊偉哲',1,'2000-02-16',NULL,'0933456456','999@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,'2022-11-11',33,40,60,80,57,89,37,150,45),
+(NULL,'季佳慧',0,'1995-04-18',NULL,'0933456456','1010@gmail.com','ser123','桃園市中壢區復興路2號2樓',NULL,102,102,'2022-11-11',36,37,67,81,60,91,38,160,50),
+(NULL,'陳茜如',0,'1994-12-16',NULL,'0933456456','1111@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-11-11',40,38,68,90,70,99,38,170,80),
+(NULL,'許傑森',1,'2000-02-16',NULL,'0933456456','jason@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,'2022-12-11',33,40,60,80,57,89,37,150,45),
+(NULL,'江家純',0,'1995-04-18',NULL,'0933456456','aaabb@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-12-11',36,37,67,81,60,91,38,160,50),
+(NULL,'魏家佑',1,'1994-12-16',NULL,'0933456456','master@gmail.com','swe123','桃園市中壢區復興路3號3樓',103,105,103,'2022-12-11',40,38,68,90,70,99,38,170,80);
 
 -- 訂單 orders
 DROP TABLE IF EXISTS orders;
@@ -437,11 +451,11 @@ emp_state tinyint
 )AUTO_INCREMENT = 101 DEFAULT CHARSET=utf8mb4;
 INSERT INTO emp (emp_name, job, hiredate, emp_pwd, emp_mail, emp_state)
 VALUES
-('Jason','員工','2022-10-22','Jason111','Jason@gmail.com',1),
-('Mandy','員工','2022-10-22','Mandy111','Mandy@gmail.com',1),
-('Josh Dion','造型師','2022-10-23','JoshDion111','JoshDion@gmail.com',1),
-('Kevin','造型師','2022-10-23','Kevin111','Kevin@gmail.com',1),
-('Molly','造型師','2022-11-23','Molly111','Molly@gmail.com',1);
+('Jason','員工','2022-10-22','101','Jason@gmail.com',1),
+('Mandy','員工','2022-10-22','102','Mandy@gmail.com',1),
+('Josh Dion','造型師','2022-10-23','103','JoshDion@gmail.com',1),
+('Kevin','造型師','2022-10-23','104','Kevin@gmail.com',1),
+('Molly','造型師','2022-11-23','105','Molly@gmail.com',1);
 
 -- 風格 style
 DROP TABLE IF EXISTS style;
@@ -613,8 +627,7 @@ ADD CONSTRAINT vip_orders_level_id_fk FOREIGN KEY (level_id) REFERENCES vip_leve
 CREATE VIEW order_revenue AS
 SELECT months.month, ifnull(sum(order_paid),0) "month_rev"
 FROM (
-  SELECT 1 as month UNION SELECT 2 as month UNION SELECT 3 as month UNION SELECT 4 as month
-  UNION SELECT 5 as month UNION SELECT 6 as month UNION SELECT 7 as month UNION SELECT 8 as month
+  SELECT 7 as month UNION SELECT 8 as month
   UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
 ) as months
 left JOIN orders ON MONTH(orders.order_time) = months.month 
@@ -625,8 +638,7 @@ ORDER by months.month
 CREATE VIEW sub_revenue AS
 SELECT months.month, ifnull(sum(sub_paid),0) "month_rev"
 FROM (
-  SELECT 1 as month UNION SELECT 2 as month UNION SELECT 3 as month UNION SELECT 4 as month
-  UNION SELECT 5 as month UNION SELECT 6 as month UNION SELECT 7 as month UNION SELECT 8 as month
+  SELECT 7 as month UNION SELECT 8 as month
   UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
 ) as months
 LEFT JOIN vip_orders ON MONTH(vip_orders.sub_time) = months.month 
