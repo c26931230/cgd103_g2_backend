@@ -58,11 +58,7 @@
                     <!-- 編號 -->
                     <td class="product_img">
                         <img
-                            :src="
-                                require(`@/assets/product/${cut(
-                                    item.product_pic
-                                )}`)
-                            "
+                            :src="`./pic/${cut(item.product_pic)}`"
                             :alt="item.product_name"
                         />
                     </td>

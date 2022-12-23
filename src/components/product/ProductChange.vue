@@ -4,33 +4,41 @@
 
         <div id="edit_box">
             <div class="form_item">
-                <label for="title">品名</label>
-                <input
-                    type="text"
-                    id="title"
-                    v-model="add.product_name"
-                    maxlength="10"
-                />
+                <div class="label" for="title">品名</div>
+                <div>
+                    <input
+                        class="form-control"
+                        type="text"
+                        id="title"
+                        v-model="add.product_name"
+                        maxlength="10"
+                    />
+                </div>
             </div>
             <div class="form_item">
-                <label for="price">售價</label>
-                <input
-                    type="number"
-                    id="price"
-                    v-model="add.unit_price"
-                    min="1"
-                    max="1000000"
-                />
+                <div class="label" for="price">售價</div>
+                <div>
+                    <input
+                        class="form-control"
+                        type="number"
+                        id="price"
+                        v-model="add.unit_price"
+                        min="1"
+                        max="1000000"
+                    />
+                </div>
             </div>
             <div class="form_item">
-                <label for="state">上架狀態</label>
-                <select name="" id="state" v-model="add.product_state">
-                    <option value="0">下架</option>
-                    <option value="1">上架</option>
-                </select>
+                <div class="label" for="state">上架狀態</div>
+                <div>
+                    <select name="" id="state" v-model="add.product_state">
+                        <option value="0">下架</option>
+                        <option value="1">上架</option>
+                    </select>
+                </div>
             </div>
             <div class="form_item">
-                <label for="">分類</label>
+                <div class="label" for="">分類</div>
                 <SelectType
                     v-model:selected1="add.product_gender"
                     v-model:selected2="add.product_maintype"
@@ -39,90 +47,139 @@
             </div>
             <!-- 風格 -->
             <div class="form_item">
-                <label for="style">風格</label>
-                <label for="A">
-                    <input
-                        id="A"
-                        type="checkbox"
-                        value="極簡風"
-                        v-model="style_type"
-                    />極簡風</label
-                >
-                <label for="B">
-                    <input
-                        id="B"
-                        type="checkbox"
-                        value="文青風"
-                        v-model="style_type"
-                    />文青風</label
-                >
-                <label for="C">
-                    <input
-                        id="C"
-                        type="checkbox"
-                        value="休閒風"
-                        v-model="style_type"
-                    />休閒風</label
-                >
-                <label for="D">
-                    <input
-                        id="D"
-                        type="checkbox"
-                        value="時尚風"
-                        v-model="style_type"
-                    />時尚風</label
-                >
+                <div class="label" for="style">風格</div>
+                <div class="d-flex me-1">
+                    <div class="input-group mb-3 me-1">
+                        <div class="input-group-text">
+                            <input
+                                class="form-check-input mt-0"
+                                type="checkbox"
+                                value="極簡風"
+                                aria-label="Checkbox for following text input"
+                                v-model="style_type"
+                            />極簡風
+                        </div>
+                    </div>
+                    <div class="input-group mb-3 me-1">
+                        <div class="input-group-text">
+                            <input
+                                class="form-check-input mt-0"
+                                type="checkbox"
+                                value="文青風"
+                                aria-label="Checkbox for following text input"
+                                v-model="style_type"
+                            />文青風
+                        </div>
+                    </div>
+                    <div class="input-group mb-3 me-1">
+                        <div class="input-group-text">
+                            <input
+                                class="form-check-input mt-0"
+                                type="checkbox"
+                                value="休閒風"
+                                aria-label="Checkbox for following text input"
+                                v-model="style_type"
+                            />休閒風
+                        </div>
+                    </div>
+                    <div class="input-group mb-3 me-1">
+                        <div class="input-group-text">
+                            <input
+                                class="form-check-input mt-0"
+                                type="checkbox"
+                                value="時尚風"
+                                aria-label="Checkbox for following text input"
+                                v-model="style_type"
+                            />時尚風
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- 身形 -->
             <div class="form_item">
-                <label for="body">身形</label>
-                <select name="" id="body" v-model="add.body_type">
-                    <option value="梨型">梨型</option>
-                    <option value="蘋果型">蘋果型</option>
-                    <option value="矩形">矩形</option>
-                    <option value="沙漏型">沙漏型</option>
-                    <option value="倒三角型">倒三角型</option>
-                </select>
+                <div class="label" for="body">身形</div>
+                <div>
+                    <select name="" id="body" v-model="add.body_type">
+                        <option value="梨型">梨型</option>
+                        <option value="蘋果型">蘋果型</option>
+                        <option value="矩形">矩形</option>
+                        <option value="沙漏型">沙漏型</option>
+                        <option value="倒三角型">倒三角型</option>
+                    </select>
+                </div>
             </div>
             <!-- 尺寸 -->
+
             <div class="form_item">
-                <label for="size">尺寸</label>
-                <label :for="e" v-for="e in arrSize" :key="e">
-                    <input
-                        :id="e"
-                        type="checkbox"
-                        :value="e"
-                        v-model="product_size"
-                    />{{ e }}</label
-                >
-                <label :for="e" v-for="e in arrshoseSize" :key="e">
-                    <input
-                        :id="e"
-                        type="checkbox"
-                        :value="e"
-                        v-model="product_size"
-                    />{{ e }}</label
-                >
+                <div class="label" for="size">尺寸</div>
+                <div>
+                    <div class="d-flex justify-content-start">
+                        <div
+                            class="input-group mb-1 me-1"
+                            :for="e"
+                            v-for="e in arrSize"
+                            :key="e"
+                        >
+                            <div class="input-group-text">
+                                <input
+                                    class="form-check-input mt-0"
+                                    type="checkbox"
+                                    :value="e"
+                                    aria-label="Checkbox for following text input"
+                                    v-model="product_size"
+                                />{{ e }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <div
+                            class="input-group-text mb-1 me-1"
+                            :for="e"
+                            v-for="e in arrshoseSize"
+                            :key="e"
+                        >
+                            <input
+                                class="form-check-input mt-0"
+                                type="checkbox"
+                                :value="e"
+                                aria-label="Checkbox for following text input"
+                                v-model="product_size"
+                            />{{ e }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- 圖片 -->
             <div class="form_item">
-                <label for="file">圖片</label>
+                <div class="label">圖片</div>
                 <div>
-                    <div class="mul" v-for="(item, index) in pic" :key="index">
+                    <div
+                        class="mulpic d-flex"
+                        v-for="(item, index) in pic"
+                        :key="index"
+                    >
+                        <div class="imgBox">
+                            <img
+                                v-if="item.value != ''"
+                                :src="`./pic/${item.value}`"
+                            />
+                        </div>
+                        <div><button class="btn_s">更換圖片</button></div>
                         <input
                             type="file"
+                            class="file"
                             @change="onFileChange(index, $event)"
                         />
                         <button @click="removeInput(index)">-</button>
                     </div>
-                    <button @click="addInput">+</button>
                 </div>
+                <button @click="addInput" v-show="pic.length < 4">+</button>
             </div>
             <!-- 顏色 -->
             <div class="form_item">
-                <label for="file">顏色</label>
+                <div class="label">顏色</div>
                 <div>
-                    <div class="mul" v-for="(e, i) in color" :key="i">
+                    <div class="d-flex my-1" v-for="(e, i) in color" :key="i">
                         <input type="color" v-model="e.value" />
                         <button @click="removeInputColor">-</button>
                     </div>
@@ -132,10 +189,10 @@
             </div>
             <!-- hashtag -->
             <div class="form_item">
-                <label for="file">hashtag</label>
+                <div class="label">hashtag</div>
                 <div>
-                    <div class="mul" v-for="(e, i) in hashtag" :key="i">
-                        <input v-model="e.value" />
+                    <div class="d-flex my-1" v-for="(e, i) in hashtag" :key="i">
+                        <input v-model="e.value" class="form-control" />
                         <button @click="removeInputTag">-</button>
                     </div>
                     <button @click="addInputTag">+</button>
@@ -257,7 +314,16 @@ export default {
     },
 };
 </script>
+
 <style lang="scss" scoped>
+.imgBox {
+    height: 100px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
 #edit_boxOutside {
     position: fixed;
     z-index: 10;
@@ -284,19 +350,18 @@ export default {
         display: flex;
         margin-bottom: 10px;
         flex-wrap: wrap;
-        .mul {
-            height: 45px;
-            margin-bottom: 10px;
-            input {
-                height: 45px;
+        .mulpic {
+            margin-bottom: 5px;
+            margin-right: 10px;
+            .file {
+                width: 200px;
             }
         }
-        label {
+        .label {
             width: 100px;
             font-size: 20px;
             font-weight: 900;
             color: $main_color;
-            line-height: 45px;
         }
 
         select,
@@ -308,15 +373,14 @@ export default {
         }
 
         select {
-            padding: 5px 0;
             margin-right: 5px;
-            width: 80px;
+            width: 100px;
             border: 1px $main_color solid;
         }
         button {
-            width: 30px;
-            height: 30px;
+            line-height: 30px;
             box-sizing: border-box;
+            height: 30px;
             border-radius: 5px;
         }
     }
