@@ -47,7 +47,7 @@ export default {
             mem_reg_sum: "",//會員總註冊趨勢
             mem_level: "",//會員訂閱等級比
             revenue_data:"",//營業額
-            month:['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            month:['7月', '8月', '9月', '10月', '11月', '12月'],
             year_revenue_data:"",
             client_reply:""
 
