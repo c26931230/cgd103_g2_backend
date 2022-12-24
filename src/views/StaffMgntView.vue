@@ -152,18 +152,21 @@
       </thead>
       <tbody>
         <tr v-for="e in employee" class="item" :key="e.emp_id">
-          <th scope="row">{{ e.emp_id }}</th>
           <!-- 員工編號 -->
-          <td>{{ e.emp_name }}</td>
+          <th scope="row">{{ e.emp_id }}</th>
           <!-- 姓名 -->
+          <td>{{ e.emp_name }}</td>
+          <!-- 職稱 -->
           <td>{{ e.job }}</td>
-          <!-- 職稱 -->
+          <!-- 到職日 -->
           <td>{{ e.hiredate }}</td>
-          <!-- 職稱 -->
-          <td>{{ e.emp_mail }}</td>
           <!-- mail -->
-          <td>{{ e.emp_state }}</td>
+          <td>{{ e.emp_mail }}</td>
           <!-- 帳號狀態 -->
+          <td>
+            <span v-if="e.emp_state == 0">離職</span>
+            <span v-else>在職</span>
+          </td>
         </tr>
       </tbody>
     </table>

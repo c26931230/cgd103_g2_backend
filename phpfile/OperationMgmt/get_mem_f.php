@@ -13,12 +13,10 @@
   GROUP BY months.month
   order by months.month
   ;";
-  // $sql = "select * from emp";
   $member = $pdo->query($sql);
   $memRows = $member->fetchAll();
   $data = [];
   foreach ($memRows as $memRow) {
-      // $data[] = $memRow[0]; //月
       $data[] = $memRow[1]; //人數
   }
   echo json_encode($data);
