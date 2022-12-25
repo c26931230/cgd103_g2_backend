@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `tibamefe_cgd103g2`;
 CREATE DATABASE `tibamefe_cgd103g2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `tibamefe_cgd103g2`;
 -- 會員 member 
@@ -12,7 +13,6 @@ phone char(10),
 mem_mail varchar(20) UNIQUE,
 mem_pwd varchar(10),
 address varchar(100),
-level_id int,
 body_id int,
 style_id int,
 mem_date date,
@@ -29,23 +29,23 @@ weight int
 AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 INSERT INTO member
 VALUES
-(NULL,'林曉晴',0,'2000-02-16',NULL,'0933456456','qw4898@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,'2022-07-11',33,40,60,80,57,89,37,150,45),
-(NULL,'黃小芹',0,'1995-04-18',NULL,'0933456456','uo8436@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-07-11',36,37,67,81,60,91,38,160,50),
-(NULL,'王小明',1,'1994-12-16',NULL,'0933456456','skg3338@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-08-11',40,38,68,90,70,99,38,170,80),
-(NULL,'林志軒',1,'2000-02-16',NULL,'0933456456','111@gmail.com','ser123','桃園市中壢區復興路1號1樓',NULL,101,104,'2022-08-11',33,40,60,80,57,89,37,150,45),
-(NULL,'金玉婷',0,'1995-04-18',NULL,'0933456456','222@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,101,'2022-08-11',36,37,67,81,60,91,38,160,50),
-(NULL,'張鴻聿',1,'1994-12-16',NULL,'0933456456','333@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-08-11',40,38,68,90,70,99,38,170,80),
-(NULL,'黃怡婷',0,'2000-02-16',NULL,'0933456456','444@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,'2022-09-11',33,40,60,80,57,89,37,150,45),
-(NULL,'劉淑芬',0,'1995-04-18',NULL,'0933456456','555@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-09-11',36,37,67,81,60,91,38,160,50),
-(NULL,'馮家維',1,'1994-12-16',NULL,'0933456456','666@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,104,'2022-09-11',40,38,68,90,70,99,38,170,80),
-(NULL,'林佳慧',0,'1995-04-18',NULL,'0933456456','777@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,101,'2022-10-11',36,37,67,81,60,91,38,160,50),
-(NULL,'邱峻豪',1,'1994-12-16',NULL,'0933456456','888@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,103,'2022-10-11',40,38,68,90,70,99,38,170,80),
-(NULL,'楊偉哲',1,'2000-02-16',NULL,'0933456456','999@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,102,'2022-11-11',33,40,60,80,57,89,37,150,45),
-(NULL,'季佳慧',0,'1995-04-18',NULL,'0933456456','1010@gmail.com','ser123','桃園市中壢區復興路2號2樓',NULL,102,102,'2022-11-11',36,37,67,81,60,91,38,160,50),
-(NULL,'陳茜如',0,'1994-12-16',NULL,'0933456456','1111@gmail.com','swe123','桃園市中壢區復興路3號3樓',NULL,105,101,'2022-11-11',40,38,68,90,70,99,38,170,80),
-(NULL,'許傑森',1,'2000-02-16',NULL,'0933456456','jason@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,101,104,'2022-12-11',33,40,60,80,57,89,37,150,45),
-(NULL,'江家純',0,'1995-04-18',NULL,'0933456456','aaabb@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,102,'2022-12-11',36,37,67,81,60,91,38,160,50),
-(NULL,'魏家佑',1,'1994-12-16',NULL,'0933456456','master@gmail.com','swe123','桃園市中壢區復興路3號3樓',103,105,NULL,'2022-12-11',40,38,68,90,70,99,38,170,80);
+(NULL,'林曉晴',0,'2000-02-16',NULL,'0933456456','qw4898@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,102,'2022-07-11',33,40,60,80,57,89,37,150,45),
+(NULL,'黃小芹',0,'1995-04-18',NULL,'0933456456','uo8436@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,'2022-07-11',36,37,67,81,60,91,38,160,50),
+(NULL,'王小明',1,'1994-12-16',NULL,'0933456456','skg3338@gmail.com','swe123','桃園市中壢區復興路3號3樓',105,103,'2022-08-11',40,38,68,90,70,99,38,170,80),
+(NULL,'林志軒',1,'2000-02-16',NULL,'0933456456','111@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,104,'2022-08-11',33,40,60,80,57,89,37,150,45),
+(NULL,'金玉婷',0,'1995-04-18',NULL,'0933456456','222@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,101,'2022-08-11',36,37,67,81,60,91,38,160,50),
+(NULL,'張鴻聿',1,'1994-12-16',NULL,'0933456456','333@gmail.com','swe123','桃園市中壢區復興路3號3樓',105,103,'2022-08-11',40,38,68,90,70,99,38,170,80),
+(NULL,'黃怡婷',0,'2000-02-16',NULL,'0933456456','444@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,102,'2022-09-11',33,40,60,80,57,89,37,150,45),
+(NULL,'劉淑芬',0,'1995-04-18',NULL,'0933456456','555@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,'2022-09-11',36,37,67,81,60,91,38,160,50),
+(NULL,'馮家維',1,'1994-12-16',NULL,'0933456456','666@gmail.com','swe123','桃園市中壢區復興路3號3樓',105,104,'2022-09-11',40,38,68,90,70,99,38,170,80),
+(NULL,'林佳慧',0,'1995-04-18',NULL,'0933456456','777@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,101,'2022-10-11',36,37,67,81,60,91,38,160,50),
+(NULL,'邱峻豪',1,'1994-12-16',NULL,'0933456456','888@gmail.com','swe123','桃園市中壢區復興路3號3樓',105,103,'2022-10-11',40,38,68,90,70,99,38,170,80),
+(NULL,'楊偉哲',1,'2000-02-16',NULL,'0933456456','999@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,102,'2022-11-11',33,40,60,80,57,89,37,150,45),
+(NULL,'季佳慧',0,'1995-04-18',NULL,'0933456456','1010@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,'2022-11-11',36,37,67,81,60,91,38,160,50),
+(NULL,'陳茜如',0,'1994-12-16',NULL,'0933456456','1111@gmail.com','swe123','桃園市中壢區復興路3號3樓',105,101,'2022-11-11',40,38,68,90,70,99,38,170,80),
+(NULL,'許傑森',1,'2000-02-16',NULL,'0933456456','jason@gmail.com','ser123','桃園市中壢區復興路1號1樓',101,104,'2022-12-11',33,40,60,80,57,89,37,150,45),
+(NULL,'江家純',0,'1995-04-18',NULL,'0933456456','aaabb@gmail.com','ser123','桃園市中壢區復興路2號2樓',102,102,'2022-12-11',36,37,67,81,60,91,38,160,50),
+(NULL,'魏家佑',1,'1994-12-16',NULL,'0933456456','master@gmail.com','swe123','桃園市中壢區復興路3號3樓',105,NULL,'2022-12-11',40,38,68,90,70,99,38,170,80);
 
 -- 訂單 orders
 DROP TABLE IF EXISTS orders;
@@ -506,11 +506,24 @@ CREATE TABLE IF NOT EXISTS vip_orders
 )
 AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 
+-- INSERT INTO vip_orders (order_id,mem_id,level_id,sub_time,sub_deadline,sub_paid)
+-- VALUES
+-- (NULL,101,101,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),899),
+-- (NULL,102,102,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),1599),
+-- (NULL,103,103,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),3999);
 INSERT INTO vip_orders (order_id,mem_id,level_id,sub_time,sub_deadline,sub_paid)
 VALUES
-(NULL,101,101,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),899),
-(NULL,102,102,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),1599),
-(NULL,103,103,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),3999);
+(NULL,101,101,'2022-07-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),899),
+(NULL,102,102,'2022-07-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),1599),
+(NULL,103,103,'2022-08-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),3999),
+(NULL,105,102,'2022-08-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),1599),
+(NULL,107,101,'2022-09-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),899),
+(NULL,108,102,'2022-09-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),1599),
+(NULL,110,102,'2022-10-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),1599),
+(NULL,112,101,'2022-11-25 12:07:43',TIMESTAMPADD(MONTH,1,sub_time),899),
+(NULL,115,101,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),899),
+(NULL,116,102,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),1599),
+(NULL,117,103,CURRENT_TIMESTAMP(),TIMESTAMPADD(MONTH,1,sub_time),3999);
 
 
 -- 訂閱等級 vip_level
@@ -545,8 +558,8 @@ ADD CONSTRAINT mem_body_id_fk FOREIGN KEY (body_id) REFERENCES body(body_id);
 ALTER TABLE member
 ADD CONSTRAINT mem_style_id_fk FOREIGN KEY (style_id) REFERENCES style(style_id);
 
-ALTER TABLE member
-ADD CONSTRAINT mem_level_id_fk FOREIGN KEY (level_id) REFERENCES vip_level(level_id);
+-- ALTER TABLE member
+-- ADD CONSTRAINT mem_level_id_fk FOREIGN KEY (level_id) REFERENCES vip_level(level_id);
 
 -- 訂單 orders
 ALTER TABLE orders
@@ -630,7 +643,7 @@ FROM (
   SELECT 7 as month UNION SELECT 8 as month
   UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
 ) as months
-left JOIN orders ON MONTH(orders.order_time) = months.month 
+left JOIN orders ON MONTH(orders.order_time) = months.month and YEAR(orders.order_time) = 2022
 GROUP BY months.month
 ORDER by months.month
 ;
@@ -641,7 +654,7 @@ FROM (
   SELECT 7 as month UNION SELECT 8 as month
   UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
 ) as months
-LEFT JOIN vip_orders ON MONTH(vip_orders.sub_time) = months.month 
+LEFT JOIN vip_orders ON MONTH(vip_orders.sub_time) = months.month and YEAR(vip_orders.sub_time) = 2022
 GROUP BY months.month
 ORDER by months.month
 ;
