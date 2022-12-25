@@ -3,15 +3,13 @@
 session_start();
 header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
-// header('Access-Control-Allow-Origin:http://127.0.0.1:8080');
-// header('Access-Control-Allow-Credentials:true');
 $emp_id = $_POST["emp_id"];
 $emp_pwd = $_POST["emp_pwd"];
 $msg = "";
 try{
     require_once("../connect_cgd103g2.php");
 
-    $sql = "select * from `emp` where emp_id=:emp_id and emp_pwd=:emp_pwd";
+    $sql = "select * from `emp` where emp_id=:emp_id and emp_pwd=:emp_pwd and emp_state != 0";
 
     $employee = $pdo->prepare($sql);
     $employee->bindValue(":emp_id",$emp_id);
