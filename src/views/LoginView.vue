@@ -6,16 +6,14 @@
           <h2>登入</h2>
           <div class="form_item">
             <label for="account">帳號</label>
-            <input type="text" id="account" name="emp_id" />
+            <input type="text" id="account" name="emp_id"  @keydown.enter="doLogin"/>
           </div>
           <div class="form_item">
             <label for="password">密碼</label>
-            <input type="password" id="password" name="emp_pwd" />
+            <input type="password" id="password" name="emp_pwd"  @keydown.enter="doLogin"/>
           </div>
-          <div class="remember_box">
-            <input type="checkbox" id="remember" />
-            <label for="remember">記住我</label>
-            <a href="">忘記密碼?</a>
+          <div class="forgot_box">
+            <span onclick="alert('請通知管理員！')" href="">忘記密碼?</span>
           </div>
 
           <div class="confirm_box">
@@ -53,7 +51,7 @@ export default {
               this.$router.push("/ClothingMatchMgnt");
             }
           } else if (xhr.responseText == 0) {
-            alert("帳號或密碼錯誤");
+            alert("帳號或密碼錯誤！");
           }
         }
       };
@@ -118,21 +116,12 @@ export default {
       }
     }
 
-    .remember_box {
+    .forgot_box {
       position: relative;
-
-      label {
-        color: $text_color;
-        font-size: 16px;
-      }
-
-      a {
-        text-decoration: none;
-        display: inline-block;
-        position: absolute;
-        right: 0;
-        color: $text_color;
-        font-size: 16px;
+      span{
+        text-align: right;
+        cursor: pointer;
+        display: block;
       }
     }
 

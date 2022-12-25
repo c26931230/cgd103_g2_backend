@@ -4,8 +4,8 @@
 	header("Content-Type:application/json;charset=utf-8");
 
   require_once("../../connect_cgd103g2.php");
-  $sql = "select level_id,  count(mem_id) from member
-  group by level_id;";
+  $sql = "SELECT v.level_id,count(m.mem_id) FROM member m LEFT JOIN vip_orders v ON m.mem_id = v.mem_id
+  GROUP BY v.level_id ORDER BY v.level_id;";
   $member = $pdo->query($sql);
   $memRows = $member->fetchAll();
   $data = [];

@@ -30,6 +30,12 @@ const routes = [
         beforeEnter: AUTHENTICATED
       },
       {
+        path: "/StaffMgnt1", //員工管理
+        name: "StaffMgnt1",
+        component: () => import("../views/StaffMgntView1.vue"),
+        beforeEnter: AUTHENTICATED
+      },
+      {
         path: "/MemberMgmt",//會員管理
         name: "MemberMgmt",
         component: () => import("../views/MemberMgmtView.vue"),

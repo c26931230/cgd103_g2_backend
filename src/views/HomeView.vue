@@ -268,7 +268,7 @@ export default {
     .aside_box {
       padding: 20px;
       position: fixed !important;
-      width: 250px;
+      width: 20%;
 
       .info_box {
         display: flex;
@@ -345,8 +345,9 @@ export default {
 
     .main_box {
       padding: 20px 10px 20px 10px;
-      margin-left: 260px;
-      width: calc(100% - 260px);
+      margin-left: 20%;
+      // width: calc(100% - 260px);
+      width: 80%;
     }
   }
 }
@@ -354,6 +355,12 @@ export default {
 @media screen and (min-width: 1920px) {
   .container-fluid {
     max-width: 1920px;
+    .aside_box{
+      width: 350px !important;
+    }
+    .main_box{
+      width: calc(1920px - 200px);
+    }
   }
 }
 </style>

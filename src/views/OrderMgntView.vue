@@ -32,7 +32,11 @@
                         <td>{{e.order_time}}</td> <!-- 下單日期 -->
                         <td>{{e.total}}</td> <!-- 訂單金額 -->
                         <td>{{e.ord_mem}}</td> <!-- 訂購人-->
-                        <td>{{e.order_con}}</td> <!-- 訂單狀態 -->
+                        <td>
+                            <p v-if="e.order_con == 1">訂單取消</P>
+							<p v-else-if="e.order_con == 2">商品配送中</P>
+							<p v-else>商品已送達</p>
+                        </td> <!-- 訂單狀態 -->
                     </tr>
 
             </tbody>

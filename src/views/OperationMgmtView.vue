@@ -1,5 +1,4 @@
 <template>
-    <!-- 在這邊寫 -->
     <h2>營運管理</h2>
     <div class="wrap">
         <!-- 年營收 -->
@@ -24,7 +23,6 @@
         <!-- 收入趨勢 -->
         <div class="item">
             <h3>收入趨勢</h3>
-            <!-- {{ employee }} -->
             <canvas id="chart2"></canvas>
         </div>
         <!-- 會員訂閱 -->
@@ -57,7 +55,6 @@ export default {
         getResource() {
             //取得會員總註冊資料
             this.axios.get(`${BASE_URL}/OperationMgmt/get_mem_sum.php`).then((response) => {
-                // console.log("response.data: ", response.data);
                 this.mem_reg_sum = response.data;
                 this.get_mem_data();
 
@@ -76,19 +73,16 @@ export default {
             });
             // 會員訂閱等級比
             this.axios.get(`${BASE_URL}/OperationMgmt/get_mem_level.php`).then((response) => {
-                // console.log("mem_level: ", response.data);
                 this.mem_level = response.data;
                 this.get_mem_data();
             });
             // 月營收
             this.axios.get(`${BASE_URL}/OperationMgmt/get_revenue.php`).then((response) => {
-                // console.log("mem_level: ", response.data);
                 this.revenue_data = response.data;
                 this.get_mem_data();
             });
             // 年營收
             this.axios.get(`${BASE_URL}/OperationMgmt/get_year_revenue.php`).then((response) => {
-                // console.log(response.data.year_rev);
                 this.year_revenue_data = response.data.year_rev;
 
             });
@@ -131,7 +125,7 @@ export default {
                 data: data1
             });
             // 會員註冊趨勢 end
-             // // 月營收 曲線 start
+             // 月營收 曲線 start
             const ctx3 = document.getElementById('chart2').getContext('2d');
 
             const data3 = {
@@ -139,7 +133,6 @@ export default {
                 datasets: [{
                     label: '每月營收',
                     data: this.revenue_data,
-                    // backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: '#54B435',
                     borderWidth: 1,
                     fill:false,
@@ -190,7 +183,7 @@ h2 {
 .wrap {
     display: grid;
     grid-template-columns: 30% 20% 50%;
-    grid-template-rows: 150px 150px 400px;
+    grid-template-rows: auto auto auto;
     gap: 10px;
     // width: 98%;
     margin-right: 30px;
@@ -253,8 +246,8 @@ h2 {
         grid-area: 1/2/3/4;
 
         #chart1 {
-            height: 90% !important;
-            width: auto !important;
+            width: 80% !important;
+            height: auto !important;
             margin: auto;
         }
     }
@@ -263,8 +256,8 @@ h2 {
     .item:nth-child(4) {
         grid-area: 3/1/4/3;
          #chart2 {
-            height: 70% !important;
-            width: auto !important;
+            width: 80% !important;
+            height: auto !important;
             margin: auto;
         }
     }
@@ -273,8 +266,8 @@ h2 {
     .item:nth-child(5) {
         grid-area: 3/3/4/4;
          #chart3 {
-            height: 80% !important;
-            width: auto !important;
+            width: 80% !important;
+            height: auto !important;
             margin: auto;
         }
     }

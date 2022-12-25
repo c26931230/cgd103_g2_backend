@@ -9,7 +9,7 @@
    SELECT 7 as month UNION SELECT 8 as month
     UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
   ) as months
-  left JOIN member ON MONTH(member.mem_date) = months.month AND sex = 1
+  left JOIN member ON MONTH(member.mem_date) = months.month AND sex = 1 AND YEAR(member.mem_date) = 2022
   GROUP BY months.month
   ORDER BY months.month
   ;";
