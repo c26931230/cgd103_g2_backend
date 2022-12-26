@@ -21,7 +21,7 @@
                 ></SelectType>
             </div>
             <div>
-                <h6>搜尋</h6>
+                <h6>關鍵字</h6>
                 <Searchinput v-model.trim:search="qsearch"></Searchinput>
             </div>
             <button class="btn_s" @click="search">search</button>
@@ -31,7 +31,7 @@
         <!-- 上方篩選區 end -->
         <!-- 商品列表 -->
         <!-- {{ qgender }}{{ qmaintype }}{{ qtype }}{{ qsearch }} -->
-        <table class="table shop_table">
+        <table class="table shop_table align-middle">
             <thead>
                 <tr>
                     <th scope="col">編號</th>
@@ -40,11 +40,11 @@
                     <th scope="col">男女</th>
                     <th scope="col">種類</th>
                     <th scope="col">分類</th>
-                    <th scope="col">顏色</th>
-                    <th scope="col">尺寸</th>
+                    <th scope="col" class="col-1">顏色</th>
+                    <th scope="col" class="col-1">尺寸 / #Hashtag</th>
                     <th scope="col">售價</th>
                     <th scope="col">狀態</th>
-                    <th scope="col">#Hashtag</th>
+                    <th scope="col" class="col-2">描述</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,34 +58,79 @@
                     <!-- 編號 -->
                     <td class="product_img">
                         <img
-                            :src="`./pic/${cut(item.product_pic)}`"
+                            :src="`/pic/${cut(item.product_pic)}`"
                             :alt="item.product_name"
                         />
                     </td>
                     <!-- 商品圖 -->
-                    <td>{{ item.product_name }}</td>
+                    <td>
+                        <div>
+                            <p>{{ item.product_name }}</p>
+                        </div>
+                        <div class="product_img_min d-flex">
+                            <img
+                                v-for="(e, i) in split(item.product_pic)"
+                                :key="i"
+                                :src="`/pic/${e}`"
+                                :alt="item.product_name"
+                            />
+                        </div>
+                    </td>
                     <!-- 品名 -->
                     <td>{{ gender(item.product_gender) }}</td>
                     <td>{{ item.product_maintype }}</td>
                     <td>{{ item.product_type }}</td>
                     <!-- 類型 -->
                     <td>
-                        <div
-                            v-for="i in color(item.product_color)"
-                            :key="i"
-                            class="circle"
-                            :style="{ backgroundColor: i }"
-                        ></div>
-                        {{ item.product_color }}
+                        <div class="d-flex">
+                            <div>
+                                <div
+                                    v-for="i in split(item.product_color)"
+                                    :key="i"
+                                    class="circle m-1"
+                                    :style="{ backgroundColor: i }"
+                                ></div>
+                            </div>
+                            <div>
+                                <div
+                                    v-for="(e, i) in split(
+                                        item.product_color_name
+                                    )"
+                                    :key="i"
+                                    class="m-1"
+                                >
+                                    {{ e }}
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     <!-- 顏色 -->
-                    <td>{{ item.product_size }}</td>
-                    <!-- 尺寸 -->
+                    <td>
+                        <div class="d-flex align-items-center mb-1">
+                            <div
+                                v-for="i in split(item.product_size)"
+                                :key="i"
+                                class="border border-dark mx-1 px-1"
+                            >
+                                {{ i }}
+                            </div>
+                        </div>
+                        <!-- 尺寸 -->
+                        <div class="d-flex align-items-center">
+                            <div
+                                v-for="i in split(item.hashtag)"
+                                :key="i"
+                                class="border border-dark mx-1 px-1"
+                            >
+                                {{ i }}
+                            </div>
+                        </div>
+                    </td>
                     <td>{{ item.unit_price }}</td>
                     <!-- 價格 -->
                     <td>{{ state(item.product_state) }}</td>
                     <!-- 狀態 -->
-                    <td>{{ item.hashtag }}</td>
+                    <td>{{ item.product_text }}</td>
                     <!-- hashtag -->
                 </tr>
             </tbody>
@@ -211,7 +256,7 @@ export default {
         cut(x) {
             if (x) return x.split(",")[0];
         },
-        color(x) {
+        split(x) {
             if (x) return x.split(",");
         },
         open() {
@@ -255,8 +300,6 @@ export default {
 $main_color: #495bff;
 
 .back_end_shop {
-    border: 1px solid red;
-
     box-sizing: border-box;
     select {
         width: 80px;
@@ -330,12 +373,12 @@ $main_color: #495bff;
     // 商品列表-上方篩選區
     .filter_box {
         display: flex;
-        align-items: stretch;
+        align-items: flex-end;
         position: relative;
-
+        input,
         select,
         button {
-            margin: 0 5px;
+            margin: 0 5px 0 0;
         }
 
         #create {
@@ -378,6 +421,15 @@ $main_color: #495bff;
                 .product_img {
                     img {
                         width: 100px; // 商品圖
+                        height: 100px; // 商品圖
+                        object-fit: contain;
+                    }
+                }
+                .product_img_min {
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        object-fit: contain;
                     }
                 }
             }
@@ -387,7 +439,7 @@ $main_color: #495bff;
 .circle {
     aspect-ratio: 1 /1;
     border-radius: 50%;
-    margin: 10px;
+
     border: 2px solid rgba(33, 30, 30, 0.582);
     width: 24px;
 }

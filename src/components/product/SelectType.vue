@@ -1,6 +1,7 @@
 <template>
     <div class="filter_box">
         <select
+            class="form-select"
             :value="selected1"
             @change="$emit('update:selected1', $event.target.value)"
         >
@@ -14,6 +15,7 @@
             </option>
         </select>
         <select
+            class="form-select"
             :value="selected2"
             @change="$emit('update:selected2', $event.target.value)"
         >
@@ -27,6 +29,7 @@
             </option>
         </select>
         <select
+            class="form-select"
             :value="selected3"
             @change="$emit('update:selected3', $event.target.value)"
         >
@@ -135,7 +138,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.filter_box select,
 .filter_box button {
     margin: 0 5px;
 }

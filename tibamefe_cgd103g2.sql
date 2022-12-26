@@ -177,7 +177,7 @@ style_type varchar(100),
 body_type varchar(100),
 product_gender tinyint,
 product_color varchar(100),
-product_color_name varchar(10),
+product_color_name varchar(100),
 product_size varchar(100),
 product_text varchar(100)
 )AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;

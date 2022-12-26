@@ -6,7 +6,7 @@ try {
     $data = json_decode(file_get_contents('php://input'));
 
     //sql 指令
-    $sql = "INSERT INTO product VALUES(null, '$data->product_name', '$data->hashtag', '$data->unit_price', '$data->product_state', '$data->product_maintype', '$data->product_type', '$data->product_pic', '$data->style_type', '$data->body_type', '$data->product_gender', '$data->product_color', '$data->product_size'); ";
+    $sql = "INSERT INTO product VALUES(null, '$data->product_name', '$data->hashtag', '$data->unit_price', '$data->product_state', '$data->product_maintype', '$data->product_type', '$data->product_pic', '$data->style_type', '$data->body_type', '$data->product_gender', '$data->product_color','$data->product_color_name', '$data->product_size','$data->product_text'); ";
     //編譯, 執行
     $products = $pdo->query($sql);
 

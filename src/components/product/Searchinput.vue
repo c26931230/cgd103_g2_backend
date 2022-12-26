@@ -1,9 +1,10 @@
 <template>
-    <div>
+    <div class="me-1">
         <input
             type="text"
             :value="search"
             placeholder="Search..."
+            class="form-control"
             @change="$emit('update:search', $event.target.value)"
         />
     </div>
