@@ -4,7 +4,7 @@
 
         <div id="edit_box">
             <div class="form_item">
-                <div class="label" for="title">品名</div>
+                <div class="label">品名</div>
                 <div>
                     <input
                         class="form-control"
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="form_item">
-                <div class="label" for="price">售價</div>
+                <div class="label">售價</div>
                 <div>
                     <input
                         class="form-control"
@@ -28,10 +28,16 @@
                     />
                 </div>
             </div>
+
             <div class="form_item">
                 <div class="label" for="state">上架狀態</div>
                 <div>
-                    <select name="" id="state" v-model="add.product_state">
+                    <select
+                        class="form-select"
+                        name=""
+                        id="state"
+                        v-model="add.product_state"
+                    >
                         <option value="0">下架</option>
                         <option value="1">上架</option>
                     </select>
@@ -97,9 +103,14 @@
             </div>
             <!-- 身形 -->
             <div class="form_item">
-                <div class="label" for="body">身形</div>
+                <div class="label">身形</div>
                 <div>
-                    <select name="" id="body" v-model="add.body_type">
+                    <select
+                        name=""
+                        id="body"
+                        v-model="add.body_type"
+                        class="form-select"
+                    >
                         <option value="梨型">梨型</option>
                         <option value="蘋果型">蘋果型</option>
                         <option value="矩形">矩形</option>
@@ -112,40 +123,19 @@
 
             <div class="form_item">
                 <div class="label" for="size">尺寸</div>
-                <div>
-                    <div class="d-flex justify-content-start">
-                        <div
-                            class="input-group mb-1 me-1"
-                            :for="e"
-                            v-for="e in arrSize"
-                            :key="e"
-                        >
-                            <div class="input-group-text">
-                                <input
-                                    class="form-check-input mt-0"
-                                    type="checkbox"
-                                    :value="e"
-                                    aria-label="Checkbox for following text input"
-                                    v-model="product_size"
-                                />{{ e }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-start">
-                        <div
-                            class="input-group-text mb-1 me-1"
-                            :for="e"
-                            v-for="e in arrshoseSize"
-                            :key="e"
-                        >
-                            <input
-                                class="form-check-input mt-0"
-                                type="checkbox"
-                                :value="e"
-                                aria-label="Checkbox for following text input"
-                                v-model="product_size"
-                            />{{ e }}
-                        </div>
+                <div class="d-flex flex-wrap col-10">
+                    <div
+                        class="input-group-text mb-1 me-1"
+                        v-for="e in arrSize"
+                        :key="e"
+                    >
+                        <input
+                            class="form-check-input mt-0"
+                            type="checkbox"
+                            :value="e"
+                            aria-label="Checkbox for following text input"
+                            v-model="product_size"
+                        />{{ e }}
                     </div>
                 </div>
             </div>
@@ -163,27 +153,61 @@
                                 v-if="item.value != ''"
                                 :src="`./pic/${item.value}`"
                             />
+                            <p v-else>請新增圖片</p>
                         </div>
-                        <div><button class="btn_s">更換圖片</button></div>
-                        <input
-                            type="file"
-                            class="file"
-                            @change="onFileChange(index, $event)"
-                        />
-                        <button @click="removeInput(index)">-</button>
+                        <div>
+                            <div class="w-200">
+                                <button
+                                    class="btn_info m-1"
+                                    v-if="item.change"
+                                    @click="item.change = !item.change"
+                                >
+                                    更換圖片
+                                </button>
+
+                                <div v-else>
+                                    <input
+                                        class="form-control file"
+                                        type="file"
+                                        @change="onFileChange(index, $event)"
+                                    />
+                                </div>
+                            </div>
+
+                            <button
+                                class="btn_info m-1"
+                                @click="removeInput(index)"
+                            >
+                                刪除
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <button @click="addInput" v-show="pic.length < 4">+</button>
+                <button @click="addInput" v-show="pic.length < 4" class="m-1">
+                    +
+                </button>
             </div>
             <!-- 顏色 -->
             <div class="form_item">
                 <div class="label">顏色</div>
                 <div>
                     <div class="d-flex my-1" v-for="(e, i) in color" :key="i">
-                        <input type="color" v-model="e.value" />
-                        <button @click="removeInputColor">-</button>
+                        <input
+                            type="color"
+                            v-model="e.value"
+                            class="form-control color me-1"
+                        />
+                        <input
+                            type="text"
+                            v-model="e.text"
+                            class="form-control"
+                            maxlength="10"
+                        />
+                        <button class="m-1" @click="removeInputColor(i)">
+                            -
+                        </button>
                     </div>
-                    <button @click="addInputColor">+</button>
+                    <button class="m-1" @click="addInputColor">+</button>
                 </div>
                 <div class="btn_box"></div>
             </div>
@@ -192,13 +216,32 @@
                 <div class="label">hashtag</div>
                 <div>
                     <div class="d-flex my-1" v-for="(e, i) in hashtag" :key="i">
-                        <input v-model="e.value" class="form-control" />
-                        <button @click="removeInputTag">-</button>
+                        <input
+                            v-model="e.value"
+                            class="form-control"
+                            maxlength="10"
+                        />
+                        <button class="m-1" @click="removeInputTag(i)">
+                            -
+                        </button>
                     </div>
-                    <button @click="addInputTag">+</button>
+                    <button class="m-1" @click="addInputTag">+</button>
                 </div>
             </div>
-
+            <div class="form_item">
+                <div class="label">描述</div>
+                <div class="w-75">
+                    <textarea
+                        class="form-control textarea"
+                        type="textarea"
+                        id="title"
+                        v-model.trim="add.product_text"
+                        maxlength="10"
+                        required="required"
+                        rows="3"
+                    ></textarea>
+                </div>
+            </div>
             <div class="confirm_box">
                 <button class="main" @click="addProduct()">修改</button>
                 <button class="main" id="cancel" @click="close()">取消</button>
@@ -216,8 +259,25 @@ export default {
     emits: ["closeChangeBox"],
     data() {
         return {
-            arrSize: ["XS", "S", "M", "L", "XL", "F"],
-            arrshoseSize: [25, 26, 27, 28, 29, 30, 31],
+            arrSize: [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "F",
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+            ],
+            arrshoseSize: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
             type: {},
             add: {},
             pic: {},
@@ -230,32 +290,122 @@ export default {
     computed: {},
     methods: {
         getpic() {
-            return this.add.product_pic.split(",").map((value) => ({ value }));
+            return this.add?.product_pic
+                .split(",")
+                .map((value) => ({ value, change: true }));
         },
         gethashtag() {
-            return this.add.hashtag.split(",").map((value) => ({ value }));
+            return this.add?.hashtag.split(",").map((value) => ({ value }));
         },
         getcolor() {
-            return this.add.product_color
-                .split(",")
-                .map((value) => ({ value }));
+            if (this.add.product_color && this.add.product_color_name)
+                return this.add?.product_color
+                    .split(",")
+                    .map((value, index) => ({
+                        value,
+                        text: this.add?.product_color_name.split(",")[index],
+                    }));
         },
         getstyle_type() {
-            return this.add.style_type.split(",");
+            return this.add?.style_type.split(",");
         },
         getproduct_size() {
-            return this.add.product_size.split(",");
+            return this.add?.product_size.split(",");
         },
         close() {
             this.$emit("closeChangeBox");
         },
         addProduct() {
+            for (const x in this.color) {
+                console.log(x);
+                if (this.color[x].value === "") {
+                    console.log(x);
+                    alert("顏色未選");
+                    return;
+                }
+                if (this.color[x].text === "") {
+                    console.log(x);
+                    alert("顏色描述未填");
+                    return;
+                }
+            }
+            for (const x in this.hashtag) {
+                console.log(x);
+                if (this.hashtag[x].value === "") {
+                    console.log(x);
+                    alert("hashtag未填");
+                    return;
+                }
+            }
+            for (const x in this.pic) {
+                console.log(x);
+                if (this.pic[x].value === "") {
+                    console.log(x);
+                    alert("圖片未填");
+                    return;
+                }
+            }
+
+            for (const key in this.add) {
+                console.log(this.add[key]);
+                if (this.add[key] === "") {
+                    switch (key) {
+                        case "body_type":
+                            alert("身形未填");
+                            return;
+                        case "hashtag":
+                            alert("hashtag未填");
+                            return;
+                        case "product_color":
+                            alert("顏色未填");
+                            return;
+                        case "product_color_name":
+                            alert("顏色未填");
+                            return;
+                        case "product_pic":
+                            alert("圖片未選");
+                            return;
+                        case "product_maintype":
+                            alert("種類未填");
+                            return;
+                        case "product_gender":
+                            alert("性別未填");
+                            return;
+                        case "product_name":
+                            alert("名稱未填");
+                            return;
+                        case "product_size":
+                            alert("尺寸未填");
+                            return;
+                        case "product_state":
+                            alert("上架狀態未填");
+                            return;
+                        case "product_text":
+                            alert("敘述未填");
+                            return;
+                        case "product_type":
+                            alert("種類未填");
+                            return;
+                        case "style_type":
+                            alert("風格未填");
+                            return;
+                        case "unit_price":
+                            alert("價格未填");
+                            return;
+                        default:
+                    }
+                }
+            }
+
             this.add.unit_price = this.add.unit_price.toString();
             this.add.style_type = this.style_type.join(",");
             this.add.product_pic = this.pic.map((item) => item.value).join(",");
             this.add.hashtag = this.hashtag.map((item) => item.value).join(",");
             this.add.product_color = this.color
                 .map((item) => item.value)
+                .join(",");
+            this.add.product_color_name = this.color
+                .map((item) => item.text)
                 .join(",");
             this.add.product_size = this.product_size.join(",");
 
@@ -298,13 +448,13 @@ export default {
             this.hashtag.splice(index, 1);
         },
         addInputColor() {
-            this.color.push({ value: "" });
+            this.color.push({ value: "", text: "" });
         },
         removeInputColor(index) {
             this.color.splice(index, 1);
         },
     },
-    created() {
+    mounted() {
         this.add = this.product;
         this.pic = this.getpic();
         this.hashtag = this.gethashtag();
@@ -317,7 +467,8 @@ export default {
 
 <style lang="scss" scoped>
 .imgBox {
-    height: 100px;
+    height: 150px;
+    width: 150px;
     img {
         width: 100%;
         height: 100%;
@@ -348,8 +499,7 @@ export default {
     margin: auto;
     .form_item {
         display: flex;
-        margin-bottom: 10px;
-        flex-wrap: wrap;
+        margin: 10px;
         .mulpic {
             margin-bottom: 5px;
             margin-right: 10px;
@@ -366,7 +516,7 @@ export default {
 
         select,
         input {
-            margin: 0 5px;
+            margin: 0 5px 0 0;
             //     width: calc(100% - 100px);
             //     font-size: 16px;
             //     height: 45px;
@@ -381,14 +531,23 @@ export default {
             line-height: 30px;
             box-sizing: border-box;
             height: 30px;
+            min-width: 30px;
             border-radius: 5px;
         }
     }
+}
+
+.color {
+    height: 39px;
+    width: 100px;
 }
 
 #lightbox.active {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.w-200 {
+    width: 200px;
 }
 </style>
