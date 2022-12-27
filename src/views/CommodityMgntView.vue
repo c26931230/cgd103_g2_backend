@@ -22,7 +22,7 @@
             </div>
             <div>
                 <h6>關鍵字</h6>
-                <Searchinput v-model.trim:search="qsearch"></Searchinput>
+                <Searchinput v-model:search="qsearch"></Searchinput>
             </div>
             <button class="btn_s" @click="search">search</button>
             <button class="btn_l" @click="reset">reset</button>

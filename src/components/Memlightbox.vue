@@ -7,8 +7,12 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td rowspan="3" colspan="2" class="col-3">
-                            <img src="https://fakeimg.pl/150/150/200" />
+                        <td rowspan="3" colspan="2" class="col-3 picbox">
+                            <img
+                                :src="`./pic/${data.mem_pic}`"
+                                v-if="data.mem_pic"
+                            />
+                            <p v-else>未新增圖片</p>
                         </td>
                         <th scope="row">姓名</th>
                         <td>{{ data.mem_name }}</td>
@@ -32,8 +36,8 @@
                         <td>{{ data.body_shape }}</td>
                         <th scope="row">風格</th>
                         <td>{{ data.style_name }}</td>
-                        <td>AAAAA</td>
-                        <td>@fat</td>
+                        <!-- <td>AAAAA</td>
+                        <td>@fat</td> -->
                     </tr>
 
                     <tr>
@@ -66,8 +70,8 @@
                         <td>{{ data.sub_deadline }}</td>
                         <th scope="row">訂閱金額</th>
                         <td>{{ data.sub_paid }}</td>
-                        <th scope="row">等級編號</th>
-                        <td>AAAAA</td>
+                        <!-- <th scope="row">等級編號</th>
+                        <td>AAAAA</td> -->
                     </tr>
                 </tbody>
             </table>
@@ -127,6 +131,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.picbox {
+    width: 150px;
+    height: 150px;
+    img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+    }
+}
 #lightbox {
     position: fixed;
     z-index: 10;
@@ -141,7 +154,6 @@ export default {
 
     #edit_box {
         min-height: 60%;
-        max-height: 90%;
         background-color: #fff;
         padding: 20px;
         border-radius: 10px;
