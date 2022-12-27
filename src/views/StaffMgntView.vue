@@ -40,7 +40,6 @@
           <div class="form_item">
             <label for="">狀態</label>
             <div class="item">
-              {{ emp_state }}
               <div class="op">
                 <input type="radio" name="emp_state" value="1" id="normal" v-model="emp_state" />
                 <label for="normal">在職</label>
@@ -65,7 +64,7 @@
         <form id="update_employee" method="post" enctype="multipart/form-data">
           <div class="form_item">
             <label for="emp_id1">員工編號</label>
-            <input type="text" id="emp_id1" name="emp_id1" disabled />
+            <input type="text" id="emp_id1" name="emp_id1"/>
           </div>
           <div class="form_item">
             <label for="emp_name1">員工姓名</label>
@@ -95,6 +94,8 @@
           <div class="form_item">
             <label for="emp_mail1">電子郵件</label>
             <input type="email" id="emp_mail1" name="emp_mail1" />
+            <div v-if="emailExists" class="emailExists">此帳號已註冊</div>
+            <div v-if="emailUnForm" class="emailUnForm">Email 格式不正確</div>
           </div>
           <div class="form_item">
             <label for="">狀態</label>
@@ -269,7 +270,6 @@ export default {
         console.log(xhr.responseText);
         let result = JSON.parse(xhr.responseText);
         alert(result.msg);
-        // $id("btnReset").click();
       };
       xhr.open("post", `${BASE_URL}/StaffMgnt/emp_update.php`, true);
       xhr.send(new FormData(document.getElementById("update_employee")));
