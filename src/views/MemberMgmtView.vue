@@ -68,15 +68,6 @@
         </ul>
         <!-- 頁碼 end -->
     </div>
-
-    <!-- 顯示燈箱 -->
-    <!-- <div v-if="lightboxVisible" class="lightbox">
-        <h2></h2>
-        <p>Date: }</p>
-        <p>Total: }</p>
-        <p>Status: }</p>
-        <button @click="closeLightbox">Close</button>
-    </div> -->
 </template>
 <script>
 import Memlightbox from "@/components/Memlightbox.vue";
