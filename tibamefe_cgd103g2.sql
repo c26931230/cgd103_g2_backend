@@ -55,20 +55,17 @@ order_con tinyint ,
 order_time datetime,
 mem_id int NOT NULL,
 emp_id int NOT NULL,
-total    int,
-discount decimal(3,2),
-order_paid int,
 ord_addr varchar(100),
 ord_mem varchar(10),
 ord_phone char(10)
 )AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO orders(order_con,order_time,mem_id,emp_id,total,discount,order_paid,ord_addr,ord_mem,ord_phone)
+INSERT INTO orders(order_con,order_time,mem_id,emp_id,ord_addr,ord_mem,ord_phone)
 VALUES
-(3,'2022-08-04 12:38:45',101,102,300,0.8,240,'新竹市五福路16號','林曉梅','0982777649'),
-(1,'2022-08-05 18:29:30',103,102,300,0.9,270,'桃園市六和路16號','黃小芹','0936778870'),
-(2,'2022-12-22 04:28:37',103,102,300,0.95,285,'新北市土城看守所16號','王小明','0942113355'),
-(3,'2022-12-24 15:11:04',102,101,300,0.8,240,'台北市天龍國28號','林志軒','0998654230');
+(3,'2022-08-04 12:38:45',101,102,'新竹市五福路16號','林曉梅','0982777649'),
+(1,'2022-08-05 18:29:30',102,102,'桃園市六和路16號','黃小芹','0936778870'),
+(2,'2022-12-22 04:28:37',103,102,'新北市土城看守所16號','王小明','0942113355'),
+(3,'2022-12-24 15:11:04',104,101,'台北市天龍國28號','林志軒','0998654230');
 
 -- 一週穿搭 weeklywear
 DROP TABLE IF EXISTS weeklywear;
@@ -104,17 +101,21 @@ order_item_id int  AUTO_INCREMENT NOT NULL PRIMARY KEY,
 order_id int NOT NULL,
 product_id int NOT NULL,
 quantity int,
-item_price int,
-item_total int,
 size varchar(3),
 color varchar(10)
 )AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO order_item(order_id,product_id,quantity,item_price,item_total,size,color)
+INSERT INTO order_item(order_id,product_id,quantity,size,color)
 VALUES
-(101,101,4,300,1200,'M','#008000'),
-(101,102,2,300,600,'S','#0000FF'),
-(101,103,12,300,3600,'L','#FF0000');
+(101,101,2,'M','#008000'),
+(101,102,2,'S','#0000FF'),
+(101,103,3,'L','#FF0000'),
+(102,104,4,'M','#008000'),
+(102,105,1,'S','#0000FF'),
+(102,106,8,'L','#FF0000'),
+(103,107,5,'M','#008000'),
+(103,108,2,'S','#0000FF'),
+(103,109,2,'L','#FF0000');
 
 -- (101,101,4,300,1200,'M','green'),
 -- (101,102,2,300,600,'S','blue'),
@@ -158,25 +159,6 @@ VALUES
 	(null,101, 105,  '2022-12-15', '19:00','想學穿搭不知道怎麼開始','問題求解問題求解問題求解問題求解問題求解',0);
     
 -- 單品商品 product
-DROP TABLE IF EXISTS product;
-CREATE TABLE IF NOT EXISTS product(
-product_id	int AUTO_INCREMENT NOT NULL PRIMARY KEY,
-product_name	varchar(20),
-hashtag	varchar(100),
-unit_price	int,
-product_state	tinyint,
-product_maintype	varchar(20),
-product_type	varchar(20),
-product_pic	varchar(100),
-style_type	varchar(100),
-body_type	varchar(100),
-product_gender	tinyint,
-product_color	varchar(100),
-product_color_name varchar(10),
-product_size	varchar(100),
-product_text varchar(100)
-)AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
-
 DROP TABLE IF EXISTS product;
 CREATE TABLE IF NOT EXISTS product(
 product_id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -635,26 +617,26 @@ ADD CONSTRAINT vip_orders_mem_id_fk FOREIGN KEY (mem_id) REFERENCES member(mem_i
 ALTER TABLE vip_orders
 ADD CONSTRAINT vip_orders_level_id_fk FOREIGN KEY (level_id) REFERENCES vip_level(level_id);
 
--- views 
--- 訂單月營收
-CREATE VIEW order_revenue AS
-SELECT months.month, ifnull(sum(order_paid),0) "month_rev"
-FROM (
-  SELECT 7 as month UNION SELECT 8 as month
-  UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
-) as months
-left JOIN orders ON MONTH(orders.order_time) = months.month and YEAR(orders.order_time) = 2022
-GROUP BY months.month
-ORDER by months.month
-;
--- 訂閱月營收
-CREATE VIEW sub_revenue AS
-SELECT months.month, ifnull(sum(sub_paid),0) "month_rev"
-FROM (
-  SELECT 7 as month UNION SELECT 8 as month
-  UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
-) as months
-LEFT JOIN vip_orders ON MONTH(vip_orders.sub_time) = months.month and YEAR(vip_orders.sub_time) = 2022
-GROUP BY months.month
-ORDER by months.month
-;
+-- -- views 
+-- -- 訂單月營收
+-- CREATE VIEW order_revenue AS
+-- SELECT months.month, ifnull(sum(order_paid),0) "month_rev"
+-- FROM (
+--   SELECT 7 as month UNION SELECT 8 as month
+--   UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
+-- ) as months
+-- left JOIN orders ON MONTH(orders.order_time) = months.month and YEAR(orders.order_time) = 2022
+-- GROUP BY months.month
+-- ORDER by months.month
+-- ;
+-- -- 訂閱月營收
+-- CREATE VIEW sub_revenue AS
+-- SELECT months.month, ifnull(sum(sub_paid),0) "month_rev"
+-- FROM (
+--   SELECT 7 as month UNION SELECT 8 as month
+--   UNION SELECT 9 as month UNION SELECT 10 as month UNION SELECT 11 as month UNION SELECT 12 as month
+-- ) as months
+-- LEFT JOIN vip_orders ON MONTH(vip_orders.sub_time) = months.month and YEAR(vip_orders.sub_time) = 2022
+-- GROUP BY months.month
+-- ORDER by months.month
+-- ;
