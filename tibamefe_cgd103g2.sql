@@ -161,25 +161,6 @@ VALUES
 -- 單品商品 product
 DROP TABLE IF EXISTS product;
 CREATE TABLE IF NOT EXISTS product(
-product_id	int AUTO_INCREMENT NOT NULL PRIMARY KEY,
-product_name	varchar(20),
-hashtag	varchar(100),
-unit_price	int,
-product_state	tinyint,
-product_maintype	varchar(20),
-product_type	varchar(20),
-product_pic	varchar(100),
-style_type	varchar(100),
-body_type	varchar(100),
-product_gender	tinyint,
-product_color	varchar(100),
-product_color_name varchar(10),
-product_size	varchar(100),
-product_text varchar(100)
-)AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4;
-
-DROP TABLE IF EXISTS product;
-CREATE TABLE IF NOT EXISTS product(
 product_id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 product_name varchar(20),
 hashtag varchar(100),
