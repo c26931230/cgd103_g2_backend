@@ -1,98 +1,7 @@
 <template>
   <!-- 在這邊寫 -->
     <div class="back_end_shop">
-        <!-- 新增編輯商品燈箱區 -->
-        <div id="lightbox">
-            <div id="edit_box" v-for="info in subOrder" :key="info">
-                <div class="info">
-                    <div class="info-basic">
-                        <p>會員編號: {{ info.mem_id }}</p>
-                        <p>姓名: {{ info.mem_name }}</p>
-                        <p>訂閱等級: {{ info.level_name }}</p>
-                    </div>
-                    <div class="info-test">
-                        <p>風格: {{ info.style_name }}</p>
-                        <p>身形: {{ info.body_shape }}</p>
-                    </div>
-                </div>
-                <div class="upper">
-                    <label>上身: </label>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_name }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_color }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_size }}
-                        </option>
-                    </select>
-                </div>
-                <div class="lower">
-                    <label>下身: </label>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_name }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_color }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_size }}
-                        </option>
-                    </select>
-                </div>
-                <div class="outer">
-                    <label>外套: </label>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_name }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_color }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_size }}
-                        </option>
-                    </select>
-                </div>
-                <div class="shoes">
-                    <label>鞋子: </label>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_name }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_color }}
-                        </option>
-                    </select>
-                    <select>
-                        <option v-for="item in products" :key="item">
-                        {{ item.product_size}}
-                        </option>
-                    </select>
-                </div>
-                <div class="confirm_box">
-                    <button>新增</button>
-                    <button id="cancel" @click="close(info)">取消</button>
-                </div>
-            </div>
-        </div>
+        
         <h2>訂閱服務管理</h2>
         <!-- 上方篩選區 -->
         <div class="filter_box">
@@ -132,20 +41,110 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="order in subOrder" class="item" :key="order" @click="open(info)">
-            <th scope="row">{{order.mem_id}}</th>
-            <td class="product_img">
-                {{ order.mem_name }}
-            </td>
-            <td>{{ order.level_name }}</td>
-            <td>{{ order.sub_time }}</td>
-            <td>{{ order.style_name }}</td>
-            <td>{{ order.body_shape }}</td>
-            <td v-show="order.sub_status==1">未搭配</td>
-            <td v-show="order.sub_status==2">已搭配</td>
-            <!-- <td>{{ order.order_id }}</td> -->
-            <!-- <button @click="open()">搭配</button> -->
+            <tr v-for="(order,index) of subOrder" class="item" :key="index" @click="abc=true" >
+              <th scope="row">{{order.mem_id}}</th>
+              <td class="product_img">{{ order.mem_name }}</td>
+              <td>{{ order.level_name }}</td>
+              <td>{{ order.sub_time }}</td>
+              <td>{{ order.style_name }}</td>
+              <td>{{ order.body_shape }}</td>
+              <td v-show="order.sub_status==1">未搭配</td>
+              <td v-show="order.sub_status==2">已搭配</td>
+              <!-- <td>{{ order.order_id }}</td> -->
+              <!-- <button @click="open()">搭配</button> -->
+              <!-- 新增編輯商品燈箱區 -->
             </tr>
+            <div class="lightbox active" v-show="abc">
+                <div class="edit_box">
+                    <div class="info">
+                        <div class="info-basic">
+                            <p>會員編號: {{ subOrder.mem_id }}</p>
+                            <p>姓名: {{ subOrder.mem_name }}</p>
+                            <p>訂閱等級: {{ subOrder.level_name }}</p>
+                        </div>
+                        <div class="info-test">
+                            <p>風格: {{ subOrder.style_name }}</p>
+                            <p>身形: {{ subOrder.body_shape }}</p>
+                        </div>
+                    </div>
+                    <div class="upper">
+                        <label>上身: </label>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_name }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_color }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_size }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="lower">
+                        <label>下身: </label>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_name }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_color }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_size }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="outer">
+                        <label>外套: </label>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_name }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_color }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_size }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="shoes">
+                        <label>鞋子: </label>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_name }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_color }}
+                            </option>
+                        </select>
+                        <select>
+                            <option v-for="item in products" :key="item">
+                            {{ item.product_size}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="confirm_box">
+                        <button>新增</button>
+                        <button class="cancel" @click="abc=false">取消</button>
+                    </div>
+                </div>
+            </div>
         </tbody>
         </table>
         <!-- 商品列表 end -->
@@ -175,21 +174,23 @@ export default {
   data() {
     return {
       products: [],
-      subOrder:[]
+      subOrder:[],
+      abc:true,
     };
   },
   created() {
     this.getResource();
   },
   methods: {
-    open() {
-      let lightbox = document.querySelector("#lightbox"); // 燈箱
-      lightbox.classList.add("active");
-    },
-    close() {
-      //關燈箱
-      lightbox.classList.remove("active");
-    },
+    // open() {
+    //   let lightbox = document.querySelector("#lightbox"); // 燈箱
+    //   lightbox.classList.add("active");
+    // },
+    // close() {
+    //   //關燈箱
+    //   let lightbox = document.querySelector("#lightbox"); // 燈箱
+    //   lightbox.classList.remove("active");
+    // },
     getResource(){
       this.axios.get(`${BASE_URL}/getSubOrder.php`)
       .then((response) => {
@@ -230,7 +231,7 @@ export default {
     border: 1px $main_color solid;
   }
 
-  #lightbox {
+  .lightbox {
     position: fixed;
     z-index: 10;
     top: 0;
@@ -240,7 +241,7 @@ export default {
     background-color: #00000080;
     display: none;
 
-    #edit_box {
+    .edit_box {
       width: 640px;
       min-height: 300px;
       background-color: #fff;
@@ -323,7 +324,7 @@ export default {
     }
   }
 
-  #lightbox.active {
+  .lightbox.active {
     display: flex;
     justify-content: center;
     align-items: center;
