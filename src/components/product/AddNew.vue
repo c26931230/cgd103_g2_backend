@@ -117,18 +117,30 @@
         <div class="form_item">
             <div class="label">圖片</div>
             <div>
-                <div class="mul" v-for="(item, index) in pic" :key="index">
-                    <input
-                        class="form-control"
-                        ref="fileInput"
-                        type="file"
-                        @change="onFileChange(index, $event)"
-                        accept="image/*"
-                    />
+                <form
+                    ref="form"
+                    enctype="multipart/form-data"
+                    class="mul d-flex"
+                    v-for="(item, index) in pic"
+                    :key="index"
+                >
+                    <div class="imgBox">
+                        <img :src="item.src" v-if="item.src !== ''" />
+                        <p v-else>請新增圖片</p>
+                    </div>
+                    <div>
+                        <input
+                            class="form-control"
+                            ref="fileInput"
+                            type="file"
+                            @change="onFileChange(index, $event)"
+                            accept="image/*"
+                        />
+                    </div>
                     <button class="m-1" @click="removeInput(index)">-</button>
-                </div>
-                <button class="m-1" @click="addInput">+</button>
+                </form>
             </div>
+            <button class="m-1" @click="addInput">+</button>
         </div>
         <!-- 顏色 -->
         <div class="form_item">
@@ -179,10 +191,10 @@
 
         <div class="confirm_box">
             <button class="main" @click="addProduct()">新增</button>
-            <button class="main" id="cancel" @click="$emit('close')">
+            <button class="btn_ms" id="cancel" @click="$emit('close')">
                 取消
             </button>
-            <button class="main" id="cancel" @click="reset()">重設</button>
+            <button class="btn_mgl" id="cancel" @click="reset()">重設</button>
         </div>
     </div>
 </template>
@@ -216,7 +228,7 @@ export default {
             ],
             arrshoseSize: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
             type: {},
-            pic: [{ value: "" }],
+            pic: [{ value: "", src: "" }],
             hashtag: [{ value: "" }],
             color: [{ value: "#000000", text: "" }],
             style_type: [],
@@ -284,37 +296,29 @@ export default {
                 .join(",");
 
             for (const x in this.color) {
-                console.log(x);
                 if (this.color[x].value === "") {
-                    console.log(x);
                     alert("顏色未選");
                     return;
                 }
                 if (this.color[x].text === "") {
-                    console.log(x);
                     alert("顏色描述未填");
                     return;
                 }
             }
             for (const x in this.hashtag) {
-                console.log(x);
                 if (this.hashtag[x].value === "") {
-                    console.log(x);
                     alert("hashtag未填");
                     return;
                 }
             }
             for (const x in this.pic) {
-                console.log(x);
                 if (this.pic[x].value === "") {
-                    console.log(x);
                     alert("圖片未填");
                     return;
                 }
             }
 
             for (const key in this.add) {
-                console.log(this.add[key]);
                 if (this.add[key] == "") {
                     switch (key) {
                         case "body_type":
@@ -380,10 +384,26 @@ export default {
             const files = event.target.files;
             if (files && files.length > 0) {
                 this.pic[index].value = files[0].name;
+                const src = URL.createObjectURL(files[0]);
+                this.pic[index].src = src;
+
+                // 建立 FormData 物件
+                const formData = new FormData();
+                formData.append("file", files[0]);
+
+                // 使用 fetch 送出表單資料
+                fetch(`${BASE_URL}/upfile.php`, {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((result) => {
+                        console.log(result);
+                    });
             }
         },
         addInput() {
-            this.pic.push({ value: "" });
+            this.pic.push({ value: "", src: "" });
         },
         removeInput(index) {
             this.pic.splice(index, 1);
@@ -404,6 +424,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.imgBox {
+    height: 150px;
+    width: 150px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
 #lightbox {
     position: fixed;
     z-index: 10;

@@ -143,7 +143,9 @@
             <div class="form_item">
                 <div class="label">圖片</div>
                 <div>
-                    <div
+                    <form
+                        ref="form"
+                        enctype="multipart/form-data"
                         class="mulpic d-flex"
                         v-for="(item, index) in pic"
                         :key="index"
@@ -181,7 +183,7 @@
                                 刪除
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <button @click="addInput" v-show="pic.length < 4" class="m-1">
                     +
@@ -319,37 +321,29 @@ export default {
         },
         addProduct() {
             for (const x in this.color) {
-                console.log(x);
                 if (this.color[x].value === "") {
-                    console.log(x);
                     alert("顏色未選");
                     return;
                 }
                 if (this.color[x].text === "") {
-                    console.log(x);
                     alert("顏色描述未填");
                     return;
                 }
             }
             for (const x in this.hashtag) {
-                console.log(x);
                 if (this.hashtag[x].value === "") {
-                    console.log(x);
                     alert("hashtag未填");
                     return;
                 }
             }
             for (const x in this.pic) {
-                console.log(x);
                 if (this.pic[x].value === "") {
-                    console.log(x);
                     alert("圖片未填");
                     return;
                 }
             }
 
             for (const key in this.add) {
-                console.log(this.add[key]);
                 if (this.add[key] === "") {
                     switch (key) {
                         case "body_type":
@@ -411,8 +405,6 @@ export default {
                 .join(",");
             this.add.product_size = this.product_size.join(",");
 
-            console.log(JSON.parse(JSON.stringify(this.add)));
-
             fetch(`${BASE_URL}/prod_change.php`, {
                 method: "post",
                 body: JSON.stringify(this.add),
@@ -430,11 +422,21 @@ export default {
         onFileChange(index, event) {
             const files = event.target.files;
             if (files && files.length > 0) {
-                console.log(files);
-
-                console.log(files[0].name);
-
                 this.pic[index].value = files[0].name;
+
+                // 建立 FormData 物件
+                const formData = new FormData();
+                formData.append("file", files[0]);
+
+                // 使用 fetch 送出表單資料
+                fetch(`${BASE_URL}/upfile.php`, {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((result) => {
+                        console.log(result);
+                    });
             }
         },
         addInput() {
