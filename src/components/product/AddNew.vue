@@ -187,6 +187,8 @@
     </div>
 </template>
 <script>
+//引入BASE_URL參數
+import { BASE_URL } from "@/assets/js/common.js";
 import SelectType from "@/components/product/SelectType.vue";
 export default {
     name: "AddNew",
@@ -362,7 +364,7 @@ export default {
                 }
             }
 
-            fetch("api_server/prod_insert.php", {
+            fetch(`${BASE_URL}/prod_insert.php`, {
                 method: "post",
                 body: JSON.stringify(this.add),
             })

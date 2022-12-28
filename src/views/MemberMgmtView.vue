@@ -71,6 +71,8 @@
 </template>
 <script>
 import Memlightbox from "@/components/Memlightbox.vue";
+//引入BASE_URL參數
+import { BASE_URL } from "@/assets/js/common.js";
 export default {
     name: "MemberMgmt",
     components: { Memlightbox },
@@ -94,7 +96,7 @@ export default {
         },
     },
     mounted() {
-        this.axios.get("/api_server/member.php").then((res) => {
+        this.axios.get(`${BASE_URL}/member.php`).then((res) => {
             this.tmp = res.data;
 
             const groupBy = (array, key) =>

@@ -251,6 +251,8 @@
 </template>
 <script>
 import SelectType from "@/components/product/SelectType.vue";
+//引入BASE_URL參數
+import { BASE_URL } from "@/assets/js/common.js";
 export default {
     components: { SelectType },
     props: {
@@ -411,7 +413,7 @@ export default {
 
             console.log(JSON.parse(JSON.stringify(this.add)));
 
-            fetch("api_server/prod_change.php", {
+            fetch(`${BASE_URL}/prod_change.php`, {
                 method: "post",
                 body: JSON.stringify(this.add),
             })
