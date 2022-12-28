@@ -151,7 +151,7 @@
                         <div class="imgBox">
                             <img
                                 v-if="item.value != ''"
-                                :src="`./pic/${item.value}`"
+                                :src="`https://tibamef2e.com/cgd103/g2/front/pic/${item.value}`"
                             />
                             <p v-else>請新增圖片</p>
                         </div>

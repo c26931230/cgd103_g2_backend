@@ -13,7 +13,7 @@
                 <tr>
                     <th scope="col">編號</th>
                     <th scope="col">姓名</th>
-                    <th scope="col">訂閱</th>
+                    <th scope="col">最後訂閱時間</th>
                     <th scope="col">信箱</th>
                     <th scope="col">電話</th>
                     <th scope="col">風格</th>
