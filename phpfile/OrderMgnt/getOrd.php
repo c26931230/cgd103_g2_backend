@@ -5,7 +5,11 @@
 	header("Content-Type:application/json;charset=utf-8");
 
   require_once("../../connect_cgd103g2.php");
-  $sql = "select * from orders";
+  // $sql = "select * from orders";
+  $sql = "SELECT *
+  FROM orders
+      INNER JOIN order_qa
+      ON orders.mem_id=order_qa.mem_id";
   $employee = $pdo->query($sql);
   $empRows = $employee->fetchAll();
   $data = [];
