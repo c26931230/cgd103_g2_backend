@@ -58,7 +58,9 @@
                     <!-- 編號 -->
                     <td class="product_img">
                         <img
-                            :src="`/pic/${cut(item.product_pic)}`"
+                            :src="`https://tibamef2e.com/cgd103/g2/front/pic/${cut(
+                                item.product_pic
+                            )}`"
                             :alt="item.product_name"
                         />
                     </td>
@@ -71,7 +73,7 @@
                             <img
                                 v-for="(e, i) in split(item.product_pic)"
                                 :key="i"
-                                :src="`/pic/${e}`"
+                                :src="`https://tibamef2e.com/cgd103/g2/front/pic/${e}`"
                                 :alt="item.product_name"
                             />
                         </div>
@@ -135,24 +137,6 @@
                 </tr>
             </tbody>
         </table>
-        <!-- 商品列表 end -->
-        <!-- 頁碼 -->
-        <!-- <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <span class="page-link">Previous</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                    <span class="page-link">2</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav> -->
-        <!-- 頁碼 end -->
     </div>
 </template>
 <script>

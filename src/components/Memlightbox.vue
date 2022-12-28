@@ -9,10 +9,10 @@
                     <tr>
                         <td rowspan="3" colspan="2" class="col-3 picbox">
                             <img
-                                :src="`./pic/${data.mem_pic}`"
+                                :src="`https://tibamef2e.com/cgd103/g2/front/pic/${data.mem_pic}`"
                                 v-if="data.mem_pic"
                             />
-                            <p v-else>未新增圖片</p>
+                            <p v-else>未新增大頭照</p>
                         </td>
                         <th scope="row">姓名</th>
                         <td>{{ data.mem_name }}</td>
@@ -63,15 +63,14 @@
                         <td>{{ data.pants }}</td>
                     </tr>
                     <tr>
-                        <th scope="row">訂閱日期</th>
-                        <td>{{ data.sub_time }}</td>
-
-                        <th scope="row">到期日</th>
-                        <td>{{ data.sub_deadline }}</td>
                         <th scope="row">訂閱金額</th>
                         <td>{{ data.sub_paid }}</td>
-                        <!-- <th scope="row">等級編號</th>
-                        <td>AAAAA</td> -->
+                        <th scope="row">等級編號</th>
+                        <td>{{ data.level_name }}</td>
+                        <th scope="row">訂閱日期</th>
+                        <td>{{ data.sub_time }}</td>
+                        <th scope="row">到期日</th>
+                        <td>{{ data.sub_deadline }}</td>
                     </tr>
                 </tbody>
             </table>
