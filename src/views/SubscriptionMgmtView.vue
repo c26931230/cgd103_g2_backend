@@ -41,15 +41,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(order,index) of subOrder" class="item" :key="index" @click="abc=true" >
-              <th scope="row">{{order.mem_id}}</th>
-              <td class="product_img">{{ order.mem_name }}</td>
-              <td>{{ order.level_name }}</td>
-              <td>{{ order.sub_time }}</td>
-              <td>{{ order.style_name }}</td>
-              <td>{{ order.body_shape }}</td>
-              <td v-show="order.sub_status==1">未搭配</td>
-              <td v-show="order.sub_status==2">已搭配</td>
+            <tr v-for="(item,index) in subOrder" class="item" :key="index" @click="getItem(item)" >
+              <th scope="row">{{item.mem_id}}</th>
+              <td class="product_img">{{ item.mem_name }}</td>
+              <td>{{ item.level_name }}</td>
+              <td>{{ item.sub_time }}</td>
+              <td>{{ item.style_name }}</td>
+              <td>{{ item.body_shape }}</td>
+              <td v-show="item.sub_status==1">未搭配</td>
+              <td v-show="item.sub_status==2">已搭配</td>
               <!-- <td>{{ order.order_id }}</td> -->
               <!-- <button @click="open()">搭配</button> -->
               <!-- 新增編輯商品燈箱區 -->
@@ -58,90 +58,90 @@
                 <div class="edit_box">
                     <div class="info">
                         <div class="info-basic">
-                            <p>會員編號: {{ subOrder.mem_id }}</p>
-                            <p>姓名: {{ subOrder.mem_name }}</p>
-                            <p>訂閱等級: {{ subOrder.level_name }}</p>
+                            <p>會員編號: {{ memInfo.mem_id }}</p>
+                            <p>姓名: {{ memInfo.mem_name }}</p>
+                            <p>訂閱等級: {{ memInfo.level_name }}</p>
                         </div>
                         <div class="info-test">
-                            <p>風格: {{ subOrder.style_name }}</p>
-                            <p>身形: {{ subOrder.body_shape }}</p>
+                            <p>風格: {{ memInfo.style_name }}</p>
+                            <p>身形: {{ memInfo.body_shape }}</p>
                         </div>
                     </div>
-                    <div class="upper">
+                    <div v-show="[2, 3, 4].includes(memInfo.product_item)" class="upper">
                         <label>上身: </label>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_name }}
+                        <select v-on:change="changeUpp" v-model="finalUpperName">
+                            <option v-for="(u,upper) in upper" :key="upper">
+                              {{u.product_name}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_color }}
+                        <select v-model="finalUpperColor">
+                            <option v-for="color in uppColorArr" :key="color">
+                            {{color}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_size }}
+                        <select v-model="finalUpperSize">
+                            <option v-for="size in uppSizeArr" :key="size">
+                            {{ size }}
                             </option>
                         </select>
                     </div>
-                    <div class="lower">
+                    <div v-show="[2, 3, 4].includes(memInfo.product_item)" class="lower">
                         <label>下身: </label>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_name }}
+                        <select v-on:change="changeLow" v-model="finalLowerName">
+                            <option v-for="(l,lower) in lower" :key="lower">
+                              {{l.product_name}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_color }}
+                        <select v-model="finalLowerColor">
+                            <option v-for="color in lowColorArr" :key="color">
+                            {{color}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_size }}
+                        <select v-model="finalLowerSize">
+                            <option v-for="size in lowSizeArr" :key="size">
+                            {{ size }}
                             </option>
                         </select>
                     </div>
-                    <div class="outer">
+                    <div v-show="[3, 4].includes(memInfo.product_item)" class="outer">
                         <label>外套: </label>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_name }}
+                        <select v-on:change="changeOut" v-model="finalOuterName">
+                            <option v-for="(o,outer) in outer" :key="outer">
+                              {{o.product_name}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_color }}
+                        <select v-model="finalOuterColor">
+                            <option v-for="color in outColorArr" :key="color">
+                            {{color}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_size }}
+                        <select v-model="finalOuterSize">
+                            <option v-for="size in outSizeArr" :key="size">
+                            {{ size }}
                             </option>
                         </select>
                     </div>
-                    <div class="shoes">
+                    <div v-show="memInfo.product_item==4" class="shoes">
                         <label>鞋子: </label>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_name }}
+                        <select v-on:change="changeSho" v-model="finalShoesName">
+                            <option v-for="(s,shoes) in shoes" :key="shoes">
+                              {{s.product_name}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_color }}
+                        <select v-model="finalShoesColor">
+                            <option v-for="color in shoColorArr" :key="color">
+                            {{color}}
                             </option>
                         </select>
-                        <select>
-                            <option v-for="item in products" :key="item">
-                            {{ item.product_size}}
+                        <select v-model="finalShoesSize">
+                            <option v-for="size in shoSizeArr" :key="size">
+                            {{ size }}
                             </option>
                         </select>
                     </div>
                     <div class="confirm_box">
-                        <button>新增</button>
-                        <button class="cancel" @click="abc=false">取消</button>
+                        <button @click="insert">新增</button>
+                        <button class="cancel" @click="cancel()">取消</button>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
         </table>
         <!-- 商品列表 end -->
         <!-- 頁碼 -->
-        <nav aria-label="...">
+        <!-- <nav aria-label="...">
         <ul class="pagination">
             <li class="page-item disabled">
             <span class="page-link">Previous</span>
@@ -163,7 +163,7 @@
             <a class="page-link" href="#">Next</a>
             </li>
         </ul>
-        </nav>
+        </nav> -->
         <!-- 頁碼 end -->
     </div>
 </template>
@@ -173,15 +173,112 @@ export default {
   name: "SubscriptionMgmt",
   data() {
     return {
+      // 所有產品
       products: [],
+      // 產品種類
+      products_type: [],
+      // 上身
+      upper:[],
+      selectedUpp:[],
+      uppColorArr:[],
+      uppSizeArr:[],
+      uppId:'',
+      // 下身
+      lower:[],
+      selectedLow:[],
+      lowColorArr:[],
+      lowSizeArr:[],
+      lowId:'',
+      // 外套
+      outer:[],
+      selectedOut:[],
+      outColorArr:[],
+      outSizeArr:[],
+      outId:'',
+      // 鞋子
+      shoes:[],
+      selectedSho:[],
+      shoColorArr:[],
+      shoSizeArr:[],
+      shoId:'',
+      // -------
       subOrder:[],
-      abc:true,
+      abc:false,
+      memInfo:[],
+      // 最重要的
+      finalUpperName:'',
+      finalUpperColor:'',
+      finalUpperSize:'',
+      finalUpperArr:{},
+      // --
+      finalLowerName:'',
+      finalLowerColor:'',
+      finalLowerSize:'',
+      finalLowerArr:{},
+      // --
+      finalOuterName:'',
+      finalOuterColor:'',
+      finalOuterSize:'',
+      finalOuterArr:{},
+      // --
+      finalShoesName:'',
+      finalShoesColor:'',
+      finalShoesSize:'',
+      finalShoesArr:{},
+      // ---
+      finalOrder:[],
     };
   },
   created() {
     this.getResource();
   },
   methods: {
+    getItem(item){
+      // console.log(item);
+      if(item.sub_status==2){
+        this.abc=false;
+        this.memInfo=item;
+      }else{
+        this.abc=true;
+        this.memInfo=item;
+      }
+      
+    },
+    cancel(){
+      this.abc=false;
+      let selects = document.querySelectorAll('select');
+      for(let select of selects){
+        select.selectedIndex=0;
+      }
+    },
+    changeUpp(e){
+      const select=e.target.value;
+      this.selectedUpp = this.upper.find(u => u.product_name === select)
+      this.uppColorArr=this.selectedUpp.product_color_name.split(',');
+      this.uppSizeArr=this.selectedUpp.product_size.split(',');
+      this.uppId=this.selectedUpp.product_id;
+    },
+    changeLow(e){
+      const select=e.target.value;
+      this.selectedLow = this.lower.find(u => u.product_name === select)
+      this.lowColorArr=this.selectedLow.product_color_name.split(',');
+      this.lowSizeArr=this.selectedLow.product_size.split(',');
+      this.lowId=this.selectedLow.product_id;
+    },
+    changeOut(e){
+      const select=e.target.value;
+      this.selectedOut = this.outer.find(u => u.product_name === select)
+      this.outColorArr=this.selectedOut.product_color_name.split(',');
+      this.outSizeArr=this.selectedOut.product_size.split(',');
+      this.outId=this.selectedOut.product_id;
+    },
+    changeSho(e){
+      const select=e.target.value;
+      this.selectedSho = this.shoes.find(u => u.product_name === select)
+      this.shoColorArr=this.selectedSho.product_color_name.split(',');
+      this.shoSizeArr=this.selectedSho.product_size.split(',');
+      this.shoId=this.selectedSho.product_id;
+    },
     // open() {
     //   let lightbox = document.querySelector("#lightbox"); // 燈箱
     //   lightbox.classList.add("active");
@@ -201,16 +298,86 @@ export default {
       .then((response) => {
         console.log(response.data);
         this.products= response.data;
+        this.upper= this.products.filter(products => products.product_maintype==='上身');
+        this.lower= this.products.filter(products => products.product_maintype==='下身');
+        this.outer= this.products.filter(products => products.product_maintype==='外套');
+        this.shoes= this.products.filter(products => products.product_maintype==='鞋款');
       });
+    },
+    insert(item){
+      if(this.memInfo.product_item==2){
+        const upp={product_id:this.uppId,product_name:this.finalUpperName,product_color_name:this.finalUpperColor,product_size:this.finalUpperSize};
+        this.finalUpperArr=upp;
+        const low={product_id:this.lowId,product_name:this.finalLowerName,product_color_name:this.finalLowerColor,product_size:this.finalLowerSize};
+        this.finalLowerArr=low;
+        // console.log(this.finalUpperArr);
+        // console.log(this.finalLowerArr);
+       
+        this.finalOrder.push(this.finalUpperArr);
+        this.finalOrder.push(this.finalLowerArr);
+        console.log(this.finalOrder);
+      }else if(this.memInfo.product_item==3){
+          const upp={product_id:this.uppId,product_name:this.finalUpperName,product_color_name:this.finalUpperColor,product_size:this.finalUpperSize};
+          this.finalUpperArr=upp;
+          const low={product_id:this.lowId,product_name:this.finalLowerName,product_color_name:this.finalLowerColor,product_size:this.finalLowerSize};
+          this.finalLowerArr=low;
+          const out={product_id:this.outId,product_name:this.finalOuterName,product_color_name:this.finalOuterColor,product_size:this.finalOuterSize};
+          this.finalOuterArr=out;
+
+          this.finalOrder.push(this.finalUpperArr);
+          this.finalOrder.push(this.finalLowerArr);
+          this.finalOrder.push(this.finalOuterArr);
+          console.log(this.finalOrder);
+      }else{
+          const upp={product_id:this.uppId,product_name:this.finalUpperName,product_color_name:this.finalUpperColor,product_size:this.finalUpperSize};
+          this.finalUpperArr=upp;
+          const low={product_id:this.lowId,product_name:this.finalLowerName,product_color_name:this.finalLowerColor,product_size:this.finalLowerSize};
+          this.finalLowerArr=low;
+          const out={product_id:this.outId,product_name:this.finalOuterName,product_color_name:this.finalOuterColor,product_size:this.finalOuterSize};
+          this.finalOuterArr=out;
+          const sho={product_id:this.shoId,product_name:this.finalShoesName,product_color_name:this.finalShoesColor,product_size:this.finalShoesSize};
+          this.finalShoesArr=sho;
+
+          this.finalOrder.push(this.finalUpperArr);
+          this.finalOrder.push(this.finalLowerArr);
+          this.finalOrder.push(this.finalOuterArr);
+          this.finalOrder.push(this.finalShoesArr);
+          console.log(this.finalOrder);
+      }
+      let datas={};
+      datas.order=this.finalOrder;
+      datas.mem_id=this.memInfo.mem_id;
+      datas.sub_id=this.memInfo.sub_id;
+      console.log(datas);
+      fetch(`${BASE_URL}/insertSubToOrder.php`,{
+        method:"post",
+        body:JSON.stringify(datas),
+      })
+      .then((data) =>{
+				console.log(data);
+				if (data.msg) {
+					alert("已成功搭配");
+				}
+        this.abc=false;
+			})
+			.catch((error) => console.log(error));
+
     }
-  }
+
+  },
+  mounted() {
+      let selects = document.querySelectorAll('select');
+      for(let select of selects){
+        select.selectedIndex=0;
+      }
+  },
 };
 </script>
 <style lang="scss" scoped>
 .back_end_shop {
   box-sizing: border-box;
   select {
-    width: 80px;
+    width: 120px;
     font-size: 16px;
     border: 1px $main_color solid;
     height: 45px;
