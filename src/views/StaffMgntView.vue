@@ -246,7 +246,7 @@ export default {
         document.getElementById("hiredate1").value = empRow.hiredate;
         document.getElementById("emp_pwd1").value = empRow.emp_pwd;
         document.getElementById("emp_mail1").value = empRow.emp_mail;
-        if (empRow.emp_state === 1) {
+        if (empRow.emp_state === '1') {
           //在職
           document.getElementById("normal1").checked = true;
         } else {
