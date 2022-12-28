@@ -3,93 +3,93 @@
     <div class="back_end_shop">
         <!-- 新增編輯商品燈箱區 -->
         <div id="lightbox">
-            <div id="edit_box">
+            <div id="edit_box" v-for="info in subOrder" :key="info">
                 <div class="info">
                     <div class="info-basic">
-                        <p>會員編號: {{ match[0].mem_id }}</p>
-                        <p>姓名: {{ match[0].mem_name }}</p>
-                        <p>訂閱等級: {{ match[0].mem_level }}</p>
+                        <p>會員編號: {{ info.mem_id }}</p>
+                        <p>姓名: {{ info.mem_name }}</p>
+                        <p>訂閱等級: {{ info.level_name }}</p>
                     </div>
                     <div class="info-test">
-                        <p>風格: {{ match[0].style_id }}</p>
-                        <p>身形:{{ match[0].body_id }}</p>
+                        <p>風格: {{ info.style_name }}</p>
+                        <p>身形: {{ info.body_shape }}</p>
                     </div>
                 </div>
                 <div class="upper">
                     <label>上身: </label>
                     <select>
-                        <option v-for="item in product" :key="item.id">
-                        {{ item.title }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_name }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.color">
-                        {{ item.color }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_color }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.size">
-                        {{ item.size }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_size }}
                         </option>
                     </select>
                 </div>
                 <div class="lower">
                     <label>下身: </label>
                     <select>
-                        <option v-for="item in product" :key="item.id">
-                        {{ item.title }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_name }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.color">
-                        {{ item.color }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_color }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.size">
-                        {{ item.size }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_size }}
                         </option>
                     </select>
                 </div>
                 <div class="outer">
                     <label>外套: </label>
                     <select>
-                        <option v-for="item in product" :key="item.id">
-                        {{ item.title }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_name }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.color">
-                        {{ item.color }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_color }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.size">
-                        {{ item.size }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_size }}
                         </option>
                     </select>
                 </div>
                 <div class="shoes">
                     <label>鞋子: </label>
                     <select>
-                        <option v-for="item in product" :key="item.id">
-                        {{ item.title }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_name }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.color">
-                        {{ item.color }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_color }}
                         </option>
                     </select>
                     <select>
-                        <option v-for="item in product" :key="item.size">
-                        {{ item.size }}
+                        <option v-for="item in products" :key="item">
+                        {{ item.product_size}}
                         </option>
                     </select>
                 </div>
                 <div class="confirm_box">
                     <button>新增</button>
-                    <button id="cancel" @click="close()">取消</button>
+                    <button id="cancel" @click="close(info)">取消</button>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
             <option value="Ultra">未完成</option>
             </optgroup>
         </select>
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Search"/>
         <button class="search">search</button>
         </div>
         <!-- 上方篩選區 end -->
@@ -122,30 +122,29 @@
             <tr>
             <th scope="col">會員編號</th>
             <th scope="col">姓名</th>
-            <th scope="col">訂閱</th>
-            <th scope="col">付款狀態</th>
+            <th scope="col">訂閱等級</th>
             <th scope="col">訂閱日期</th>
             <th scope="col">風格</th>
             <th scope="col">身形</th>
             <th scope="col">搭配狀態</th>
-            <th scope="col">出貨狀態</th>
-            <th scope="col"></th>
+            <!-- <th scope="col">出貨狀態</th> -->
+            <!-- <th scope="col"></th> -->
             </tr>
         </thead>
         <tbody>
-            <tr v-for="mem in match" class="item" :key="mem.id">
-            <th scope="row">{{ mem.mem_id }}</th>
+            <tr v-for="order in subOrder" class="item" :key="order" @click="open(info)">
+            <th scope="row">{{order.mem_id}}</th>
             <td class="product_img">
-                {{ mem.mem_name }}
+                {{ order.mem_name }}
             </td>
-            <td>{{ mem.mem_level }}</td>
-            <td>{{ mem.payStatus }}</td>
-            <td>{{ mem.sub_time }}</td>
-            <td>{{ mem.style_id }}</td>
-            <td>{{ mem.body_id }}</td>
-            <td>{{ mem.matchStatus }}</td>
-            <td>{{ mem.shippingStatus }}</td>
-            <button @click="open()">搭配</button>
+            <td>{{ order.level_name }}</td>
+            <td>{{ order.sub_time }}</td>
+            <td>{{ order.style_name }}</td>
+            <td>{{ order.body_shape }}</td>
+            <td v-show="order.sub_status==1">未搭配</td>
+            <td v-show="order.sub_status==2">已搭配</td>
+            <!-- <td>{{ order.order_id }}</td> -->
+            <!-- <button @click="open()">搭配</button> -->
             </tr>
         </tbody>
         </table>
@@ -170,149 +169,17 @@
     </div>
 </template>
 <script>
+import { BASE_URL } from "@/assets/js/common.js";
 export default {
   name: "SubscriptionMgmt",
   data() {
     return {
-      match: [
-        {
-          mem_id: "A001",
-          mem_name: "金太妍",
-          mem_level: "ULTRA",
-          body_id: "沙漏型",
-          style_id: "時尚風",
-          payStatus: "已付款",
-          sub_time: "2022/12/01",
-          matchStatus: "未完成",
-          product_item: 2,
-          shippingStatus: "未出貨",
-          matchList: [],
-        },
-        {
-          mem_id: "A002",
-          mem_name: "陳咚咚",
-          mem_level: "BASIC",
-          body_id: "沙漏型",
-          style_id: "運動風",
-          payStatus: "已付款",
-          sub_time: "2022/12/01",
-          matchStatus: "未完成",
-          product_item: 2,
-          shippingStatus: "已出貨",
-          matchList: [],
-        },
-        {
-          mem_id: "A003",
-          mem_name: "李知恩",
-          mem_level: "BASIC",
-          body_id: "菱形",
-          style_id: "文青風",
-          payStatus: "已付款",
-          sub_time: "2022/12/01",
-          matchStatus: "未完成",
-          product_item: 2,
-          shippingStatus: "未成立",
-          matchList: [],
-        },
-        {
-          mem_id: "A004",
-          mem_name: "蔡英文",
-          mem_level: "ULTRA",
-          body_id: "沙漏型",
-          style_id: "運動風",
-          payStatus: "已付款",
-          sub_time: "2022/12/01",
-          matchStatus: "未完成",
-          product_item: 2,
-          shippingStatus: "未出貨",
-          matchList: [],
-        },
-        {
-          mem_id: "A005",
-          mem_name: "馬英九",
-          mem_level: "BASIC",
-          body_id: "正方型",
-          style_id: "極簡風",
-          payStatus: "已付款",
-          sub_time: "2022/12/01",
-          matchStatus: "未完成",
-          product_item: 2,
-          shippingStatus: "未成立",
-          matchList: [],
-        },
-        {
-          mem_id: "A006",
-          mem_name: "陳時中",
-          mem_level: "ULTRA",
-          body_id: "圓型",
-          style_id: "運動風",
-          payStatus: "已付款",
-          sub_time: "2022/12/01",
-          matchStatus: "未完成",
-          product_item: 2,
-          shippingStatus: "已出貨",
-          matchList: [],
-        },
-        {
-          mem_id: "A007",
-          mem_name: "魏如萱",
-          mem_level: "STANDARD",
-          body_id: "三角型",
-          style_id: "運動風",
-          payStatus: "已付款",
-          sub_time: "2022/12/01",
-          matchStatus: "未完成",
-          product_item: 2,
-          shippingStatus: "未出貨",
-          matchList: [],
-        },
-      ],
-      product: [
-        //產品資訊
-        {
-          id: 1,
-          image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-          title: "UNISEX 環保刷毛帽T",
-          type: "上身",
-          color: "黑",
-          size: "XL",
-          price: 1980,
-          description:
-            "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-          category: "men's clothing",
-          state: "上架",
-          tag: "毛衣",
-        },
-        {
-          id: 2,
-          image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-          title: "UNISEX 環保刷毛帽T",
-          type: "上身",
-          color: "黑",
-          size: "XL",
-          price: 1980,
-          description:
-            "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-          category: "men's clothing",
-          state: "上架",
-          tag: "毛衣",
-        },
-        {
-          id: 3,
-          image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-          title: "UNISEX 環保刷毛帽T",
-          type: "上身",
-          color: "黑",
-          size: "XL",
-          price: 1980,
-          description:
-            "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-          category: "men's clothing",
-          state: "上架",
-          tag: "毛衣",
-        },
-      ],
+      products: [],
+      subOrder:[]
     };
+  },
+  created() {
+    this.getResource();
   },
   methods: {
     open() {
@@ -323,7 +190,19 @@ export default {
       //關燈箱
       lightbox.classList.remove("active");
     },
-  },
+    getResource(){
+      this.axios.get(`${BASE_URL}/getSubOrder.php`)
+      .then((response) => {
+        console.log(response.data);
+        this.subOrder = response.data;
+      });
+      this.axios.get(`${BASE_URL}/mainproduct.php`)
+      .then((response) => {
+        console.log(response.data);
+        this.products= response.data;
+      });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
