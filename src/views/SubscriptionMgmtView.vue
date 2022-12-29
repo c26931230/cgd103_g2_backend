@@ -361,9 +361,10 @@ export default {
 					alert("已成功搭配");
 				}
         this.abc=false;
+        location.reload();
 			})
 			.catch((error) => console.log(error));
-
+      location.reload();
     }
 
   },
