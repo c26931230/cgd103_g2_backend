@@ -24,7 +24,7 @@
                     id="price"
                     v-model.trim="add.unit_price"
                     min="1"
-                    max="1000000"
+                    max="5000"
                 />
             </div>
         </div>
@@ -182,9 +182,9 @@
                     type="textarea"
                     id="title"
                     v-model.trim="add.product_text"
-                    maxlength="10"
+                    maxlength="33"
                     required="required"
-                    rows="3"
+                    rows="2"
                 ></textarea>
             </div>
         </div>
