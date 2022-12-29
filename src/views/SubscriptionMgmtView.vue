@@ -241,6 +241,7 @@ export default {
       }else{
         this.abc=true;
         this.memInfo=item;
+        console.log(this.memInfo.product_item);
       }
       
     },
@@ -315,7 +316,7 @@ export default {
        
         this.finalOrder.push(this.finalUpperArr);
         this.finalOrder.push(this.finalLowerArr);
-        console.log(this.finalOrder);
+        // console.log(this.finalOrder);
       }else if(this.memInfo.product_item==3){
           const upp={product_id:this.uppId,product_name:this.finalUpperName,product_color_name:this.finalUpperColor,product_size:this.finalUpperSize};
           this.finalUpperArr=upp;
@@ -327,7 +328,7 @@ export default {
           this.finalOrder.push(this.finalUpperArr);
           this.finalOrder.push(this.finalLowerArr);
           this.finalOrder.push(this.finalOuterArr);
-          console.log(this.finalOrder);
+          // console.log(this.finalOrder);
       }else{
           const upp={product_id:this.uppId,product_name:this.finalUpperName,product_color_name:this.finalUpperColor,product_size:this.finalUpperSize};
           this.finalUpperArr=upp;
@@ -342,7 +343,7 @@ export default {
           this.finalOrder.push(this.finalLowerArr);
           this.finalOrder.push(this.finalOuterArr);
           this.finalOrder.push(this.finalShoesArr);
-          console.log(this.finalOrder);
+          // console.log(this.finalOrder);
       }
       let datas={};
       datas.order=this.finalOrder;
@@ -406,7 +407,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #00000080;
-    display: none;
+    // display: none;
 
     .edit_box {
       width: 640px;

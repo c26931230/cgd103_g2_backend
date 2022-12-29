@@ -73,7 +73,8 @@
                 $vip_ordersRow = $vip_orders->fetch(PDO::FETCH_ASSOC);
                 
                 $errMsg .= "訂閱訂單更新成功"; //-----------
-                echo json_encode(["msg" => $errMsg]);
+                // echo json_encode(["msg" => $errMsg]);
+                echo json_encode($vip_ordersRow);
             //}
         } catch (PDOException $e) {
             $errMsg .= "錯誤 : ".$e -> getMessage()."<br>";
