@@ -46,7 +46,8 @@
               <td class="product_img">{{ item.mem_name }}</td>
               <td>{{ item.level_name }}</td>
               <td>{{ item.sub_time }}</td>
-              <td>{{ item.style_name }}</td>
+              <td v-if="item.style_name">{{ item.style_name }}</td>
+              <td v-else>未測驗</td>
               <td>{{ item.body_shape }}</td>
               <td v-show="item.sub_status==1">未搭配</td>
               <td v-show="item.sub_status==2">已搭配</td>
