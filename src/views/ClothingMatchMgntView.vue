@@ -1,7 +1,7 @@
 <template>
   <div class="back_end_shop">
     <!-- 新增編輯商品燈箱區 -->
-    <div id="lightbox" class="active">
+    <div id="lightbox">
       <div id="edit_box">
         <div class="form_item">
           <label for="title">品名</label>
