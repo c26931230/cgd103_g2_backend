@@ -6,33 +6,68 @@
         <form id="add_employee" method="post" enctype="multipart/form-data">
           <div class="form_item">
             <label for="emp_name">員工姓名</label>
-            <input type="text" id="emp_name" name="emp_name" required v-model="emp_name" />
+            <input
+              type="text"
+              id="emp_name"
+              name="emp_name"
+              required
+              v-model="emp_name"
+            />
           </div>
           <div class="form_item">
             <label>員工身分</label>
             <div class="item">
               <div class="op">
-                <input type="radio" name="job" value="員工" id="emp_op" v-model="job" />
+                <input
+                  type="radio"
+                  name="job"
+                  value="員工"
+                  id="emp_op"
+                  v-model="job"
+                />
                 <label for="emp_op">員工</label>
               </div>
               <div class="op">
-                <input type="radio" name="job" value="造型師" id="stylist_op" v-model="job" />
+                <input
+                  type="radio"
+                  name="job"
+                  value="造型師"
+                  id="stylist_op"
+                  v-model="job"
+                />
                 <label for="stylist_op">造型師</label>
               </div>
             </div>
           </div>
           <div class="form_item">
             <label for="hiredate">到職日期</label>
-            <input type="date" id="hiredate" name="hiredate" v-model="hiredate" />
+            <input
+              type="date"
+              id="hiredate"
+              name="hiredate"
+              v-model="hiredate"
+            />
           </div>
           <div class="form_item">
             <label for="emp_pwd">密碼</label>
-            <input type="password" id="emp_pwd" name="emp_pwd" v-model="emp_pwd" />
+            <input
+              type="password"
+              id="emp_pwd"
+              name="emp_pwd"
+              v-model="emp_pwd"
+            />
           </div>
           <div class="form_item">
             <label for="emp_mail">電子郵件</label>
-            <input type="email" id="emp_mail" name="emp_mail" @blur="validateEmail" required v-model="emp_mail" />
-           <!-- 存在:{{ emailExists }}
+            <input
+              type="email"
+              id="emp_mail"
+              name="emp_mail"
+              @blur="validateEmail"
+              required
+              v-model="emp_mail"
+            />
+            <!-- 存在:{{ emailExists }}
             不符合:{{ emailUnForm }} -->
             <div v-if="emailExists" class="emailExists">此帳號已註冊</div>
             <div v-if="emailUnForm" class="emailUnForm">Email 格式不正確</div>
@@ -41,11 +76,23 @@
             <label for="">狀態</label>
             <div class="item">
               <div class="op">
-                <input type="radio" name="emp_state" value="1" id="normal" v-model="emp_state" />
+                <input
+                  type="radio"
+                  name="emp_state"
+                  value="1"
+                  id="normal"
+                  v-model="emp_state"
+                />
                 <label for="normal">在職</label>
               </div>
               <div class="op">
-                <input type="radio" name="emp_state" value="0" id="resign" v-model="emp_state" />
+                <input
+                  type="radio"
+                  name="emp_state"
+                  value="0"
+                  id="resign"
+                  v-model="emp_state"
+                />
                 <label for="resign">離職</label>
               </div>
             </div>
@@ -64,7 +111,7 @@
         <form id="update_employee" method="post" enctype="multipart/form-data">
           <div class="form_item">
             <label for="emp_id1">員工編號</label>
-            <input type="text" id="emp_id1" name="emp_id1"/>
+            <input type="text" id="emp_id1" name="emp_id1" />
           </div>
           <div class="form_item">
             <label for="emp_name1">員工姓名</label>
@@ -78,7 +125,12 @@
                 <label for="emp_op1">員工</label>
               </div>
               <div class="op">
-                <input type="radio" name="job1" value="造型師" id="stylist_op1" />
+                <input
+                  type="radio"
+                  name="job1"
+                  value="造型師"
+                  id="stylist_op1"
+                />
                 <label for="stylist_op1">造型師</label>
               </div>
             </div>
@@ -142,7 +194,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="e in employee" class="item" :key="e.emp_id" @click="show(e.emp_id)">
+        <tr
+          v-for="e in employee"
+          class="item"
+          :key="e.emp_id"
+          @click="show(e.emp_id)"
+        >
           <!-- 員工編號 -->
           <th scope="row">{{ e.emp_id }}</th>
           <!-- 姓名 -->
@@ -183,7 +240,7 @@ export default {
       emp_pwd: "",
       emp_mail: "",
       emp_state: "",
-      res_msg: ""
+      res_msg: "",
     };
   },
   methods: {
@@ -225,7 +282,9 @@ export default {
       fetch(`${BASE_URL}/StaffMgnt/empInsert.php`, {
         method: "post",
         body: new URLSearchParams(data),
-      }).then((res) => res.json()).then((json) => (alert(json.msg)));
+      })
+        .then((res) => res.json())
+        .then((json) => alert(json.msg));
       lightbox.classList.remove("active"); // 關新增燈箱
     },
     show(x) {
@@ -246,7 +305,7 @@ export default {
         document.getElementById("hiredate1").value = empRow.hiredate;
         document.getElementById("emp_pwd1").value = empRow.emp_pwd;
         document.getElementById("emp_mail1").value = empRow.emp_mail;
-        if (empRow.emp_state === '1') {
+        if (empRow.emp_state === "1") {
           //在職
           document.getElementById("normal1").checked = true;
         } else {
@@ -257,9 +316,7 @@ export default {
         let lightbox1 = document.querySelector("#lightbox1"); // 修改燈箱
         lightbox1.classList.add("active");
       };
-      let url =
-        `${BASE_URL}/StaffMgnt/getEmp.php?emp_id1=` +
-        x;
+      let url = `${BASE_URL}/StaffMgnt/getEmp.php?emp_id1=` + x;
       xhr.open("get", url, true);
       xhr.send(null);
     },
@@ -291,9 +348,11 @@ export default {
     // 檢查 email 格式，並檢查是否已註冊
     validateEmail() {
       const self = this;
-      let EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64}@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
+      let EMAIL_REGEX =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64}@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
       // 檢查 eamil 格式
-      if (EMAIL_REGEX.test(this.emp_mail)) { // 電子郵件格式正確
+      if (EMAIL_REGEX.test(this.emp_mail)) {
+        // 電子郵件格式正確
         self.emailUnForm = false;
         self.notSubmit = true; //** */
         // this.emailUnForm = false;
@@ -303,27 +362,27 @@ export default {
         const data = {
           emp_mail: self.emp_mail,
           action: "check_email",
-        }
+        };
         fetch(`${BASE_URL}/StaffMgnt/empInsert.php`, {
           method: "post",
           body: new URLSearchParams(data),
-        }).then((res)=>res.json())
-          .then((data)=>{
-            if(data.msg == "此帳號已註冊"){
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.msg == "此帳號已註冊") {
               this.IfemailExists();
               console.log(data.msg);
-            }else{
-              this.emailExists = false; 
-							this.notSubmit = false;
+            } else {
+              this.emailExists = false;
+              this.notSubmit = false;
             }
-          })
-      } else { // 電子郵件格式不正確    
+          });
+      } else {
+        // 電子郵件格式不正確
         this.IfemailUnForm();
       }
     },
-    validateOther() {
-
-    }
+    validateOther() {},
   },
   mounted() {
     this.getResource();
@@ -500,10 +559,11 @@ export default {
     }
   }
 }
-.form_item{
-  .emailExists, .emailUnForm{
-  color: red;
-  margin-left: 100px;
-}
+.form_item {
+  .emailExists,
+  .emailUnForm {
+    color: red;
+    margin-left: 100px;
+  }
 }
 </style>

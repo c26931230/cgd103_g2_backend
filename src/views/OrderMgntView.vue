@@ -110,13 +110,8 @@
 
     <div class="filter_box">
       <!-- 考慮修改成select -->
-      <button class="icon_box">全部</button>
-      <button class="icon_box">未確認</button>
-      <button class="icon_box">備貨中</button>
-      <button class="icon_box">已出貨</button>
-      <button class="icon_box">留言未回覆</button>
-      <button class="icon_box">留言處理中</button>
-      <button class="icon_box">留言已完成</button>
+      <input type="text" placeholder="Search" />
+      <button class="search" @click="search">search</button>
     </div>
     <!-- 上方篩選區 end -->
     <!-- 會員列表 -->
@@ -132,37 +127,40 @@
         </tr>
       </thead>
 
-      <div class="operate_box">
+      <!-- <div class="operate_box">
         <button id="create" @click="open_add_box()">新增員工</button>
-      </div>
+      </div> -->
 
       <tbody>
         <tr
           v-for="e in orders"
           class="item"
-          :key="e.order_id"
-          @click="show(e.order_id)"
+          :key="e[0].order_id"
+          @click="show(e[0].order_id)"
         >
-          <th scope="row">{{ e.order_id }}</th>
+          <th scope="row">{{ e[0].order_id }}</th>
           <!-- 編號 -->
           <!-- <router-link to="/OrderMgntDetail">
 
                     </router-link> -->
-          <td>{{ e.order_time }}</td>
+          <td>{{ e[0].order_time }}</td>
           <!-- 下單日期 -->
-          <td>{{ e.total }}</td>
+          <td>{{ e[0].total }}</td>
           <!-- 訂單金額 -->
-          <td>{{ e.ord_mem }}</td>
+          <td>{{ e[0].ord_mem }}</td>
           <!-- 訂購人-->
           <td>
+            <!-- 物流狀態 -->
             <p v-if="e.order_con == 1">訂單取消</p>
             <p v-else-if="e.order_con == 2">商品配送中</p>
             <p v-else>商品已送達</p>
           </td>
           <!-- 訂單狀態 -->
           <td>
-            <p v-if="e.order_con == 1">{{ e.meg_cont }}</p>
-            <p v-else>""</p>
+            <p v-if="e[0].order_con == 1">{{ e[0].meg_cont }}</p>
+            <p v-else>尚無留言</p>
+            <!-- <p v-if="e[0].order_con == 1">{{ e[0].meg_cont }}</p>
+            <p v-else>尚無留言</p> -->
           </td>
         </tr>
       </tbody>
@@ -214,6 +212,18 @@ export default {
       this.axios.get(`${BASE_URL}/OrderMgnt/getOrd.php`).then((response) => {
         console.log(response.data);
         this.orders = response.data;
+
+        //把得到的資料分組
+        const groupBy = (array, key) =>
+          array.reduce((objectsByKeyValue, obj) => {
+            const value = obj[key];
+            objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(
+              obj
+            );
+            return objectsByKeyValue;
+          }, {});
+
+        this.orders = groupBy(this.orders, "order_id");
       });
     },
     show(x) {
@@ -334,6 +344,11 @@ router-link {
   .filter_box {
     display: flex;
     align-items: stretch;
+    button.search {
+      outline: none;
+      border: 1px $main_color solid;
+      margin: 0;
+    }
   }
   button {
     min-width: 70px;
@@ -351,6 +366,7 @@ router-link {
   input {
     outline: none;
     border: 1px $main_color solid;
+    margin: 0%;
   }
   h2 {
     font-weight: 600;
@@ -384,5 +400,6 @@ router-link {
 button.subButton {
   border-radius: 10%;
   background-color: rgb(100, 100, 163);
+  margin: 0;
 }
 </style>
