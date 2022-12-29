@@ -63,11 +63,11 @@
                 $errMsg .= "訂單明細成功"; //-----------
                 // echo json_encode(["msg" => $errMsg]);
 
-                // $order_id = $pdo->lastInsertId();
-                $sql3="UPDATE vip_orders SET sub_status=2
+                $order_id = $pdo->lastInsertId();
+                $sql3="UPDATE vip_orders SET order_id=:ord_id,sub_status=2
                 WHERE sub_id=:sub_id;";
                 $vip_orders = $pdo->prepare($sql3);
-                // $vip_orders->bindValue(":ord_id",$order_id);
+                $vip_orders->bindValue(":ord_id",$order_id);
                 $vip_orders->bindValue(":sub_id",$datas["sub_id"]);
                 $vip_orders->execute(); //執行之
                 $vip_ordersRow = $vip_orders->fetch(PDO::FETCH_ASSOC);
