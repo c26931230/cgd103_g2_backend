@@ -607,8 +607,8 @@ ALTER TABLE combo_item
 ADD CONSTRAINT combo_item_product_id_fk FOREIGN KEY (product_id) REFERENCES product(product_id);
 
 -- 訂閱訂單 vip_orders
-ALTER TABLE vip_orders
-ADD CONSTRAINT vip_orders_order_id_fk FOREIGN KEY (order_id) REFERENCES orders(order_id);
+-- ALTER TABLE vip_orders
+-- ADD CONSTRAINT vip_orders_order_id_fk FOREIGN KEY (order_id) REFERENCES orders(order_id);
 
 ALTER TABLE vip_orders
 ADD CONSTRAINT vip_orders_mem_id_fk FOREIGN KEY (mem_id) REFERENCES member(mem_id);

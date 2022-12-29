@@ -9,7 +9,7 @@ header("Content-Type:application/json;charset=utf-8");
         FROM vip_orders v JOIN member m ON v.mem_id=m.mem_id
         JOIN vip_level l ON v.level_id=l.level_id
         JOIN body b ON m.body_id=b.body_id
-        JOIN style s ON m.style_id=s.style_id
+        LEFT JOIN style s ON m.style_id=s.style_id
         WHERE v.sub_deadline>NOW()
         AND v.level_id IS NOT NULL
         AND m.mem_id IS NOT NULL;";
