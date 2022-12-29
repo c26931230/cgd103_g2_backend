@@ -6,7 +6,7 @@
         <ProductChange
             :product="getdetail(detail_id)"
             v-if="x"
-            @closeChangeBox="x = false"
+            @closeChangeBox="update"
         ></ProductChange>
         <h2>商品管理</h2>
         <!-- 上方篩選區 -->
@@ -212,6 +212,11 @@ export default {
         },
     },
     methods: {
+        update() {
+            this.x = false;
+            this.getResource;
+        },
+
         state(x) {
             return x == 1 ? "上架" : "下架";
         },

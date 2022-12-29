@@ -24,7 +24,7 @@
                         id="price"
                         v-model="add.unit_price"
                         min="1"
-                        max="1000000"
+                        max="5000"
                     />
                 </div>
             </div>
@@ -153,7 +153,11 @@
                         <div class="imgBox">
                             <img
                                 v-if="item.value != ''"
-                                :src="`https://tibamef2e.com/cgd103/g2/front/pic/${item.value}`"
+                                :src="
+                                    item.change == true
+                                        ? `https://tibamef2e.com/cgd103/g2/front/pic/${item.value}`
+                                        : item.src
+                                "
                             />
                             <p v-else>請新增圖片</p>
                         </div>
@@ -238,9 +242,9 @@
                         type="textarea"
                         id="title"
                         v-model.trim="add.product_text"
-                        maxlength="10"
+                        maxlength="33"
                         required="required"
-                        rows="3"
+                        rows="2"
                     ></textarea>
                 </div>
             </div>
@@ -296,7 +300,7 @@ export default {
         getpic() {
             return this.add?.product_pic
                 .split(",")
-                .map((value) => ({ value, change: true }));
+                .map((value) => ({ value, change: true, src: "" }));
         },
         gethashtag() {
             return this.add?.hashtag.split(",").map((value) => ({ value }));
@@ -423,7 +427,8 @@ export default {
             const files = event.target.files;
             if (files && files.length > 0) {
                 this.pic[index].value = files[0].name;
-
+                const src = URL.createObjectURL(files[0]);
+                this.pic[index].src = src;
                 // 建立 FormData 物件
                 const formData = new FormData();
                 formData.append("file", files[0]);
@@ -440,7 +445,7 @@ export default {
             }
         },
         addInput() {
-            this.pic.push({ value: "" });
+            this.pic.push({ value: "", src: "" });
         },
         removeInput(index) {
             this.pic.splice(index, 1);
