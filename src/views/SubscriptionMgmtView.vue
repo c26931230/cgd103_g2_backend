@@ -67,7 +67,7 @@
                             <p>身形: {{ memInfo.body_shape }}</p>
                         </div>
                     </div>
-                    <div v-show="[2, 3, 4].includes(memInfo.product_item)" class="upper">
+                    <div class="upper">
                         <label>上身: </label>
                         <select v-on:change="changeUpp" v-model="finalUpperName">
                             <option v-for="(u,upper) in upper" :key="upper">
@@ -85,7 +85,7 @@
                             </option>
                         </select>
                     </div>
-                    <div v-show="[2, 3, 4].includes(memInfo.product_item)" class="lower">
+                    <div class="lower">
                         <label>下身: </label>
                         <select v-on:change="changeLow" v-model="finalLowerName">
                             <option v-for="(l,lower) in lower" :key="lower">
@@ -103,7 +103,7 @@
                             </option>
                         </select>
                     </div>
-                    <div v-show="[3, 4].includes(memInfo.product_item)" class="outer">
+                    <div v-show="memInfo.product_item==3||memInfo.product_item==4" class="outer">
                         <label>外套: </label>
                         <select v-on:change="changeOut" v-model="finalOuterName">
                             <option v-for="(o,outer) in outer" :key="outer">
