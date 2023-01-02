@@ -70,7 +70,7 @@ export default {
                 { value: "配件", text: "配件" },
             ],
             product_type: {
-                default: { value: "", text: "請選擇" },
+                default: [{ value: "", text: "請選擇" }],
                 top: [
                     { value: "短袖", text: "短袖" },
                     { value: "長袖", text: "長袖" },
@@ -118,14 +118,14 @@ export default {
             }
             switch (this.selected2) {
                 case "上身": {
-                    return this.product_type.top;
+                    return this.product_type.default.concat(this.product_type.top);
                 }
                 case "下身":
-                    return this.product_type.down;
+                    return this.product_type.default.concat(this.product_type.down);
                 case "鞋款":
-                    return this.product_type.shoes;
+                    return this.product_type.default.concat(this.product_type.shoes);
                 case "配件":
-                    return this.product_type.other;
+                    return this.product_type.default.concat(this.product_type.other);
                 default:
                     // const QQ = { value: "" };
                     // console.log(Object.values(this.product_type).flat());
