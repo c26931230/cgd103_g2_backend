@@ -34,8 +34,6 @@ try{
     $msg .= "行號: ".$e -> getLines()."<br>";
     $result = ["msg"=>$msg];
 }
-// $result = ["msg"=>$msg];
-// echo json_encode($result);
 ?>
 
 

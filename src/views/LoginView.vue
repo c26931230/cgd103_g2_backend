@@ -36,12 +36,12 @@ export default {
     doLogin() {
       var xhr = new XMLHttpRequest();
       xhr.onload = () => {
-        console.log(xhr.responseText);
+        // console.log(xhr.responseText);
         if (xhr.status == 200) {
           if (xhr.responseText != 0) {
             alert("登入成功！");
             this.session = JSON.parse(xhr.responseText);
-            console.log(this.session);
+            // console.log(this.session);
             sessionStorage.setItem("employee", JSON.stringify(this.session));
             this.loginStatus = sessionStorage.getItem("employee");
             this.emp_job = JSON.parse(sessionStorage.getItem("employee")).job;

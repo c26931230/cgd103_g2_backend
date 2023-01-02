@@ -354,10 +354,7 @@ export default {
       if (EMAIL_REGEX.test(this.emp_mail)) {
         // 電子郵件格式正確
         self.emailUnForm = false;
-        self.notSubmit = true; //** */
-        // this.emailUnForm = false;
-        // this.notSubmit = true;
-        // const self1 = this;
+        self.notSubmit = true; 
         //檢查是否已註冊過
         const data = {
           emp_mail: self.emp_mail,

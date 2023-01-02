@@ -254,7 +254,6 @@ export default {
     }else{
       this.emp_name = JSON.parse(sessionStorage.getItem("employee")).emp_name;
       this.emp_job = JSON.parse(sessionStorage.getItem("employee")).job;
-      // this.emp_name = this.employee.emp_id;
     }
   },
 };
