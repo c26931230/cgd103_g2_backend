@@ -1,7 +1,7 @@
 <template>
     <div class="back_end_shop">
         <!-- 新增編輯商品燈箱區 -->
-        <AddNew v-if="Add" @close="Add = false"></AddNew>
+        <AddNew v-if="Add" @close="update"></AddNew>
         <!-- 產品彈窗 -->
         <ProductChange
             :product="getdetail(detail_id)"
@@ -28,7 +28,6 @@
             <button class="btn_l" @click="reset">reset</button>
             <button class="main" id="create" @click="open()">新增</button>
         </div>
-        <!-- 上方篩選區 end -->
         <!-- 商品列表 -->
         <!-- {{ qgender }}{{ qmaintype }}{{ qtype }}{{ qsearch }} -->
         <table class="table shop_table align-middle">
@@ -69,9 +68,9 @@
                         <div>
                             <p>{{ item.product_name }}</p>
                         </div>
-                        <div class="product_img_min d-flex">
-                            <img
-                                v-for="(e, i) in split(item.product_pic)"
+                        <div class="product_img_min d-flex ">
+                            <img class="border border-dark me-1"
+                                v-for="(e, i) in split(item.product_pic).slice(1)"
                                 :key="i"
                                 :src="`https://tibamef2e.com/cgd103/g2/front/pic/${e}`"
                                 :alt="item.product_name"
@@ -108,21 +107,21 @@
                     </td>
                     <!-- 顏色 -->
                     <td>
-                        <div class="d-flex align-items-center mb-1">
+                        <div class="d-flex align-items-center mb-1 flex-wrap">
                             <div
                                 v-for="i in split(item.product_size)"
                                 :key="i"
-                                class="border border-dark mx-1 px-1"
+                                class="border border-dark mx-1 px-1 mb-1"
                             >
                                 {{ i }}
                             </div>
                         </div>
                         <!-- 尺寸 -->
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center flex-wrap">
                             <div
                                 v-for="i in split(item.hashtag)"
                                 :key="i"
-                                class="border border-dark mx-1 px-1"
+                                class="border border-dark mx-1 px-1 w64 mb-1"
                             >
                                 {{ i }}
                             </div>
@@ -173,7 +172,6 @@ export default {
             this.qtype = "";
         },
         address: function () {
-            console.log(this.address);
             if (JSON.stringify(this.address) !== "{}") {
                 let result = this.tmp;
                 if (this.$route.query.G !== "") {
@@ -213,8 +211,10 @@ export default {
     },
     methods: {
         update() {
+            this.Add=false;
             this.x = false;
-            this.getResource;
+            this.getResource();
+            this.$forceUpdate();
         },
 
         state(x) {
@@ -254,14 +254,7 @@ export default {
         close() {
             //關燈箱
             this.Add = false;
-        },
-        add_sub_item() {
-            $("#wrap").append(`
-         		`);
-        },
-        addTo() {
-            this.tags.push(this.tag_name);
-            this.tag_name = "";
+            this.$forceUpdate();
         },
         removeTo(index) {
             this.tags.splice(index, 1);
@@ -431,5 +424,8 @@ $main_color: #495bff;
 
     border: 2px solid rgba(33, 30, 30, 0.582);
     width: 24px;
+}
+w64{
+    min-width:64px;
 }
 </style>

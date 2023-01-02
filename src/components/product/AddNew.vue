@@ -1,7 +1,6 @@
-<template>
-    <div id="lightbox" @click="$emit('close')"></div>
-
-    <div id="edit_box">
+<template  @keypress.esc="$emit('close')">
+    <div id="lightbox" @keypress.esc="$emit('close')"></div>
+    <div id="edit_box" >
         <div class="form_item">
             <div class="label">品名</div>
             <div>
@@ -49,39 +48,53 @@
         </div>
         <!-- 風格 -->
         <div class="form_item">
-            <div class="label">風格</div>
-            <label for="A">
-                <input
-                    id="A"
-                    type="checkbox"
-                    value="極簡風"
-                    v-model="style_type"
-                />極簡風</label
-            >
-            <label for="B">
-                <input
-                    id="B"
-                    type="checkbox"
-                    value="文青風"
-                    v-model="style_type"
-                />文青風</label
-            >
-            <label for="C">
-                <input
-                    id="C"
-                    type="checkbox"
-                    value="休閒風"
-                    v-model="style_type"
-                />休閒風</label
-            >
-            <label for="D">
-                <input
-                    id="D"
-                    type="checkbox"
-                    value="時尚風"
-                    v-model="style_type"
-                />時尚風</label
-            >
+            <div class="label" for="style">風格</div>
+            <div class="d-flex me-1">
+                <div class="input-group mb-3 me-1">
+                    <div class="input-group-text">
+                        <input
+                            class="form-check-input mt-0"
+                            type="checkbox"
+                            value="極簡風"
+                            aria-label="Checkbox for following text input"
+                            v-model="style_type"
+                        />極簡風
+                    </div>
+                </div>
+                <div class="input-group mb-3 me-1">
+                    <div class="input-group-text">
+                        <input
+                            class="form-check-input mt-0"
+                            type="checkbox"
+                            value="文青風"
+                            aria-label="Checkbox for following text input"
+                            v-model="style_type"
+                        />文青風
+                    </div>
+                </div>
+                <div class="input-group mb-3 me-1">
+                    <div class="input-group-text">
+                        <input
+                            class="form-check-input mt-0"
+                            type="checkbox"
+                            value="休閒風"
+                            aria-label="Checkbox for following text input"
+                            v-model="style_type"
+                        />休閒風
+                    </div>
+                </div>
+                <div class="input-group mb-3 me-1">
+                    <div class="input-group-text">
+                        <input
+                            class="form-check-input mt-0"
+                            type="checkbox"
+                            value="時尚風"
+                            aria-label="Checkbox for following text input"
+                            v-model="style_type"
+                        />時尚風
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- 身形 -->
         <div class="form_item">
@@ -124,7 +137,7 @@
                     v-for="(item, index) in pic"
                     :key="index"
                 >
-                    <div class="imgBox">
+                    <div class="imgBox border border-dark me-1">
                         <img :src="item.src" v-if="item.src !== ''" />
                         <p v-else>請新增圖片</p>
                     </div>
@@ -140,7 +153,9 @@
                     <button class="m-1" @click="removeInput(index)">-</button>
                 </form>
             </div>
-            <button class="m-1" @click="addInput">+</button>
+            <button class="m-1" @click="addInput" v-show="pic.length < 4">
+                +
+            </button>
         </div>
         <!-- 顏色 -->
         <div class="form_item">
@@ -159,7 +174,13 @@
                     />
                     <button class="m-1" @click="removeInputColor">-</button>
                 </div>
-                <button class="m-1" @click="addInputColor">+</button>
+                <button
+                    class="m-1"
+                    @click="addInputColor"
+                    v-show="color.length < 4"
+                >
+                    +
+                </button>
             </div>
             <div class="btn_box"></div>
         </div>
@@ -171,7 +192,13 @@
                     <input v-model.trim="e.value" class="form-control" />
                     <button class="m-1" @click="removeInputTag">-</button>
                 </div>
-                <button class="m-1" @click="addInputTag">+</button>
+                <button
+                    class="m-1"
+                    @click="addInputTag"
+                    v-show="hashtag.length < 4"
+                >
+                    +
+                </button>
             </div>
         </div>
         <div class="form_item">
@@ -396,10 +423,10 @@ export default {
                     method: "POST",
                     body: formData,
                 })
-                    .then((response) => response.json())
-                    .then((result) => {
-                        console.log(result);
-                    });
+                    // .then((response) => response.json())
+                    // .then((result) => {
+                    //     console.log(result);
+                    // });
             }
         },
         addInput() {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="edit_boxOutside" @click="close()"></div>
+        <div id="edit_boxOutside"></div>
 
         <div id="edit_box">
             <div class="form_item">
@@ -150,14 +150,10 @@
                         v-for="(item, index) in pic"
                         :key="index"
                     >
-                        <div class="imgBox">
+                        <div class="imgBox border border-dark me-1">
                             <img
-                                v-if="item.value != ''"
-                                :src="
-                                    item.change == true
-                                        ? `https://tibamef2e.com/cgd103/g2/front/pic/${item.value}`
-                                        : item.src
-                                "
+                                v-if="item.value !== ''"
+                                :src="`https://tibamef2e.com/cgd103/g2/front/pic/${item.value}`"
                             />
                             <p v-else>請新增圖片</p>
                         </div>
@@ -213,7 +209,7 @@
                             -
                         </button>
                     </div>
-                    <button class="m-1" @click="addInputColor">+</button>
+                    <button class="m-1" @click="addInputColor" v-show="color.length < 4">+</button>
                 </div>
                 <div class="btn_box"></div>
             </div>
@@ -231,7 +227,7 @@
                             -
                         </button>
                     </div>
-                    <button class="m-1" @click="addInputTag">+</button>
+                    <button class="m-1" @click="addInputTag" v-show="hashtag.length < 4">+</button>
                 </div>
             </div>
             <div class="form_item">
@@ -249,8 +245,8 @@
                 </div>
             </div>
             <div class="confirm_box">
-                <button class="main" @click="addProduct()">修改</button>
-                <button class="main" id="cancel" @click="close()">取消</button>
+                <button class="btn_mgs" @click="addProduct()">修改</button>
+                <button class="btn_mgl" id="cancel" @click="close()">取消</button>
             </div>
         </div>
     </div>
@@ -438,10 +434,10 @@ export default {
                     method: "POST",
                     body: formData,
                 })
-                    .then((response) => response.json())
-                    .then((result) => {
-                        console.log(result);
-                    });
+                    // .then((response) => response.json())
+                    // .then((result) => {
+                    //     console.log(result);
+                    // });
             }
         },
         addInput() {
