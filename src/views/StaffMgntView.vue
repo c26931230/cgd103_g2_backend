@@ -6,69 +6,34 @@
         <form id="add_employee" method="post" enctype="multipart/form-data">
           <div class="form_item">
             <label for="emp_name">員工姓名</label>
-            <input
-              type="text"
-              id="emp_name"
-              name="emp_name"
-              required
-              v-model="emp_name"
-            />
+            <input type="text" id="emp_name" name="emp_name" required v-model="emp_name" />
           </div>
           <div class="form_item">
             <label>員工身分</label>
             <div class="item">
               <div class="op">
-                <input
-                  type="radio"
-                  name="job"
-                  value="員工"
-                  id="emp_op"
-                  v-model="job"
-                />
+                <input type="radio" name="job" value="員工" id="emp_op" v-model="job" />
                 <label for="emp_op">員工</label>
               </div>
               <div class="op">
-                <input
-                  type="radio"
-                  name="job"
-                  value="造型師"
-                  id="stylist_op"
-                  v-model="job"
-                />
+                <input type="radio" name="job" value="造型師" id="stylist_op" v-model="job" />
                 <label for="stylist_op">造型師</label>
               </div>
             </div>
           </div>
           <div class="form_item">
             <label for="hiredate">到職日期</label>
-            <input
-              type="date"
-              id="hiredate"
-              name="hiredate"
-              v-model="hiredate"
-            />
+            <input type="date" id="hiredate" name="hiredate" v-model="hiredate" />
           </div>
           <div class="form_item">
             <label for="emp_pwd">密碼</label>
-            <input
-              type="password"
-              id="emp_pwd"
-              name="emp_pwd"
-              v-model="emp_pwd"
-            />
+            <input type="password" id="emp_pwd" name="emp_pwd" v-model="emp_pwd" />
           </div>
           <div class="form_item">
             <label for="emp_mail">電子郵件</label>
-            <input
-              type="email"
-              id="emp_mail"
-              name="emp_mail"
-              @blur="validateEmail"
-              required
-              v-model="emp_mail"
-            />
+            <input type="email" id="emp_mail" name="emp_mail" @blur="validateEmail" required v-model="emp_mail" />
             <!-- 存在:{{ emailExists }}
-            不符合:{{ emailUnForm }} -->
+          不符合:{{ emailUnForm }} -->
             <div v-if="emailExists" class="emailExists">此帳號已註冊</div>
             <div v-if="emailUnForm" class="emailUnForm">Email 格式不正確</div>
           </div>
@@ -76,23 +41,11 @@
             <label for="">狀態</label>
             <div class="item">
               <div class="op">
-                <input
-                  type="radio"
-                  name="emp_state"
-                  value="1"
-                  id="normal"
-                  v-model="emp_state"
-                />
+                <input type="radio" name="emp_state" value="1" id="normal" v-model="emp_state" />
                 <label for="normal">在職</label>
               </div>
               <div class="op">
-                <input
-                  type="radio"
-                  name="emp_state"
-                  value="0"
-                  id="resign"
-                  v-model="emp_state"
-                />
+                <input type="radio" name="emp_state" value="0" id="resign" v-model="emp_state" />
                 <label for="resign">離職</label>
               </div>
             </div>
@@ -125,12 +78,7 @@
                 <label for="emp_op1">員工</label>
               </div>
               <div class="op">
-                <input
-                  type="radio"
-                  name="job1"
-                  value="造型師"
-                  id="stylist_op1"
-                />
+                <input type="radio" name="job1" value="造型師" id="stylist_op1" />
                 <label for="stylist_op1">造型師</label>
               </div>
             </div>
@@ -194,12 +142,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="e in employee"
-          class="item"
-          :key="e.emp_id"
-          @click="show(e.emp_id)"
-        >
+        <tr v-for="e in currentPageData" class="item" :key="e.emp_id" @click="show(e.emp_id)">
           <!-- 員工編號 -->
           <th scope="row">{{ e.emp_id }}</th>
           <!-- 姓名 -->
@@ -219,6 +162,19 @@
       </tbody>
     </table>
   </div>
+  <!-- 頁碼 -->
+  <ul class="pagination">
+    <!-- <li class="page-item" @click="currentPage--">
+      <span class="page-link">Previous</span>
+    </li> -->
+    <li class="page-item" v-for="e in totalPages" @click="changePage($event, e)">
+      <a class="page-link" href="#">{{ e }}</a>
+    </li>
+    <!-- <li class="page-item" @click="currentPage++" :disabled="currentPage === totalPages">
+      <a class="page-link" href="#">Next</a>
+    </li> -->
+  </ul>
+
 </template>
 <script>
 //引入BASE_URL參數
@@ -229,7 +185,6 @@ export default {
     return {
       employee: [], //員工資訊
       search: "",
-      // ===
       emailExists: false, // email 是否已註冊
       emailUnForm: false, // emamil 格式
       notSubmit: false, //不能送出
@@ -241,6 +196,8 @@ export default {
       emp_mail: "",
       emp_state: "",
       res_msg: "",
+      pageSize: 7,
+      currentPage: 1
     };
   },
   methods: {
@@ -257,19 +214,10 @@ export default {
     getResource() {
       //取得員工資料
       this.axios.get(`${BASE_URL}/StaffMgnt/empList.php`).then((response) => {
-        // console.log(response.data);
         this.employee = response.data;
       });
     },
     insert() {
-      //新增員工
-      // let xhr = new XMLHttpRequest();
-      // xhr.onload = function () {
-      //   let result = JSON.parse(xhr.responseText);
-      //   alert(result.msg);
-      // };
-      // xhr.open("post", `${BASE_URL}/StaffMgnt/empInsert.php`, true);
-      // xhr.send(new FormData(document.getElementById("add_employee")));
       const data = {
         emp_name: this.emp_name,
         job: this.job,
@@ -332,7 +280,6 @@ export default {
       xhr.send(new FormData(document.getElementById("update_employee")));
       lightbox1.classList.remove("active"); // 關修改燈箱
     },
-    // =========
     // email 格式不正確，出現div ，且無法送出
     IfemailUnForm() {
       this.emailUnForm = true;
@@ -354,7 +301,7 @@ export default {
       if (EMAIL_REGEX.test(this.emp_mail)) {
         // 電子郵件格式正確
         self.emailUnForm = false;
-        self.notSubmit = true; 
+        self.notSubmit = true;
         //檢查是否已註冊過
         const data = {
           emp_mail: self.emp_mail,
@@ -379,13 +326,29 @@ export default {
         this.IfemailUnForm();
       }
     },
-    validateOther() {},
+    // 頁碼切換
+    changePage(event, e) {
+      this.currentPage = e;
+      // 排除 sibling
+      let sibling = [...event.currentTarget.parentNode.children].filter((child) => child !== event.currentTarget);
+      event.currentTarget.classList.add('active');
+      sibling.forEach(item => {
+        item.classList.remove('active');
+      });
+    },
+
   },
   mounted() {
     this.getResource();
   },
   computed: {
-    employee() {
+    //總頁數
+    totalPages() {
+      return Math.ceil(this.employee.length / this.pageSize)
+    },
+    currentPageData() {
+      const start = (this.currentPage - 1) * this.pageSize
+      const end = start + this.pageSize
       //搜尋功能
       let cache = this.employee;
       if (this.search != "") {
@@ -400,8 +363,14 @@ export default {
           );
         });
       }
-      return cache;
-    },
+      if (this.search != "") {
+        return cache;
+      }
+      else {
+        return this.employee.slice(start, end);
+      }
+
+    }
   },
 };
 </script>
@@ -556,11 +525,18 @@ export default {
     }
   }
 }
+
 .form_item {
+
   .emailExists,
   .emailUnForm {
     color: red;
     margin-left: 100px;
   }
+}
+
+.pagination {
+  position: fixed;
+  bottom: 10px;
 }
 </style>
